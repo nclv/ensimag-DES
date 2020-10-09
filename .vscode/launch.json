@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestInvader<ensimag-robots-pompiers_4f7db948>",
+            "request": "launch",
+            "mainClass": "TestInvader",
+            "projectName": "ensimag-robots-pompiers_4f7db948"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestLecteurDonnees<ensimag-robots-pompiers_4f7db948>",
+            "request": "launch",
+            "mainClass": "TestLecteurDonnees",
+            "projectName": "ensimag-robots-pompiers_4f7db948",
+            "args": "${command:SpecifyProgramArgs}"
+        }
+    ]
+}

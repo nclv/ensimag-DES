@@ -17,3 +17,9 @@
 
 - `Makefile`: quelques explications sur la compilation en ligne, notamment la notion de classpath et l'utilisation de `gui.jar`
 
+## Commandes
+
+```bash
+cd bin/
+java TestLecteurDonnees ../cartes/desertOfDeath-20x20.map
+```
