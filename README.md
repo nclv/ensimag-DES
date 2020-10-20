@@ -23,3 +23,25 @@
 cd bin/
 java TestLecteurDonnees ../cartes/desertOfDeath-20x20.map
 ```
+
+## KISS
+
+On va analyser nos entités et ce qu'elles doivent savoir.
+
+ - les cases, quel est mon type ?
+ - les incendies, quelle est mon intensité ?
+ - les robots, quel est mon type ?
+ - la carte, où sont les incendies/robots/cases ?
+   - quels incendies peuvent être éteint par le robot placé sur telle position particulière ?
+   - est-ce que le mouvement proposé est autorisé ?
+ - l'état de l'ensemble des entités, à quoi ressemble la carte en ce moment ?
+   - quel est l'historique des déplacements ? (ex: R1 éteint I2) qui a éteint quel(s) incendie(s) ?
+ - UI
+   - où est-ce que l'on doit afficher ?
+   - quand est-ce que l'on doit afficher ?
+
+---
+
+Les incendies/robots doivent savoir où ils sont sur la carte. Ils contiennent donc leur position (x, y). Mais on veut aussi savoir ce qui se trouve sur la case spécifique (x, y). Faire une boucle sur les incendies/robots pour trouver si leurs coordonnées correspondent devient vite long.
+
+On ne stocke pas (x, y) soit dans la carte, ou l'entité, ou dans les deux. On peut faire une classe `Relation` qui a deux tables de hashage de l'entité vers sa position et d'une position vers une liste d'entités. Il y a toujours un problème de synchronisation mais tout est dans le même objet.
