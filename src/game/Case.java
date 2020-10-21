@@ -1,3 +1,5 @@
+package game;
+
 public class Case {
     private int ligne, colonne;
     private NatureTerrain natureTerrain;

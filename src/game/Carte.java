@@ -1,3 +1,5 @@
+package game;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +9,7 @@ public class Carte {
      * redimmensionner la carte. Donc pas de setters pour les attributs nbLignes et
      * nbColonnes.
      */
-    private final int nbLignes, nbColonnes;
+    private final int nbLignes, nbColonnes, tailleCases;
 
     /**
      * Comment stocker une matrice d'objects ?
@@ -19,16 +21,16 @@ public class Carte {
      */
     // on peut préciser la capacité initiale en paramètre: nbLignes * nbColonnes
     // See https://www.javatpoint.com/java-hashmap
-    Map<Coordinate, NatureTerrain> map = new HashMap<Coordinate, NatureTerrain>();
+    // Map<Coordinate, NatureTerrain> map = new HashMap<Coordinate,
+    // NatureTerrain>();
+    // Map<Integer, Map<Integer, Tile>>
+    Map<Integer, NatureTerrain> map;
 
-    public Carte(int nbLignes, int nbColonnes) {
+    public Carte(int nbLignes, int nbColonnes, int tailleCases, Map<Integer, NatureTerrain> map) {
         this.nbLignes = nbLignes;
         this.nbColonnes = nbColonnes;
-    }
-
-    // TODO: code the thing
-    public int getTailleCases() {
-        return 0; // bullshit return
+        this.tailleCases = tailleCases;
+        this.map = map;
     }
 
     // TODO: code the thing
@@ -47,10 +49,14 @@ public class Carte {
     }
 
     public int getNbLignes() {
-        return nbLignes;
+        return this.nbLignes;
     }
 
     public int getNbColonnes() {
-        return nbColonnes;
+        return this.nbColonnes;
+    }
+
+    public int getTailleCases() {
+        return this.tailleCases;
     }
 }

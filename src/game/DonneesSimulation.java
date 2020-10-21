@@ -1,3 +1,8 @@
+package game;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class DonneesSimulation {
     /**
      * DonneesSimulation est "propriétaire" des instances de Incendie, Carte et
@@ -11,4 +16,13 @@ public class DonneesSimulation {
      * 
      * Il y a une carte.
      */
+    private Carte carte;
+    Map<Integer, Incendie> incendies;
+    Map<Integer, Robot> robots;
+
+    public DonneesSimulation(Carte carte, Map<Integer, Incendie> incendies, Map<Integer, Robot> robots) {
+        this.carte = carte;
+        this.incendies = incendies;
+        this.robots = robots;
+    }
 }
