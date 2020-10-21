@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.zip.DataFormatException;
 
 import game.Carte;
+import game.DonneesSimulation;
 import game.Incendie;
 import game.NatureTerrain;
 import game.robots.Robot;
@@ -31,11 +32,13 @@ import game.robots.Type;
  */
 public class LecteurDonnees {
 
-    private Carte carte;
-    private final int nbLignes = 0;
-    Map<Integer, NatureTerrain> map;
-    Map<Integer, Integer> incendies;
-    Map<Integer, Robot> robots;
+    // private Carte carte;
+    // private final int nbLignes = 0;
+    // Map<Integer, NatureTerrain> map;
+    // Map<Integer, Integer> incendies;
+    // Map<Integer, Robot> robots;
+
+    private static DonneesSimulation donneesSimulation;
 
     /**
      * Lit et affiche le contenu d'un fichier de donnees (cases, robots et
@@ -44,14 +47,19 @@ public class LecteurDonnees {
      * 
      * @param fichierDonnees nom du fichier à lire
      */
-    public static void lire(String fichierDonnees) throws FileNotFoundException, DataFormatException {
+    public static DonneesSimulation lire(String fichierDonnees) throws FileNotFoundException, DataFormatException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+        donneesSimulation = new DonneesSimulation();
+
         lecteur.lireCarte();
         lecteur.lireIncendies();
         lecteur.lireRobots();
         scanner.close();
+
         System.out.println("\n == Lecture terminee");
+
+        return donneesSimulation;
     }
 
     // Tout le reste de la classe est prive!
@@ -76,21 +84,21 @@ public class LecteurDonnees {
     private void lireCarte() throws DataFormatException {
         ignorerCommentaires();
         try {
-            this.nbLignes = scanner.nextInt();
+            int nbLignes = scanner.nextInt();
             int nbColonnes = scanner.nextInt();
             int tailleCases = scanner.nextInt(); // en m
 
-            this.map = new HashMap<Integer, NatureTerrain>(this.nbLignes * nbColonnes)
+            // Création de la carte
+            donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes, tailleCases,
+                    new HashMap<Integer, NatureTerrain>(nbLignes * nbColonnes)));
 
-            System.out.println("Carte " + this.nbLignes + "x" + nbColonnes + "; taille des cases = " + tailleCases);
+            System.out.println("Carte " + nbLignes + "x" + nbColonnes + "; taille des cases = " + tailleCases);
 
-            for (int lig = 0; lig < this.nbLignes; lig++) {
+            for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
                     lireCase(lig, col);
                 }
             }
-            // Création de la carte
-            this.carte = new Carte(this.nbLignes, nbColonnes, tailleCases, this.map);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. " + "Attendu: nbLignes nbColonnes tailleCases");
@@ -105,7 +113,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         System.out.print("Case (" + lig + "," + col + "): ");
         String chaineNature = new String();
-        //		NatureTerrain nature;
+        // NatureTerrain nature;
 
         try {
             chaineNature = scanner.next();
@@ -114,15 +122,15 @@ public class LecteurDonnees {
             // NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
 
             // on stocke le type de terrain
-            this.map.put(lig * this.nbLignes + col, NatureTerrain.valueOf(chaineNature));
+            Carte carte = donneesSimulation.getCarte();
+            carte.getMap().put(lig * carte.getNbLignes() + col, NatureTerrain.valueOf(chaineNature));
 
             verifieLigneTerminee();
 
             System.out.print("nature = " + chaineNature);
 
         } catch (NoSuchElementException e) {
-            throw new DataFormatException("format de case invalide. "
-                    + "Attendu: nature altitude [valeur_specifique]");
+            throw new DataFormatException("format de case invalide. " + "Attendu: nature altitude [valeur_specifique]");
         }
 
         System.out.println();
@@ -136,6 +144,10 @@ public class LecteurDonnees {
         try {
             int nbIncendies = scanner.nextInt();
             System.out.println("Nb d'incendies = " + nbIncendies);
+
+            // initialisation du stockage des incendies
+            donneesSimulation.setIncendies(new HashMap<Integer, Integer>(nbIncendies));
+
             for (int i = 0; i < nbIncendies; i++) {
                 lireIncendie(i);
             }
@@ -163,7 +175,7 @@ public class LecteurDonnees {
             }
 
             // on stocke l'incendie
-            this.incendies.put(lig * this.nbLignes + col, intensite);
+            donneesSimulation.getIncendies().put(lig * donneesSimulation.getCarte().getNbLignes() + col, intensite);
 
             verifieLigneTerminee();
 
@@ -182,6 +194,10 @@ public class LecteurDonnees {
         try {
             int nbRobots = scanner.nextInt();
             System.out.println("Nb de robots = " + nbRobots);
+
+            // initialisation du stockage des robots
+            donneesSimulation.setRobots(new HashMap<Integer, Robot>(nbRobots));
+
             for (int i = 0; i < nbRobots; i++) {
                 lireRobot(i);
             }
@@ -223,7 +239,7 @@ public class LecteurDonnees {
 
             // on stocke le robot
             Robot robot = new Robot(Type.valueOf(type), vitesse);
-            this.robots.put(lig * this.nbLignes + col, robot);
+            donneesSimulation.getRobots().put(lig * donneesSimulation.getCarte().getNbLignes() + col, robot);
 
             verifieLigneTerminee();
 

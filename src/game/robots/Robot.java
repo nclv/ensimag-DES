@@ -1,11 +1,9 @@
 package game.robots;
 
-import game.Case;
 import game.NatureTerrain;
 
+// on ne peut pas instancier une classe abstraite
 public class Robot {
-    private Case position;
-
     private final Type type;
     private int vitesse;
 
@@ -14,18 +12,24 @@ public class Robot {
         this.vitesse = vitesse;
     }
 
-    public Case getPosition() {
-        return position;
-    }
-
-    public void setPosition(Case position) {
-        this.position = position;
-    }
-
     // TODO: revoir le type en sortie
-    float getVitesse(NatureTerrain natureTerrain);
+    float getVitesse(NatureTerrain natureTerrain) {
+        return 0.0f;
+    }
 
-    void deverserEau(int volume);
+    void deverserEau(int volume) {}
 
-    void remplirReservoir();
+    void remplirReservoir() {}
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(int vitesse) {
+        this.vitesse = vitesse;
+    }
 }
