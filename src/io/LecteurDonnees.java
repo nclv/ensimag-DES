@@ -6,8 +6,8 @@ import java.util.zip.DataFormatException;
 
 import game.Carte;
 import game.DonneesSimulation;
-import game.Incendie;
 import game.NatureTerrain;
+import game.robots.MyRobotTypes;
 import game.robots.Robot;
 import game.robots.Type;
 
@@ -195,6 +195,10 @@ public class LecteurDonnees {
             int nbRobots = scanner.nextInt();
             System.out.println("Nb de robots = " + nbRobots);
 
+            if (nbRobots == 0) {
+                throw new DataFormatException("il n'y a pas de robots");
+            }
+
             // initialisation du stockage des robots
             donneesSimulation.setRobots(new HashMap<Integer, Robot>(nbRobots));
 
@@ -224,21 +228,23 @@ public class LecteurDonnees {
 
             System.out.print("\t type = " + type);
 
+            // on stocke le robot
+            Robot robot = MyRobotTypes.gettype(Type.valueOf(type)).newRobot();
+
             // lecture eventuelle d'une vitesse du robot (entier)
             System.out.print("; \t vitesse = ");
             String s = scanner.findInLine("(\\d+)"); // 1 or more digit(s) ?
             // pour lire un flottant: ("(\\d+(\\.\\d+)?)");
 
-            int vitesse = -1;
             if (s == null) {
                 System.out.print("valeur par defaut");
             } else {
-                vitesse = Integer.parseInt(s);
+                int vitesse = Integer.parseInt(s);
                 System.out.print(vitesse);
+                // on modifie la vitesse par défaut
+                robot.setVitesse((double)vitesse);
             }
-
-            // on stocke le robot
-            Robot robot = new Robot(Type.valueOf(type), vitesse);
+    
             donneesSimulation.getRobots().put(lig * donneesSimulation.getCarte().getNbLignes() + col, robot);
 
             verifieLigneTerminee();

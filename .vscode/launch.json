@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TestRobots",
+            "request": "launch",
+            "mainClass": "TestRobots",
+            "projectName": "ensimag-robots-pompiers_4f7db948"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -74,3 +74,8 @@ private static final Logger LOGGER = LoggerFactory.getLogger(<myclass>.class);
 // in a method
 LOGGER.info("blabla")
 ```
+
+---
+
+TODO:
+ - Revoir les dépendances de LecteurDonnees.java et les éliminer.

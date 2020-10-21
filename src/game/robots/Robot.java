@@ -4,32 +4,40 @@ import game.NatureTerrain;
 
 // on ne peut pas instancier une classe abstraite
 public class Robot {
-    private final Type type;
-    private int vitesse;
+    RobotType robotType;
+    private Double vitesse;
+    private Double volume;
 
-    public Robot(Type type, int vitesse) {
-        this.type = type;
-        this.vitesse = vitesse;
+    public Robot(RobotType robotType) {
+        this.robotType = robotType;
+        this.vitesse = robotType.getVitesse();
+        this.volume = robotType.getVolume();
     }
 
-    // TODO: revoir le type en sortie
-    float getVitesse(NatureTerrain natureTerrain) {
-        return 0.0f;
+    Double getVitesse(NatureTerrain natureTerrain) {
+        return this.vitesse / robotType.getTerrainVitesse().get(natureTerrain);
     }
 
-    void deverserEau(int volume) {}
+    void deverserEau(int volume) {
+    }
 
-    void remplirReservoir() {}
+    void remplirReservoir() {
+    }
 
     public Type getType() {
-        return type;
+        return robotType.getType();
     }
 
-    public int getVitesse() {
+    public Double getVitesse() {
         return vitesse;
     }
 
-    public void setVitesse(int vitesse) {
+    @Override
+    public String toString() {
+        return "Robot [robotType=" + robotType + ", vitesse=" + vitesse + ", volume=" + volume + "]";
+    }
+
+    public void setVitesse(Double vitesse) {
         this.vitesse = vitesse;
     }
 }

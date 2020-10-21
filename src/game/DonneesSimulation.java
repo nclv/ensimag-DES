@@ -21,9 +21,7 @@ public class DonneesSimulation {
     Map<Integer, Integer> incendies;
     Map<Integer, Robot> robots;
 
-    public DonneesSimulation() {
-
-    }
+    public DonneesSimulation() {}
 
     @Override
     public String toString() {
