@@ -67,4 +67,10 @@ public class Carte {
     public void setMap(Map<Integer, NatureTerrain> map) {
         this.map = map;
     }
+
+    @Override
+    public String toString() {
+        return "Carte [map=" + map + ", nbColonnes=" + nbColonnes + ", nbLignes=" + nbLignes + ", tailleCases="
+                + tailleCases + "]";
+    }
 }
