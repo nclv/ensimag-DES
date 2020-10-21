@@ -14,10 +14,6 @@ public class Robot {
         this.volume = robotType.getVolume();
     }
 
-    Double getVitesse(NatureTerrain natureTerrain) {
-        return this.vitesse / robotType.getTerrainVitesse().get(natureTerrain);
-    }
-
     void deverserEau(int volume) {
     }
 
@@ -28,16 +24,16 @@ public class Robot {
         return robotType.getType();
     }
 
-    public Double getVitesse() {
-        return vitesse;
+    public Double getVitesse(NatureTerrain natureTerrain) {
+        return this.vitesse / robotType.getTerrainVitesse().get(natureTerrain);
+    }
+
+    public void setVitesse(Double vitesse) {
+        this.vitesse = vitesse;
     }
 
     @Override
     public String toString() {
         return "Robot [robotType=" + robotType + ", vitesse=" + vitesse + ", volume=" + volume + "]";
-    }
-
-    public void setVitesse(Double vitesse) {
-        this.vitesse = vitesse;
     }
 }
