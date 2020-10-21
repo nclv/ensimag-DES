@@ -229,7 +229,7 @@ public class LecteurDonnees {
             System.out.print("\t type = " + type);
 
             // on stocke le robot
-            Robot robot = MyRobotTypes.gettype(Type.valueOf(type)).newRobot();
+            Robot robot = MyRobotTypes.getType(Type.valueOf(type)).newRobot();
 
             // lecture eventuelle d'une vitesse du robot (entier)
             System.out.print("; \t vitesse = ");

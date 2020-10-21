@@ -47,7 +47,7 @@ public class MyRobotTypes {
     );
 
     private static final RobotType Pattes = new RobotType(
-        Type.PATTES, Filling.NEXT, 
+        Type.PATTES, Filling.NONE, 
         30.0, Double.POSITIVE_INFINITY, 
         10, 1, 
         0,
@@ -60,7 +60,7 @@ public class MyRobotTypes {
         )
     );
 
-    static final EnumMap<Type, RobotType> typeTable = new EnumMap<Type, RobotType>(Map.of(
+    static final EnumMap<Type, RobotType> typeMap = new EnumMap<Type, RobotType>(Map.of(
         Type.DRONE, Drone,
         Type.ROUES, Roues,
         Type.CHENILLES, Chenilles,
@@ -83,7 +83,7 @@ public class MyRobotTypes {
         return Pattes;
     }
 
-    public static RobotType gettype(Type type) {
-        return typeTable.get(type);
+    public static RobotType getType(Type type) {
+        return typeMap.get(type);
     }
 }
