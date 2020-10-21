@@ -1,3 +1,5 @@
+package game;
+
 import java.util.Objects;
 
 public class Coordinate {
