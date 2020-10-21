@@ -1,7 +1,8 @@
 package game;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import game.robots.Robot;
 
 public class DonneesSimulation {
     /**
@@ -17,12 +18,39 @@ public class DonneesSimulation {
      * Il y a une carte.
      */
     private Carte carte;
-    Map<Integer, Incendie> incendies;
+    Map<Integer, Integer> incendies;
     Map<Integer, Robot> robots;
 
-    public DonneesSimulation(Carte carte, Map<Integer, Incendie> incendies, Map<Integer, Robot> robots) {
+    public DonneesSimulation() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "DonneesSimulation [carte=" + carte + ", incendies=" + incendies + ", robots=" + robots + "]";
+    }
+
+    public Carte getCarte() {
+        return carte;
+    }
+
+    public void setCarte(Carte carte) {
         this.carte = carte;
+    }
+
+    public Map<Integer, Integer> getIncendies() {
+        return incendies;
+    }
+
+    public void setIncendies(Map<Integer, Integer> incendies) {
         this.incendies = incendies;
+    }
+
+    public Map<Integer, Robot> getRobots() {
+        return robots;
+    }
+
+    public void setRobots(Map<Integer, Robot> robots) {
         this.robots = robots;
     }
 }

@@ -59,4 +59,12 @@ public class Carte {
     public int getTailleCases() {
         return this.tailleCases;
     }
+
+    public Map<Integer, NatureTerrain> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<Integer, NatureTerrain> map) {
+        this.map = map;
+    }
 }
