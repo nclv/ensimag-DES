@@ -88,6 +88,10 @@ public class MyRobotTypes {
     }
 
     public static RobotType getType(Type type) {
-        return typeMap.get(type);
+        RobotType robotType = typeMap.get(type);
+        // if (robotType == null) {
+        //     typeMap.put(type, )
+        // }
+        return robotType;
     }
 }
