@@ -1,5 +1,6 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import game.robots.Robot;
@@ -19,14 +20,10 @@ public class DonneesSimulation {
      */
     private Carte carte;
     Map<Integer, Integer> incendies;
-    Map<Integer, Robot> robots;
+    // il peut y avoir plusieurs robots sur une même position
+    Map<Integer, ArrayList<Robot>> robots;
 
     public DonneesSimulation() {}
-
-    @Override
-    public String toString() {
-        return "DonneesSimulation [carte=" + carte + ", incendies=" + incendies + ", robots=" + robots + "]";
-    }
 
     public Carte getCarte() {
         return carte;
@@ -44,11 +41,16 @@ public class DonneesSimulation {
         this.incendies = incendies;
     }
 
-    public Map<Integer, Robot> getRobots() {
+    public Map<Integer, ArrayList<Robot>> getRobots() {
         return robots;
     }
 
-    public void setRobots(Map<Integer, Robot> robots) {
+    public void setRobots(Map<Integer, ArrayList<Robot>> robots) {
         this.robots = robots;
+    }
+
+    @Override
+    public String toString() {
+        return "DonneesSimulation [carte=" + carte + ", incendies=" + incendies + ", robots=" + robots + "]";
     }
 }

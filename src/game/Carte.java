@@ -23,7 +23,7 @@ public class Carte {
     // Map<Coordinate, NatureTerrain> map = new HashMap<Coordinate,
     // NatureTerrain>();
     // Map<Integer, Map<Integer, Tile>>
-    Map<Integer, NatureTerrain> map;
+    private final Map<Integer, NatureTerrain> map;
 
     public Carte(int nbLignes, int nbColonnes, int tailleCases, Map<Integer, NatureTerrain> map) {
         this.nbLignes = nbLignes;
@@ -32,19 +32,19 @@ public class Carte {
         this.map = map;
     }
 
-    // TODO: code the thing
-    public Case getCase(int ligne, int colonne) {
-        return new Case(3, 4, NatureTerrain.EAU); // bullshit return
+    public NatureTerrain getTerrain(int ligne, int colonne) {
+        return map.get(ligne * nbLignes + colonne);
     }
 
-    // TODO: code the thing
-    public boolean voisinExiste(Case src, Direction direction) {
-        return false; // bullshit return
-    }
-
-    // TODO: code the thing
-    public Case getVoisin(Case src, Direction direction) {
-        return new Case(3, 4, NatureTerrain.EAU); // bullshit return
+    /**
+     * Renvoie la nature du terrain voisin suivant la direction.
+     * @param ligne
+     * @param colonne
+     * @param direction
+     * @return null si on est en dehors de la carte, la nature du terrain sinon
+     */
+    public NatureTerrain getTerrainVoisin(int ligne, int colonne, Direction direction) {
+        return map.get((ligne + direction.getDx()) * nbLignes + (colonne + direction.getDy()));
     }
 
     public int getNbLignes() {
@@ -61,10 +61,6 @@ public class Carte {
 
     public Map<Integer, NatureTerrain> getMap() {
         return map;
-    }
-
-    public void setMap(Map<Integer, NatureTerrain> map) {
-        this.map = map;
     }
 
     @Override

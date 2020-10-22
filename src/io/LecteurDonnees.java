@@ -2,6 +2,7 @@ package io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -204,7 +205,7 @@ public class LecteurDonnees {
             }
 
             // initialisation du stockage des robots
-            donneesSimulation.setRobots(new HashMap<Integer, Robot>(nbRobots));
+            donneesSimulation.setRobots(new HashMap<Integer, ArrayList<Robot>>());
 
             for (int i = 0; i < nbRobots; i++) {
                 lireRobot(i);
@@ -245,7 +246,11 @@ public class LecteurDonnees {
                 robot.setVitesse((double)vitesse);
             }
     
-            donneesSimulation.getRobots().put(lig * donneesSimulation.getCarte().getNbLignes() + col, robot);
+            // création de la liste s'il n'y a aucun robot à cette position
+            donneesSimulation.getRobots().computeIfAbsent(
+                lig * donneesSimulation.getCarte().getNbLignes() + col, 
+                k -> new ArrayList<Robot>())
+                .add(robot);
 
             verifieLigneTerminee();
 
