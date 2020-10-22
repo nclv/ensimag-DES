@@ -2,23 +2,30 @@ package game.robots;
 
 import java.util.EnumMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import game.NatureTerrain;
 
 public class RobotType {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotType.class);
     private Type type;
     private Filling filling; // méthode de remplissage: ON, NEXT or NONE
     private Double vitesse;
+    private Double vitesseMax;
     private Double volume;
     private int maxEmptiedVolume; // volume maximal que le robot peut déverser
     private int timeToEmpty; // temps mis pour déverser maxEmptiedVolume
     private int timeToFillUp;
     EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
-    public RobotType(Type type, Filling filling, Double vitesse, Double volume, int maxEmptiedVolume, int timeToEmpty,
-            int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
+    public RobotType(Type type, Filling filling, Double vitesse, Double vitesseMax, Double volume, int maxEmptiedVolume,
+            int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
+        LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
         this.filling = filling;
         this.vitesse = vitesse;
+        this.vitesseMax = vitesseMax;
         this.volume = volume;
         this.maxEmptiedVolume = maxEmptiedVolume;
         this.timeToEmpty = timeToEmpty;
@@ -44,6 +51,14 @@ public class RobotType {
 
     public void setVitesse(Double vitesse) {
         this.vitesse = vitesse;
+    }
+
+    public Double getVitesseMax() {
+        return vitesseMax;
+    }
+
+    public void setVitesseMax(Double vitesseMax) {
+        this.vitesseMax = vitesseMax;
     }
 
     public Double getVolume() {
