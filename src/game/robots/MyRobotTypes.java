@@ -8,7 +8,7 @@ import game.NatureTerrain;
 public class MyRobotTypes {
     private static final RobotType Drone = new RobotType(
         Type.DRONE, Filling.ON, 
-        100.0, 10000.0, 
+        100.0, 150.0, 10000.0, 
         10000, 30, 
         30 * 60,
         new EnumMap<NatureTerrain, Double>(Map.of(
@@ -21,9 +21,10 @@ public class MyRobotTypes {
         )
     );
 
+    // une vitesse maximale illimitée c'est peut-être trop permissif
     private static final RobotType Roues = new RobotType(
         Type.ROUES, Filling.NEXT, 
-        80.0, 5000.0, 
+        80.0, Double.POSITIVE_INFINITY, 5000.0, 
         100, 5, 
         10 * 60,
         new EnumMap<NatureTerrain, Double>(Map.of(
@@ -35,7 +36,7 @@ public class MyRobotTypes {
 
     private static final RobotType Chenilles = new RobotType(
         Type.CHENILLES, Filling.NEXT, 
-        60.0, 2000.0, 
+        60.0, 80.0, 2000.0, 
         100, 8, 
         5 * 60,
         new EnumMap<NatureTerrain, Double>(Map.of(
@@ -48,7 +49,7 @@ public class MyRobotTypes {
 
     private static final RobotType Pattes = new RobotType(
         Type.PATTES, Filling.NONE, 
-        30.0, Double.POSITIVE_INFINITY, 
+        30.0, 30.0, Double.POSITIVE_INFINITY, 
         10, 1, 
         0,
         new EnumMap<NatureTerrain, Double>(Map.of(
@@ -60,6 +61,9 @@ public class MyRobotTypes {
         )
     );
 
+    // et pourquoi pas une liste ? le seul désavantage à utiliser une liste
+    // serait qu'un changement de l'ordre dans l'enum Type mettrait le bazard
+    // on aurait aussi des ifs mais ça reste un détail
     static final EnumMap<Type, RobotType> typeMap = new EnumMap<Type, RobotType>(Map.of(
         Type.DRONE, Drone,
         Type.ROUES, Roues,

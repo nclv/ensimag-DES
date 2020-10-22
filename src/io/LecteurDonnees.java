@@ -1,8 +1,15 @@
 package io;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import java.util.zip.DataFormatException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import game.Carte;
 import game.DonneesSimulation;
@@ -31,7 +38,7 @@ import game.robots.Type;
  * ajoutent ds l'instance de DonneesSimulation.
  */
 public class LecteurDonnees {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(LecteurDonnees.class);
     // private Carte carte;
     // private final int nbLignes = 0;
     // Map<Integer, NatureTerrain> map;
@@ -48,7 +55,7 @@ public class LecteurDonnees {
      * @param fichierDonnees nom du fichier à lire
      */
     public static DonneesSimulation lire(String fichierDonnees) throws FileNotFoundException, DataFormatException {
-        System.out.println("\n == Lecture du fichier" + fichierDonnees);
+        LOGGER.info("Lecture du fichier {}", fichierDonnees);
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
         donneesSimulation = new DonneesSimulation();
 
@@ -57,7 +64,7 @@ public class LecteurDonnees {
         lecteur.lireRobots();
         scanner.close();
 
-        System.out.println("\n == Lecture terminee");
+        LOGGER.info("Lecture terminee");
 
         return donneesSimulation;
     }
@@ -92,7 +99,8 @@ public class LecteurDonnees {
             donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes, tailleCases,
                     new HashMap<Integer, NatureTerrain>(nbLignes * nbColonnes)));
 
-            System.out.println("Carte " + nbLignes + "x" + nbColonnes + "; taille des cases = " + tailleCases);
+            LOGGER.info("Carte {}x{}", nbLignes, nbColonnes);
+            LOGGER.info("Cases de taille {}", tailleCases);
 
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
@@ -111,7 +119,6 @@ public class LecteurDonnees {
      */
     private void lireCase(int lig, int col) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("Case (" + lig + "," + col + "): ");
         String chaineNature = new String();
         // NatureTerrain nature;
 
@@ -127,13 +134,11 @@ public class LecteurDonnees {
 
             verifieLigneTerminee();
 
-            System.out.print("nature = " + chaineNature);
+            LOGGER.info("Case ({}, {}): {}", lig, col, chaineNature);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. " + "Attendu: nature altitude [valeur_specifique]");
         }
-
-        System.out.println();
     }
 
     /**
@@ -143,7 +148,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
-            System.out.println("Nb d'incendies = " + nbIncendies);
+            LOGGER.info("Il y a {} incendies", nbIncendies);
 
             // initialisation du stockage des incendies
             donneesSimulation.setIncendies(new HashMap<Integer, Integer>(nbIncendies));
@@ -164,7 +169,6 @@ public class LecteurDonnees {
      */
     private void lireIncendie(int i) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("Incendie " + i + ": ");
 
         try {
             int lig = scanner.nextInt();
@@ -179,7 +183,7 @@ public class LecteurDonnees {
 
             verifieLigneTerminee();
 
-            System.out.println("position = (" + lig + "," + col + ");\t intensite = " + intensite);
+            LOGGER.info("Incendie {} d'intensité {} en position ({}, {})", i, intensite, lig, col);
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format d'incendie invalide. " + "Attendu: ligne colonne intensite");
@@ -193,7 +197,7 @@ public class LecteurDonnees {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
-            System.out.println("Nb de robots = " + nbRobots);
+            LOGGER.info("Il y a {} robots", nbRobots);
 
             if (nbRobots == 0) {
                 throw new DataFormatException("il n'y a pas de robots");
@@ -218,29 +222,25 @@ public class LecteurDonnees {
      */
     private void lireRobot(int i) throws DataFormatException {
         ignorerCommentaires();
-        System.out.print("Robot " + i + ": ");
 
         try {
             int lig = scanner.nextInt();
             int col = scanner.nextInt();
-            System.out.print("position = (" + lig + "," + col + ");");
             String type = scanner.next();
 
-            System.out.print("\t type = " + type);
-
+            LOGGER.info("Robot {} de type {} en position ({}, {})", i, type, lig, col);
             // on stocke le robot
             Robot robot = MyRobotTypes.getType(Type.valueOf(type)).newRobot();
 
             // lecture eventuelle d'une vitesse du robot (entier)
-            System.out.print("; \t vitesse = ");
             String s = scanner.findInLine("(\\d+)"); // 1 or more digit(s) ?
             // pour lire un flottant: ("(\\d+(\\.\\d+)?)");
 
             if (s == null) {
-                System.out.print("valeur par defaut");
+                LOGGER.info("Déplacement à la vitesse par défaut");
             } else {
                 int vitesse = Integer.parseInt(s);
-                System.out.print(vitesse);
+                LOGGER.info("Déplacement à {} km/h", vitesse);
                 // on modifie la vitesse par défaut
                 robot.setVitesse((double)vitesse);
             }
@@ -248,8 +248,6 @@ public class LecteurDonnees {
             donneesSimulation.getRobots().put(lig * donneesSimulation.getCarte().getNbLignes() + col, robot);
 
             verifieLigneTerminee();
-
-            System.out.println();
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException(
