@@ -25,7 +25,7 @@ public class Robot {
     void remplirReservoir() {
     }
 
-    public Type getType() {
+    public MyRobotTypes.Type getType() {
         return robotType.getType();
     }
 

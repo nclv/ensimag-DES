@@ -9,7 +9,7 @@ import game.NatureTerrain;
 
 public class RobotType {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotType.class);
-    private Type type;
+    private MyRobotTypes.Type type;
     private Filling filling; // méthode de remplissage: ON, NEXT or NONE
     private Double vitesse;
     private Double vitesseMax;
@@ -19,7 +19,7 @@ public class RobotType {
     private int timeToFillUp;
     EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
-    public RobotType(Type type, Filling filling, Double vitesse, Double vitesseMax, Double volume, int maxEmptiedVolume,
+    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double volume, int maxEmptiedVolume,
             int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
         LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
@@ -37,11 +37,11 @@ public class RobotType {
         return new Robot(this);
     }
 
-    public Type getType() {
+    public MyRobotTypes.Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(MyRobotTypes.Type type) {
         this.type = type;
     }
 

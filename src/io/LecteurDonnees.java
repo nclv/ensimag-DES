@@ -17,7 +17,6 @@ import game.DonneesSimulation;
 import game.NatureTerrain;
 import game.robots.MyRobotTypes;
 import game.robots.Robot;
-import game.robots.Type;
 
 /**
  * Lecteur de cartes au format spectifié dans le sujet. Les données sur les
@@ -231,7 +230,7 @@ public class LecteurDonnees {
 
             LOGGER.info("Robot {} de type {} en position ({}, {})", i, type, lig, col);
             // on stocke le robot
-            Robot robot = MyRobotTypes.getType(Type.valueOf(type)).newRobot();
+            Robot robot = MyRobotTypes.getType(MyRobotTypes.Type.valueOf(type)).newRobot();
 
             // lecture eventuelle d'une vitesse du robot (entier)
             String s = scanner.findInLine("(\\d+)"); // 1 or more digit(s) ?
