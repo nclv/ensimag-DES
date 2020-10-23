@@ -5,7 +5,12 @@ import java.util.Map;
 
 import game.NatureTerrain;
 
-public class MyRobotTypes {
+public final class MyRobotTypes {
+
+    public static enum Type {
+        DRONE, ROUES, CHENILLES, PATTES
+    }
+
     private static final RobotType Drone = new RobotType(
         Type.DRONE, Filling.ON, 
         100.0, 150.0, 10000.0, 
