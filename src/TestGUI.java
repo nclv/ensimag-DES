@@ -179,9 +179,8 @@ class FireImg implements GraphicalElement {
     private int normalizedIntensity;
 
     private int imgSize;
-    private int fireSize;
     
-    private static final int fireSizeFactor = 2; // on divise la taille du feu par deux par rapport à la taille de la case
+    // private static final int fireSizeFactor = 2; // on divise la taille du feu par deux par rapport à la taille de la case
 
     public FireImg(int x, int y, int normalizedIntensity, int imgSize, String imgFilename) {
         LOGGER.info("Création d'une image feu en ({}, {}) d'intensite {} sur une case de type {} de taille {}", x, y, normalizedIntensity, imgFilename, imgSize);
@@ -194,7 +193,6 @@ class FireImg implements GraphicalElement {
         this.y = y;
         this.normalizedIntensity = normalizedIntensity;
         this.imgSize = imgSize;
-        this.fireSize = imgSize / fireSizeFactor;
     }
 
     @Override
