@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/home/n0way/Documents/Projets/ensimag-robots-pompiers/**/*.jar"
+        "/home/n0way/Documents/Projets/ensimag-robots-pompiers/**/*.jar",
+        "G:\\Nicolas\\ensimag-robots-pompiers\\**\\*.jar"
     ]
 }
