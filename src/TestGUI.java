@@ -92,15 +92,19 @@ class Simulateur implements Simulable {
         this.guiSizeFactor = guiSizeFactor;
         this.donneesSimulation = donneesSimulation;
 
-        drawMap();
+        initMap();
     }
 
-    private void drawMap() {
+    private void initMap() {
         gui.reset(); // clear the window
 
-        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
+        drawTerrain();
+        drawIncendies();
+        drawRobots();
+    }
 
-        // le terrain
+    private void drawTerrain() {
+        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
         Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
         for (Map.Entry<Integer, NatureTerrain> tile : map.entrySet()) {
             int x = tile.getKey() % nbLignes;
@@ -116,15 +120,20 @@ class Simulateur implements Simulable {
                 null)
             );
         }
+    }
 
-        // les incendies
+    private void drawIncendies() {
+        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
+        Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
+
         Map<Integer, Integer> incendies = this.donneesSimulation.getIncendies();
 
         // on va normaliser les intensités des incendies pour afficher des incendies de taille différentes
         Collection<Integer> intensites = incendies.values();
         int minIntensity = Collections.min(intensites);
         int maxIntensity = Collections.max(intensites);
-        NormUtil normUtil = new NormUtil(maxIntensity, minIntensity, this.guiSizeFactor / 1.5, this.guiSizeFactor / 6);
+        // on peut modifier les deux derniers arguments, attention à garder le feu visible et ne remplissant pas toute la case
+        NormUtil normUtil = new NormUtil(maxIntensity, minIntensity, this.guiSizeFactor / 1.5, this.guiSizeFactor / 6); 
 
         for (Map.Entry<Integer, Integer> fire : incendies.entrySet()) {
             int x = fire.getKey() % nbLignes;
@@ -140,8 +149,10 @@ class Simulateur implements Simulable {
 
             gui.addGraphicalElement(new FireImg(x * this.guiSizeFactor, y * this.guiSizeFactor, normalizedIntensity, this.guiSizeFactor, "src\\ressources\\" + tileFilename));
         }
+    }
 
-        // les robots
+    private void drawRobots() {
+        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
         Map<Integer, ArrayList<Robot>> robotsMap = this.donneesSimulation.getRobots();
         for (Map.Entry<Integer, ArrayList<Robot>> robots : robotsMap.entrySet()) {
             int x = robots.getKey() % nbLignes;
@@ -172,7 +183,7 @@ class Simulateur implements Simulable {
 class FireImg implements GraphicalElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(FireImg.class);
     
-    private BufferedImage image;
+    private BufferedImage image = null;
 
     private int x;
     private int y;
