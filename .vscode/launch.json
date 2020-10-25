@@ -9,6 +9,13 @@
             "name": "CodeLens (Launch) - TestRobots",
             "request": "launch",
             "mainClass": "TestRobots",
+            "projectName": "ensimag-robots-pompiers_ecafeb16"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestRobots",
+            "request": "launch",
+            "mainClass": "TestRobots",
             "projectName": "ensimag-robots-pompiers_4f7db948"
         },
         {
