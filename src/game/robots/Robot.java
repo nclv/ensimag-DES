@@ -30,7 +30,7 @@ public class Robot {
     }
 
     public Double getVitesse(NatureTerrain natureTerrain) {
-        return this.vitesse / robotType.getTerrainVitesse().get(natureTerrain);
+        return this.vitesse * robotType.getTerrainVitesse().get(natureTerrain);
     }
 
     public void setVitesse(Double vitesse) {

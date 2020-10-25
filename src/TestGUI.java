@@ -66,7 +66,6 @@ class Simulateur implements Simulable {
     private int guiSizeFactor;
     private DonneesSimulation donneesSimulation;
 
-
     private static final EnumMap<NatureTerrain, String> ressourcesMap = new EnumMap<NatureTerrain, String>(Map.of(
         NatureTerrain.EAU, "eau.png", 
         NatureTerrain.FORET, "foret.png", 
@@ -120,6 +119,7 @@ class Simulateur implements Simulable {
     private void drawTerrain() {
         int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
         Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
+
         for (Map.Entry<Integer, NatureTerrain> tile : map.entrySet()) {
             int position = tile.getKey();
             int x = position % nbLignes;
@@ -201,21 +201,22 @@ class Simulateur implements Simulable {
         }
     }
 
-    private void loadImg(String imgFilename) {
+    private BufferedImage loadImg(String imgFilename) {
+        BufferedImage bufferedImage = null;
         try {
-            BufferedImage bufferedImage = ImageIO.read(new File("src\\ressources\\" + imgFilename));
+            bufferedImage = ImageIO.read(new File("src\\ressources\\" + imgFilename));
             picturesCache.putIfAbsent(imgFilename, bufferedImage);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        LOGGER.info("image filename: {}", imgFilename);
+        LOGGER.info("Chargement de l'image {} dans le cache", imgFilename);
+        return bufferedImage;
     }
 
     private BufferedImage getImg(String imgFilename) {
         BufferedImage img = picturesCache.get(imgFilename);
         if (img == null) {
-            loadImg(imgFilename);
-            img = picturesCache.get(imgFilename);
+            img = loadImg(imgFilename);
         }
   
         return img;
@@ -325,16 +326,12 @@ class RobotImg implements GraphicalElement {
         if (this.tileImg != null) {
             g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
         }
+        // coin en haut à gauche: padding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
+        // au milieu: padding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
         int padding = this.tileImgSize / 8 ;
         if (this.robotImg != null) {
             g2d.drawImage(this.robotImg, this.x + padding, this.y + padding, this.tileImgSize / 4, this.tileImgSize / 4, null);
         }
-        // on dessine le robot
-        // g2d.setColor(Color.YELLOW);
-        // coin en haut à gauche: padding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
-        // au milieu: padding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
-        // int padding = this.tileImgSize / 8 ;
-        // g2d.fillRect(this.x + padding, this.y + padding, this.tileImgSize / 4, this.tileImgSize / 4);
     }
 }
 
