@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TestGUI",
+            "request": "launch",
+            "mainClass": "TestGUI",
+            "projectName": "ensimag-robots-pompiers_ecafeb16",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TestInvader",
             "request": "launch",
             "mainClass": "TestInvader",
