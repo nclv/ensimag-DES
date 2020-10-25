@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import game.DonneesSimulation;
 import game.NatureTerrain;
+import game.robots.MyRobotTypes;
 import game.robots.Robot;
 import gui.GUISimulator;
 import gui.GraphicalElement;
@@ -29,7 +30,7 @@ public class TestGUI {
     public static void main(String[] args) {
         DonneesSimulation donneesSimulation = getDonneesSimulation(args);
 
-        int guiSizeFactor = 60;  // à adapter à son écran, spiral: 20, others: 60
+        int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
         GUISimulator gui = new GUISimulator(
             donneesSimulation.getCarte().getNbLignes() * guiSizeFactor, 
             donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, 
@@ -75,6 +76,14 @@ class Simulateur implements Simulable {
         )
     );
 
+    static final EnumMap<MyRobotTypes.Type, String> ressourcesRobots = new EnumMap<MyRobotTypes.Type, String>(Map.of(
+        MyRobotTypes.Type.DRONE, "drone.png", 
+        MyRobotTypes.Type.ROUES, "roues.png", 
+        MyRobotTypes.Type.CHENILLES, "chenilles.png",
+        MyRobotTypes.Type.PATTES, "pattes.png"
+        )
+    );
+
     /**
      * Crée un Simulateur et le dessine.
      * 
@@ -107,8 +116,9 @@ class Simulateur implements Simulable {
         int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
         Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
         for (Map.Entry<Integer, NatureTerrain> tile : map.entrySet()) {
-            int x = tile.getKey() % nbLignes;
-            int y = tile.getKey() / nbLignes;
+            int position = tile.getKey();
+            int x = position % nbLignes;
+            int y = position / nbLignes;
 
             // LOGGER.info("Affichage de la case ({}, {}) de type {}", x, y, tile.getValue());
 
@@ -136,12 +146,13 @@ class Simulateur implements Simulable {
         NormUtil normUtil = new NormUtil(maxIntensity, minIntensity, this.guiSizeFactor / 1.5, this.guiSizeFactor / 6); 
 
         for (Map.Entry<Integer, Integer> fire : incendies.entrySet()) {
-            int x = fire.getKey() % nbLignes;
-            int y = fire.getKey() / nbLignes;
+            int position = fire.getKey();
+            int x = position % nbLignes;
+            int y = position / nbLignes;
 
             // on veut dessiner un feu sur les cases
-            LOGGER.info("Case de type {} ", ressourcesMap.get(map.get(fire.getKey())));
-            String tileFilename = ressourcesMap.get(map.get(fire.getKey()));
+            LOGGER.info("Case de type {} ", ressourcesMap.get(map.get(position)));
+            String tileFilename = ressourcesMap.get(map.get(position));
 
             int intensite = fire.getValue();
             int normalizedIntensity = (int)normUtil.normalize(intensite);
@@ -153,16 +164,31 @@ class Simulateur implements Simulable {
 
     private void drawRobots() {
         int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
+        Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
+
         Map<Integer, ArrayList<Robot>> robotsMap = this.donneesSimulation.getRobots();
         for (Map.Entry<Integer, ArrayList<Robot>> robots : robotsMap.entrySet()) {
-            int x = robots.getKey() % nbLignes;
-            int y = robots.getKey() / nbLignes;
+            int position = robots.getKey();
+            int x = position % nbLignes;
+            int y = position / nbLignes;
 
-            // on veut dessiner un ou plusieurs robot(s) sur les cases, on va faire un quadrillage
+            LOGGER.info("Case de type {} ", ressourcesMap.get(map.get(position)));
+            String tileFilename = ressourcesMap.get(map.get(position));
+
+            // on veut dessiner un ou plusieurs robot(s) sur les cases,
+            // TODO: gérer l'affchage de plusieurs robots sur la même case
             ArrayList<Robot> robotsList = robots.getValue();
-            int robotsCount = robotsList.size();
             for (Robot robot: robotsList) {
-
+                LOGGER.info("Robot de type {} ", ressourcesRobots.get(robot.getType()));
+                String robotFilename = ressourcesRobots.get(robot.getType());
+                gui.addGraphicalElement(new RobotImg(
+                    x * this.guiSizeFactor, 
+                    y * this.guiSizeFactor, 
+                    this.guiSizeFactor, 
+                    "src\\ressources\\" + tileFilename, 
+                    "src\\ressources\\" + robotFilename
+                    )
+                );
             }
         }
     }
@@ -183,38 +209,80 @@ class Simulateur implements Simulable {
 class FireImg implements GraphicalElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(FireImg.class);
     
-    private BufferedImage image = null;
+    private BufferedImage tileImg = null;
 
     private int x;
     private int y;
     private int normalizedIntensity;
 
-    private int imgSize;
+    private int tileImgSize;
     
     // private static final int fireSizeFactor = 2; // on divise la taille du feu par deux par rapport à la taille de la case
 
-    public FireImg(int x, int y, int normalizedIntensity, int imgSize, String imgFilename) {
-        LOGGER.info("Création d'une image feu en ({}, {}) d'intensite {} sur une case de type {} de taille {}", x, y, normalizedIntensity, imgFilename, imgSize);
+    public FireImg(int x, int y, int normalizedIntensity, int tileImgSize, String imgFilename) {
+        LOGGER.info("Création d'une image feu en ({}, {}) d'intensite {} sur une case de taille {}", x, y, normalizedIntensity, tileImgSize);
         try {
-            this.image = ImageIO.read(new File(imgFilename));
+            this.tileImg = ImageIO.read(new File(imgFilename));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         this.x = x;
         this.y = y;
         this.normalizedIntensity = normalizedIntensity;
-        this.imgSize = imgSize;
+        this.tileImgSize = tileImgSize;
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (this.image != null) {
-            g2d.drawImage(this.image, this.x, this.y, this.imgSize, this.imgSize, null);
+        if (this.tileImg != null) {
+            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
         }
         // on dessine le feu
         g2d.setColor(Color.RED);
-        int padding = (this.imgSize - this.normalizedIntensity) / 2 ; // on veut un feu au milieu de la case
+        int padding = (this.tileImgSize - this.normalizedIntensity) / 2 ; // on veut un feu au milieu de la case
         g2d.fillOval(this.x + padding, this.y + padding, this.normalizedIntensity, this.normalizedIntensity);
+    }
+}
+
+class RobotImg implements GraphicalElement {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RobotImg.class);
+    
+    private BufferedImage tileImg = null;
+    private BufferedImage robotImg = null;
+
+    private int x;
+    private int y;
+
+    private int tileImgSize;
+
+    public RobotImg(int x, int y, int tileImgSize, String tileImgFilename, String robotImgFilename) {
+        LOGGER.info("Création d'une image robot en ({}, {}) sur une case de taille {}", x, y, tileImgSize);
+        try {
+            this.tileImg = ImageIO.read(new File(tileImgFilename));
+            this.robotImg = ImageIO.read(new File(robotImgFilename));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        this.x = x;
+        this.y = y;
+        this.tileImgSize = tileImgSize;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        if (this.tileImg != null) {
+            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
+        }
+        int padding = this.tileImgSize / 8 ;
+        if (this.robotImg != null) {
+            g2d.drawImage(this.robotImg, this.x + padding, this.y + padding, this.tileImgSize / 4, this.tileImgSize / 4, null);
+        }
+        // on dessine le robot
+        // g2d.setColor(Color.YELLOW);
+        // coin en haut à gauche: padding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
+        // au milieu: padding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
+        // int padding = this.tileImgSize / 8 ;
+        // g2d.fillRect(this.x + padding, this.y + padding, this.tileImgSize / 4, this.tileImgSize / 4);
     }
 }
 
@@ -249,3 +317,4 @@ class NormUtil {
                 * (normalizedHigh - normalizedLow) + normalizedLow;
     }
 }
+
