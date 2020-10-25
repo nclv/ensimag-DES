@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.DataFormatException;
 
@@ -22,7 +23,6 @@ import game.robots.MyRobotTypes;
 import game.robots.Robot;
 import gui.GUISimulator;
 import gui.GraphicalElement;
-import gui.ImageElement;
 import gui.Simulable;
 import io.LecteurDonnees;
 
@@ -67,7 +67,7 @@ class Simulateur implements Simulable {
     private DonneesSimulation donneesSimulation;
 
 
-    static final EnumMap<NatureTerrain, String> ressourcesMap = new EnumMap<NatureTerrain, String>(Map.of(
+    private static final EnumMap<NatureTerrain, String> ressourcesMap = new EnumMap<NatureTerrain, String>(Map.of(
         NatureTerrain.EAU, "eau.png", 
         NatureTerrain.FORET, "foret.png", 
         NatureTerrain.HABITAT, "habitat.png",
@@ -76,13 +76,15 @@ class Simulateur implements Simulable {
         )
     );
 
-    static final EnumMap<MyRobotTypes.Type, String> ressourcesRobots = new EnumMap<MyRobotTypes.Type, String>(Map.of(
+    private static final EnumMap<MyRobotTypes.Type, String> ressourcesRobots = new EnumMap<MyRobotTypes.Type, String>(Map.of(
         MyRobotTypes.Type.DRONE, "drone.png", 
         MyRobotTypes.Type.ROUES, "roues.png", 
         MyRobotTypes.Type.CHENILLES, "chenilles.png",
         MyRobotTypes.Type.PATTES, "pattes.png"
         )
     );
+
+    private static HashMap<String, BufferedImage> picturesCache = new HashMap<String, BufferedImage>();
 
     /**
      * Crée un Simulateur et le dessine.
@@ -107,6 +109,9 @@ class Simulateur implements Simulable {
     private void initMap() {
         gui.reset(); // clear the window
 
+        // les méthodes draw utilisent gui.addGraphicalElement, l'ordre a donc de l'importance
+        // on suppose qu'aucun robot ne se trouve initialement sur un incendie
+        // il n'y a pas (encore) de méthode permettant de draw un robot et un incendie sur la même case
         drawTerrain();
         drawIncendies();
         drawRobots();
@@ -122,12 +127,11 @@ class Simulateur implements Simulable {
 
             // LOGGER.info("Affichage de la case ({}, {}) de type {}", x, y, tile.getValue());
 
-            gui.addGraphicalElement(new ImageElement(
+            gui.addGraphicalElement(new TileImg(
                 x * this.guiSizeFactor, 
                 y * this.guiSizeFactor,
-                "src\\ressources\\" + ressourcesMap.get(tile.getValue()), 
-                this.guiSizeFactor, this.guiSizeFactor, 
-                null)
+                this.guiSizeFactor,
+                getImg(ressourcesMap.get(tile.getValue())))
             );
         }
     }
@@ -151,14 +155,15 @@ class Simulateur implements Simulable {
             int y = position / nbLignes;
 
             // on veut dessiner un feu sur les cases
-            LOGGER.info("Case de type {} ", ressourcesMap.get(map.get(position)));
-            String tileFilename = ressourcesMap.get(map.get(position));
+            NatureTerrain natureTerrain = map.get(position);
+            LOGGER.info("Case de type {} ", ressourcesMap.get(natureTerrain));
+            String tileFilename = ressourcesMap.get(natureTerrain);
 
             int intensite = fire.getValue();
             int normalizedIntensity = (int)normUtil.normalize(intensite);
             LOGGER.info("Intensite de l'incendie: {}, {}", intensite, normalizedIntensity);
 
-            gui.addGraphicalElement(new FireImg(x * this.guiSizeFactor, y * this.guiSizeFactor, normalizedIntensity, this.guiSizeFactor, "src\\ressources\\" + tileFilename));
+            gui.addGraphicalElement(new FireImg(x * this.guiSizeFactor, y * this.guiSizeFactor, normalizedIntensity, this.guiSizeFactor, getImg(tileFilename)));
         }
     }
 
@@ -172,25 +177,48 @@ class Simulateur implements Simulable {
             int x = position % nbLignes;
             int y = position / nbLignes;
 
-            LOGGER.info("Case de type {} ", ressourcesMap.get(map.get(position)));
-            String tileFilename = ressourcesMap.get(map.get(position));
+            NatureTerrain natureTerrain = map.get(position);
+            LOGGER.info("Case de type {} ", ressourcesMap.get(natureTerrain));
+            String tileFilename = ressourcesMap.get(natureTerrain);
 
             // on veut dessiner un ou plusieurs robot(s) sur les cases,
             // TODO: gérer l'affchage de plusieurs robots sur la même case
             ArrayList<Robot> robotsList = robots.getValue();
             for (Robot robot: robotsList) {
-                LOGGER.info("Robot de type {} ", ressourcesRobots.get(robot.getType()));
-                String robotFilename = ressourcesRobots.get(robot.getType());
+                MyRobotTypes.Type rType = robot.getType();
+                LOGGER.info("Robot de type {} ", ressourcesRobots.get(rType));
+                String robotFilename = ressourcesRobots.get(rType);
+
                 gui.addGraphicalElement(new RobotImg(
                     x * this.guiSizeFactor, 
                     y * this.guiSizeFactor, 
                     this.guiSizeFactor, 
-                    "src\\ressources\\" + tileFilename, 
-                    "src\\ressources\\" + robotFilename
+                    getImg(tileFilename), 
+                    getImg(robotFilename)
                     )
                 );
             }
         }
+    }
+
+    private void loadImg(String imgFilename) {
+        try {
+            BufferedImage bufferedImage = ImageIO.read(new File("src\\ressources\\" + imgFilename));
+            picturesCache.putIfAbsent(imgFilename, bufferedImage);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        LOGGER.info("image filename: {}", imgFilename);
+    }
+
+    private BufferedImage getImg(String imgFilename) {
+        BufferedImage img = picturesCache.get(imgFilename);
+        if (img == null) {
+            loadImg(imgFilename);
+            img = picturesCache.get(imgFilename);
+        }
+  
+        return img;
     }
 
     @Override
@@ -203,6 +231,34 @@ class Simulateur implements Simulable {
     public void restart() {
         // TODO Auto-generated method stub
 
+    }
+}
+
+class TileImg implements GraphicalElement {
+    private static final Logger LOGGER = LoggerFactory.getLogger(TileImg.class);
+    
+    private BufferedImage tileImg = null;
+
+    private int x;
+    private int y;
+
+    private int tileImgSize;
+
+    public TileImg(int x, int y, int tileImgSize, BufferedImage tileImg) {
+        LOGGER.info("Création d'une image tile en ({}, {}) de taille {}", x, y, tileImgSize);
+        
+        this.tileImgSize = tileImgSize;
+        this.tileImg = tileImg;
+
+        this.x = x;
+        this.y = y;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d) {
+        if (this.tileImg != null) {
+            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
+        }
     }
 }
 
@@ -219,17 +275,15 @@ class FireImg implements GraphicalElement {
     
     // private static final int fireSizeFactor = 2; // on divise la taille du feu par deux par rapport à la taille de la case
 
-    public FireImg(int x, int y, int normalizedIntensity, int tileImgSize, String imgFilename) {
+    public FireImg(int x, int y, int normalizedIntensity, int tileImgSize, BufferedImage tileImg) {
         LOGGER.info("Création d'une image feu en ({}, {}) d'intensite {} sur une case de taille {}", x, y, normalizedIntensity, tileImgSize);
-        try {
-            this.tileImg = ImageIO.read(new File(imgFilename));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        
+        this.tileImgSize = tileImgSize;
+        this.tileImg = tileImg;
+
         this.x = x;
         this.y = y;
         this.normalizedIntensity = normalizedIntensity;
-        this.tileImgSize = tileImgSize;
     }
 
     @Override
@@ -255,14 +309,12 @@ class RobotImg implements GraphicalElement {
 
     private int tileImgSize;
 
-    public RobotImg(int x, int y, int tileImgSize, String tileImgFilename, String robotImgFilename) {
+    public RobotImg(int x, int y, int tileImgSize, BufferedImage tileImg, BufferedImage robotImg) {
         LOGGER.info("Création d'une image robot en ({}, {}) sur une case de taille {}", x, y, tileImgSize);
-        try {
-            this.tileImg = ImageIO.read(new File(tileImgFilename));
-            this.robotImg = ImageIO.read(new File(robotImgFilename));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        
+        this.tileImg = tileImg;
+        this.robotImg = robotImg;
+
         this.x = x;
         this.y = y;
         this.tileImgSize = tileImgSize;

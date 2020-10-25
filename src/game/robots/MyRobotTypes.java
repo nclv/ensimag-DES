@@ -69,7 +69,7 @@ public final class MyRobotTypes {
     // et pourquoi pas une liste ? le seul désavantage à utiliser une liste
     // serait qu'un changement de l'ordre dans l'enum Type mettrait le bazard
     // on aurait aussi des ifs mais ça reste un détail
-    static final EnumMap<Type, RobotType> typeMap = new EnumMap<Type, RobotType>(Map.of(
+    private static final EnumMap<Type, RobotType> typeMap = new EnumMap<Type, RobotType>(Map.of(
         Type.DRONE, Drone,
         Type.ROUES, Roues,
         Type.CHENILLES, Chenilles,
