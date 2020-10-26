@@ -204,7 +204,7 @@ class Simulateur implements Simulable {
     private BufferedImage loadImg(String imgFilename) {
         BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageIO.read(new File("src\\ressources\\" + imgFilename));
+            bufferedImage = ImageIO.read(new File("src/ressources/" + imgFilename));
             picturesCache.putIfAbsent(imgFilename, bufferedImage);
         } catch (IOException ex) {
             ex.printStackTrace();
