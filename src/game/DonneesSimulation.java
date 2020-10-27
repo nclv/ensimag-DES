@@ -51,6 +51,19 @@ public class DonneesSimulation {
 
     @Override
     public String toString() {
-        return "DonneesSimulation [carte=" + carte + ", incendies=" + incendies + ", robots=" + robots + "]";
+        String res = new String();
+        res += "DonneesSimulation: \n";
+        res += carte;
+        res += "Incendies\n";
+        for (Map.Entry<Integer, Integer> iEntry : incendies.entrySet()) {
+            res += iEntry.getKey() + ": " + iEntry.getValue().toString() + "\n";
+        }
+        res += "Robots\n";
+        for (Map.Entry<Integer, ArrayList<Robot>> rlEntry : robots.entrySet()) {
+            for (Robot robot : rlEntry.getValue()) {
+                res += rlEntry.getKey() + ": " + robot + "\n";
+            }
+        }
+        return res;
     }
 }

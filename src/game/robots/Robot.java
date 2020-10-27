@@ -45,6 +45,8 @@ public class Robot {
 
     @Override
     public String toString() {
-        return "Robot [robotType=" + robotType + ", vitesse=" + vitesse + ", volume=" + volume + "]";
+        String res = new String();
+        res += "Robot de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume + " litres d'eau";
+        return res;
     }
 }
