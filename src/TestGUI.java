@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 
@@ -22,6 +23,7 @@ import game.DonneesSimulation;
 import game.NatureTerrain;
 import game.robots.MyRobotTypes;
 import game.robots.Robot;
+import game.Event;
 import gui.GUISimulator;
 import gui.GraphicalElement;
 import gui.Simulable;
@@ -65,7 +67,13 @@ class Simulateur implements Simulable {
 
     private GUISimulator gui;
     private int guiSizeFactor;
+
     private DonneesSimulation donneesSimulation;
+
+    private long currentDate;
+    private PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
+
+    private ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
 
     private static final EnumMap<NatureTerrain, String> ressourcesMap = new EnumMap<NatureTerrain, String>(Map.of(
         NatureTerrain.EAU, "eau.png", 
@@ -85,8 +93,6 @@ class Simulateur implements Simulable {
     );
 
     private static HashMap<String, BufferedImage> picturesCache = new HashMap<String, BufferedImage>();
-
-    private ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
 
     /**
      * Crée un Simulateur et le dessine.
@@ -113,18 +119,11 @@ class Simulateur implements Simulable {
 
         // l'ordre a de l'importance, il faut remplir avant d'update
         populateTileImgsArray();
-        updateTileImgsArray();
+        updateAllTileImgs();
 
         // Ajout des composants à l'instance de JFrame
         for (TileImg tileImg : this.tileImgsArray) {
             gui.addGraphicalElement(tileImg);
-        }
-    }
-
-    private void updateTileImgsArray() {
-        if (!this.tileImgsArray.isEmpty()) {
-            setIncendies();
-            setRobots();
         }
     }
 
@@ -144,6 +143,13 @@ class Simulateur implements Simulable {
                 this.guiSizeFactor,
                 getImg(ressourcesMap.get(tile.getValue())))
             );
+        }
+    }
+
+    private void updateAllTileImgs() {
+        if (!this.tileImgsArray.isEmpty()) {
+            setIncendies();
+            setRobots();
         }
     }
 
@@ -180,7 +186,26 @@ class Simulateur implements Simulable {
         }
     }
 
-    private BufferedImage loadImg(String imgFilename) {
+    public void addEvent(Event event) {
+        eventQueue.add(event);
+    }
+
+    public void executeNextEvents() {
+        this.currentDate++;
+
+        // peek/remove is faster than poll/add 
+        Event event = eventQueue.peek();
+        if (event != null && event.getDate() <= this.currentDate) {
+            event.execute();
+            eventQueue.remove();
+        }
+    }
+
+    public Boolean isSimulationEnded() {
+        return eventQueue.isEmpty();
+    }
+
+    private static BufferedImage loadImg(String imgFilename) {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageIO.read(new File("src/ressources/" + imgFilename));
@@ -192,7 +217,7 @@ class Simulateur implements Simulable {
         return bufferedImage;
     }
 
-    private BufferedImage getImg(String imgFilename) {
+    private static BufferedImage getImg(String imgFilename) {
         BufferedImage img = picturesCache.get(imgFilename);
         if (img == null) {
             img = loadImg(imgFilename);

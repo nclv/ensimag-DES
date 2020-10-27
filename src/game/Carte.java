@@ -65,7 +65,11 @@ public class Carte {
 
     @Override
     public String toString() {
-        return "Carte [map=" + map + ", nbColonnes=" + nbColonnes + ", nbLignes=" + nbLignes + ", tailleCases="
-                + tailleCases + "]";
+        String res = new String();
+        res += "Carte de taille " + nbLignes + "x" + nbColonnes + "x" + tailleCases + "\n";
+        for (Map.Entry<Integer, NatureTerrain> tEntry : map.entrySet()) {
+            res += tEntry.getKey() + ": " + tEntry.getValue().toString() + "\n";
+        }
+        return res;
     }
 }
