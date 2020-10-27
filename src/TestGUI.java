@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.zip.DataFormatException;
 
 import javax.imageio.ImageIO;
@@ -85,6 +86,8 @@ class Simulateur implements Simulable {
 
     private static HashMap<String, BufferedImage> picturesCache = new HashMap<String, BufferedImage>();
 
+    private ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
+
     /**
      * Crée un Simulateur et le dessine.
      * 
@@ -108,15 +111,24 @@ class Simulateur implements Simulable {
     private void initMap() {
         gui.reset(); // clear the window
 
-        // les méthodes draw utilisent gui.addGraphicalElement, l'ordre a donc de l'importance
-        // on suppose qu'aucun robot ne se trouve initialement sur un incendie
-        // il n'y a pas (encore) de méthode permettant de draw un robot et un incendie sur la même case
-        drawTerrain();
-        drawIncendies();
-        drawRobots();
+        // l'ordre a de l'importance, il faut remplir avant d'update
+        populateTileImgsArray();
+        updateTileImgsArray();
+
+        // Ajout des composants à l'instance de JFrame
+        for (TileImg tileImg : this.tileImgsArray) {
+            gui.addGraphicalElement(tileImg);
+        }
     }
 
-    private void drawTerrain() {
+    private void updateTileImgsArray() {
+        if (!this.tileImgsArray.isEmpty()) {
+            setIncendies();
+            setRobots();
+        }
+    }
+
+    private void populateTileImgsArray() {
         int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
         Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
 
@@ -126,8 +138,7 @@ class Simulateur implements Simulable {
             int y = position / nbLignes;
 
             // LOGGER.info("Affichage de la case ({}, {}) de type {}", x, y, tile.getValue());
-
-            gui.addGraphicalElement(new TileImg(
+            tileImgsArray.add(new TileImg(
                 x * this.guiSizeFactor, 
                 y * this.guiSizeFactor,
                 this.guiSizeFactor,
@@ -136,10 +147,7 @@ class Simulateur implements Simulable {
         }
     }
 
-    private void drawIncendies() {
-        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
-        Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
-
+    private void setIncendies() {
         Map<Integer, Integer> incendies = this.donneesSimulation.getIncendies();
 
         // on va normaliser les intensités des incendies pour afficher des incendies de taille différentes
@@ -151,53 +159,24 @@ class Simulateur implements Simulable {
 
         for (Map.Entry<Integer, Integer> fire : incendies.entrySet()) {
             int position = fire.getKey();
-            int x = position % nbLignes;
-            int y = position / nbLignes;
-
-            // on veut dessiner un feu sur les cases
-            NatureTerrain natureTerrain = map.get(position);
-            LOGGER.info("Case de type {} ", ressourcesMap.get(natureTerrain));
-            String tileFilename = ressourcesMap.get(natureTerrain);
 
             int intensite = fire.getValue();
             int normalizedIntensity = (int)normUtil.normalize(intensite);
             LOGGER.info("Intensite de l'incendie: {}, {}", intensite, normalizedIntensity);
 
-            gui.addGraphicalElement(new FireImg(x * this.guiSizeFactor, y * this.guiSizeFactor, normalizedIntensity, this.guiSizeFactor, getImg(tileFilename)));
+            tileImgsArray.get(position).setFireNormalizedIntensity(normalizedIntensity);
         }
     }
 
-    private void drawRobots() {
-        int nbLignes = this.donneesSimulation.getCarte().getNbLignes();
-        Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
-
+    private void setRobots() {
         Map<Integer, ArrayList<Robot>> robotsMap = this.donneesSimulation.getRobots();
         for (Map.Entry<Integer, ArrayList<Robot>> robots : robotsMap.entrySet()) {
             int position = robots.getKey();
-            int x = position % nbLignes;
-            int y = position / nbLignes;
-
-            NatureTerrain natureTerrain = map.get(position);
-            LOGGER.info("Case de type {} ", ressourcesMap.get(natureTerrain));
-            String tileFilename = ressourcesMap.get(natureTerrain);
 
             // on veut dessiner un ou plusieurs robot(s) sur les cases,
-            // TODO: gérer l'affchage de plusieurs robots sur la même case
-            ArrayList<Robot> robotsList = robots.getValue();
-            for (Robot robot: robotsList) {
-                MyRobotTypes.Type rType = robot.getType();
-                LOGGER.info("Robot de type {} ", ressourcesRobots.get(rType));
-                String robotFilename = ressourcesRobots.get(rType);
-
-                gui.addGraphicalElement(new RobotImg(
-                    x * this.guiSizeFactor, 
-                    y * this.guiSizeFactor, 
-                    this.guiSizeFactor, 
-                    getImg(tileFilename), 
-                    getImg(robotFilename)
-                    )
-                );
-            }
+            // on récupère la liste des images des robots en utilisant un stream (JDK8), on pourrait aussi faire une boucle
+            ArrayList<BufferedImage> robotsImgsList = robots.getValue().stream().map((robot) -> getImg(ressourcesRobots.get(robot.getType()))).collect(Collectors.toCollection(ArrayList::new));
+            tileImgsArray.get(position).setTileForegroundImgsArray(robotsImgsList);
         }
     }
 
@@ -238,99 +217,62 @@ class Simulateur implements Simulable {
 class TileImg implements GraphicalElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(TileImg.class);
     
-    private BufferedImage tileImg = null;
+    private BufferedImage tileBackgroundImg = null;
+    private ArrayList<BufferedImage> tileForegroundImgsArray = null;
+
+    private int tileBackgroundImgSize;
 
     private int x;
     private int y;
 
-    private int tileImgSize;
+    private int fireNormalizedIntensity = 0;
 
-    public TileImg(int x, int y, int tileImgSize, BufferedImage tileImg) {
-        LOGGER.info("Création d'une image tile en ({}, {}) de taille {}", x, y, tileImgSize);
-        
-        this.tileImgSize = tileImgSize;
-        this.tileImg = tileImg;
+    public TileImg(int x, int y, int tileBackgroundImgSize, BufferedImage tileBackgroundImg) {
+        LOGGER.info("Création d'une image représentant une case de taille {} en ({}, {})", tileBackgroundImgSize, x, y);
+        this.tileBackgroundImgSize = tileBackgroundImgSize;
+        this.tileBackgroundImg = tileBackgroundImg;
 
         this.x = x;
         this.y = y;
     }
 
-    @Override
-    public void paint(Graphics2D g2d) {
-        if (this.tileImg != null) {
-            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
-        }
+    public void setTileForegroundImgsArray(ArrayList<BufferedImage> tileForegroundImgsArray) {
+        LOGGER.info("Assignation d'une liste d'images (de robots) en ({}, {})", this.x, this.y);
+        this.tileForegroundImgsArray = tileForegroundImgsArray;
     }
-}
 
-class FireImg implements GraphicalElement {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FireImg.class);
-    
-    private BufferedImage tileImg = null;
-
-    private int x;
-    private int y;
-    private int normalizedIntensity;
-
-    private int tileImgSize;
-    
-    // private static final int fireSizeFactor = 2; // on divise la taille du feu par deux par rapport à la taille de la case
-
-    public FireImg(int x, int y, int normalizedIntensity, int tileImgSize, BufferedImage tileImg) {
-        LOGGER.info("Création d'une image feu en ({}, {}) d'intensite {} sur une case de taille {}", x, y, normalizedIntensity, tileImgSize);
-        
-        this.tileImgSize = tileImgSize;
-        this.tileImg = tileImg;
-
-        this.x = x;
-        this.y = y;
-        this.normalizedIntensity = normalizedIntensity;
+    public void setFireNormalizedIntensity(int fireNormalizedIntensity) {
+        LOGGER.info("Assignation d'un dessin de feu en ({}, {}) d'intensite {}", this.x, this.y, fireNormalizedIntensity);
+        this.fireNormalizedIntensity = fireNormalizedIntensity;
     }
 
     @Override
     public void paint(Graphics2D g2d) {
-        if (this.tileImg != null) {
-            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
+        // L'ordre est IMPORTANT. On superpose des images et dessins.
+        // Cette méthode est appelée à chaque interaction avec la fenêtre (update)
+
+        // Affichage de l'image de fond (nature du terrain)
+        if (this.tileBackgroundImg != null) {
+            g2d.drawImage(this.tileBackgroundImg, this.x, this.y, this.tileBackgroundImgSize, this.tileBackgroundImgSize, null);
         }
-        // on dessine le feu
-        g2d.setColor(Color.RED);
-        int padding = (this.tileImgSize - this.normalizedIntensity) / 2 ; // on veut un feu au milieu de la case
-        g2d.fillOval(this.x + padding, this.y + padding, this.normalizedIntensity, this.normalizedIntensity);
-    }
-}
 
-class RobotImg implements GraphicalElement {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RobotImg.class);
-    
-    private BufferedImage tileImg = null;
-    private BufferedImage robotImg = null;
-
-    private int x;
-    private int y;
-
-    private int tileImgSize;
-
-    public RobotImg(int x, int y, int tileImgSize, BufferedImage tileImg, BufferedImage robotImg) {
-        LOGGER.info("Création d'une image robot en ({}, {}) sur une case de taille {}", x, y, tileImgSize);
-        
-        this.tileImg = tileImg;
-        this.robotImg = robotImg;
-
-        this.x = x;
-        this.y = y;
-        this.tileImgSize = tileImgSize;
-    }
-
-    @Override
-    public void paint(Graphics2D g2d) {
-        if (this.tileImg != null) {
-            g2d.drawImage(this.tileImg, this.x, this.y, this.tileImgSize, this.tileImgSize, null);
+        // Affichage de l'incendie
+        if (this.fireNormalizedIntensity != 0) {
+            g2d.setColor(Color.RED);
+            int firePadding = (this.tileBackgroundImgSize - this.fireNormalizedIntensity) / 2 ; // on veut un feu au milieu de la case
+            g2d.fillOval(this.x + firePadding, this.y + firePadding, this.fireNormalizedIntensity, this.fireNormalizedIntensity);
         }
-        // coin en haut à gauche: padding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
-        // au milieu: padding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
-        int padding = this.tileImgSize / 8 ;
-        if (this.robotImg != null) {
-            g2d.drawImage(this.robotImg, this.x + padding, this.y + padding, this.tileImgSize / 4, this.tileImgSize / 4, null);
+
+        // Affichage du ou des robot(s)
+        // TODO: gérer l'affichage de plusieurs robots sur la même case
+        // coin en haut à gauche: imgsPadding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
+        // au milieu: imgsPadding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
+        if (this.tileForegroundImgsArray != null && !this.tileForegroundImgsArray.isEmpty()) {
+            int imgsPadding = this.tileBackgroundImgSize / 4 ;
+            for (int index = 0; index < this.tileForegroundImgsArray.size(); index++) {
+                BufferedImage foregroundImg = this.tileForegroundImgsArray.get(index);
+                g2d.drawImage(foregroundImg, this.x + index * imgsPadding, this.y, imgsPadding, imgsPadding, null);
+            }
         }
     }
 }
