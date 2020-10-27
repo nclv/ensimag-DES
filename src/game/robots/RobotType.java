@@ -13,20 +13,20 @@ public class RobotType {
     private Filling filling; // méthode de remplissage: ON, NEXT or NONE
     private Double vitesse;
     private Double vitesseMax;
-    private Double volume;
+    private Double capacity; // au sens de capacité
     private int maxEmptiedVolume; // volume maximal que le robot peut déverser
     private int timeToEmpty; // temps mis pour déverser maxEmptiedVolume
     private int timeToFillUp;
     EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
-    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double volume, int maxEmptiedVolume,
+    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double capacity, int maxEmptiedVolume,
             int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
         LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
         this.filling = filling;
         this.vitesse = vitesse;
         this.vitesseMax = vitesseMax;
-        this.volume = volume;
+        this.capacity = capacity;
         this.maxEmptiedVolume = maxEmptiedVolume;
         this.timeToEmpty = timeToEmpty;
         this.timeToFillUp = timeToFillUp;
@@ -61,12 +61,12 @@ public class RobotType {
         this.vitesseMax = vitesseMax;
     }
 
-    public Double getVolume() {
-        return volume;
+    public Double getCapacity() {
+        return capacity;
     }
 
-    public void setVolume(Double volume) {
-        this.volume = volume;
+    public void setCapacity(Double capacity) {
+        this.capacity = capacity;
     }
 
     public int getMaxEmptiedVolume() {
@@ -113,6 +113,6 @@ public class RobotType {
     public String toString() {
         return "RobotType [filling=" + filling + ", maxEmptiedVolume=" + maxEmptiedVolume + ", terrainVitesse="
                 + terrainVitesse + ", timeToEmpty=" + timeToEmpty + ", timeToFillUp=" + timeToFillUp + ", type=" + type
-                + ", vitesse=" + vitesse + ", volume=" + volume + "]";
+                + ", vitesse=" + vitesse + ", capacity=" + capacity + "]";
     }
 }

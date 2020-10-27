@@ -16,13 +16,22 @@ public class Robot {
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
         this.robotType = robotType;
         this.vitesse = robotType.getVitesse();
-        this.volume = robotType.getVolume();
+        this.volume = robotType.getCapacity(); // le robot est initialement plein
     }
 
     void deverserEau(int volume) {
+        double maxEmptiedVolume = this.robotType.getMaxEmptiedVolume();
+        if (volume > maxEmptiedVolume) {
+            throw new IllegalArgumentException("Le robot ne peut pas déverser plus de " + maxEmptiedVolume + " L à la fois");
+        }
+        if (this.volume < volume) {
+            LOGGER.info("La quantité d'eau à déverser ({} L) est supérieure à la quantité d'eau présente dans le robot ({} L)", volume, this.volume);
+        }
+        this.volume -= volume;
     }
 
     void remplirReservoir() {
+        this.volume = robotType.getCapacity();
     }
 
     public MyRobotTypes.Type getType() {
