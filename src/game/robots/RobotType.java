@@ -1,6 +1,7 @@
 package game.robots;
 
 import java.util.EnumMap;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,8 @@ public class RobotType {
     private int timeToFillUp;
     EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
-    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double capacity, int maxEmptiedVolume,
-            int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
+    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double capacity,
+            int maxEmptiedVolume, int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
         LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
         this.filling = filling;
@@ -114,5 +115,28 @@ public class RobotType {
         return "RobotType [filling=" + filling + ", maxEmptiedVolume=" + maxEmptiedVolume + ", terrainVitesse="
                 + terrainVitesse + ", timeToEmpty=" + timeToEmpty + ", timeToFillUp=" + timeToFillUp + ", type=" + type
                 + ", vitesse=" + vitesse + ", capacity=" + capacity + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.type, this.filling, this.vitesse, this.vitesseMax, this.capacity,
+                this.maxEmptiedVolume, this.timeToEmpty, this.timeToFillUp, this.terrainVitesse);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check and type check
+        // instances of the type and its subtypes can never equal.
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        RobotType other = (RobotType) obj; // cast
+        return Objects.equals(type, other.type) && Objects.equals(filling, other.filling)
+                && Objects.equals(vitesse, other.vitesse) && Objects.equals(vitesseMax, other.vitesseMax)
+                && Objects.equals(capacity, other.capacity) && Objects.equals(maxEmptiedVolume, other.maxEmptiedVolume)
+                && Objects.equals(timeToEmpty, other.timeToEmpty) && Objects.equals(timeToFillUp, other.timeToFillUp)
+                && Objects.equals(terrainVitesse, other.terrainVitesse);
     }
 }

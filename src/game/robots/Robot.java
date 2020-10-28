@@ -1,5 +1,7 @@
 package game.robots;
 
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,27 +21,40 @@ public class Robot {
         this.volume = robotType.getCapacity(); // le robot est initialement plein
     }
 
-    void deverserEau(int volume) {
-        double maxEmptiedVolume = this.robotType.getMaxEmptiedVolume();
-        if (volume > maxEmptiedVolume) {
-            throw new IllegalArgumentException("Le robot ne peut pas déverser plus de " + maxEmptiedVolume + " L à la fois");
+    public Double deverserEau() {
+        double emptiedVolume = this.robotType.getMaxEmptiedVolume();
+        if (this.volume < emptiedVolume) {
+            LOGGER.info(
+                    "La quantité d'eau à déverser ({} L) est supérieure à la quantité d'eau présente dans le robot ({} L)",
+                    emptiedVolume, this.volume);
+            emptiedVolume = this.volume;
         }
-        if (this.volume < volume) {
-            LOGGER.info("La quantité d'eau à déverser ({} L) est supérieure à la quantité d'eau présente dans le robot ({} L)", volume, this.volume);
-        }
-        this.volume -= volume;
+        this.volume -= emptiedVolume;
+        return emptiedVolume;
     }
 
-    void remplirReservoir() {
-        this.volume = robotType.getCapacity();
+    public void remplirReservoir() {
+        this.volume = this.robotType.getCapacity();
     }
 
     public MyRobotTypes.Type getType() {
-        return robotType.getType();
+        return this.robotType.getType();
+    }
+
+    public Filling getFilling() {
+        return this.robotType.getFilling();
+    }
+
+    public int getTimeToEmpty() {
+        return this.robotType.getTimeToEmpty();
+    }
+
+    public int getTimeToFillUp() {
+        return this.robotType.getTimeToFillUp();
     }
 
     public Double getVitesse(NatureTerrain natureTerrain) {
-        return this.vitesse * robotType.getTerrainVitesse().get(natureTerrain);
+        return this.vitesse * this.robotType.getTerrainVitesse().get(natureTerrain);
     }
 
     public void setVitesse(Double vitesse) {
@@ -52,10 +67,34 @@ public class Robot {
         }
     }
 
+    public Double getVolume() {
+        return volume;
+    }
+
     @Override
     public String toString() {
         String res = new String();
-        res += "Robot de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume + " litres d'eau";
+        res += "Robot de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
+                + " litres d'eau";
         return res;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.robotType, this.volume, this.vitesse);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // self check
+        if (this == obj)
+            return true;
+        // null check and type check
+        // instances of the type and its subtypes can never equal.
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        Robot other = (Robot) obj; // cast
+        return Objects.equals(robotType, other.robotType) && Objects.equals(volume, other.volume)
+                && Objects.equals(vitesse, other.vitesse);
     }
 }

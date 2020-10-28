@@ -1,14 +1,22 @@
-package game;
+package game.events;
+
+import game.DonneesSimulation;
 
 public abstract class Event implements Comparable<Event> {
     protected long date;
+    protected DonneesSimulation donneesSimulation;
 
-    public Event(long date) {
+    public Event(long date, DonneesSimulation donneesSimulation) {
         this.date = date;
+        this.donneesSimulation = donneesSimulation;
     }
 
     public long getDate() {
         return this.date;
+    }
+
+    public void updateDate(long increment) {
+        this.date += increment;
     }
 
     public abstract void execute();

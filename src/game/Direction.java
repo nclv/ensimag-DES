@@ -1,10 +1,10 @@
 package game;
 
 public enum Direction {
-    EST(-1, 0),
-    NORD(0, 1),
-    SUD(0, -1),
-    OUEST(1, 0);
+    EST(1, 0),
+    NORD(0, -1),
+    SUD(0, 1),
+    OUEST(-1, 0);
 
     private final int dy;
     private final int dx;

@@ -2,12 +2,16 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.util.zip.DataFormatException;
 
+import game.Direction;
 import game.DonneesSimulation;
+import game.events.EventMove;
+import game.robots.Robot;
 import gui.GUISimulator;
 import io.LecteurDonnees;
 
-public class TestGUI {
+public class TestEventsScenario0 {
     public static void main(String[] args) {
+        args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = getDonneesSimulation(args);
 
         int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
@@ -18,6 +22,17 @@ public class TestGUI {
         );
 
         Simulateur simulateur = new Simulateur(gui, guiSizeFactor, donneesSimulation);
+
+        Robot robot = donneesSimulation.getRobots().get(3 * donneesSimulation.getCarte().getNbLignes() + 3).get(0);
+
+        long count = 0;
+        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        count += Simulateur.INCREMENT;
+        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        count += Simulateur.INCREMENT;
+        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        count += Simulateur.INCREMENT;
+        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
     }
 
     public static DonneesSimulation getDonneesSimulation(String[] args) {
