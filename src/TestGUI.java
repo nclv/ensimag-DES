@@ -195,9 +195,10 @@ class Simulateur implements Simulable {
 
         // peek/remove is faster than poll/add 
         Event event = eventQueue.peek();
-        if (event != null && event.getDate() <= this.currentDate) {
+        while (event != null && event.getDate() <= this.currentDate) {
             event.execute();
             eventQueue.remove();
+            event = eventQueue.peek();
         }
     }
 
