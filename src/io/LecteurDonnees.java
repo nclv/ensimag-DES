@@ -205,6 +205,7 @@ public class LecteurDonnees {
 
             // initialisation du stockage des robots
             donneesSimulation.setRobots(new HashMap<Integer, ArrayList<Robot>>());
+            donneesSimulation.setRobotsCoordinates(new HashMap<Robot, Integer>());
 
             for (int i = 0; i < nbRobots; i++) {
                 lireRobot(i);
@@ -245,11 +246,13 @@ public class LecteurDonnees {
                 robot.setVitesse((double)vitesse);
             }
     
+            int position = lig * donneesSimulation.getCarte().getNbLignes() + col;
             // création de la liste s'il n'y a aucun robot à cette position
             donneesSimulation.getRobots().computeIfAbsent(
-                lig * donneesSimulation.getCarte().getNbLignes() + col, 
+                position, 
                 k -> new ArrayList<Robot>())
                 .add(robot);
+            donneesSimulation.getRobotsCoordinates().put(robot, position);
 
             verifieLigneTerminee();
 

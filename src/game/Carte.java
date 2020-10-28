@@ -1,8 +1,12 @@
 package game;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 public class Carte {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Carte.class);
     /**
      * Pour le moment on choisit de fixer la taille d'une carte, on ne peut pas
      * redimmensionner la carte. Donc pas de setters pour les attributs nbLignes et
@@ -32,19 +36,51 @@ public class Carte {
         this.map = map;
     }
 
-    public NatureTerrain getTerrain(int ligne, int colonne) {
-        return map.get(ligne * nbLignes + colonne);
-    }
-
     /**
-     * Renvoie la nature du terrain voisin suivant la direction.
+     * Renvoie la position voisine suivant la direction.
      * @param ligne
      * @param colonne
      * @param direction
-     * @return null si on est en dehors de la carte, la nature du terrain sinon
+     * @return -1 si on est en dehors de la carte, la position voisine sinon
      */
-    public NatureTerrain getTerrainVoisin(int ligne, int colonne, Direction direction) {
-        return map.get((ligne + direction.getDx()) * nbLignes + (colonne + direction.getDy()));
+    public int getVoisin(int position, Direction direction) throws IllegalArgumentException {
+        int positionVoisin = position + (direction.getDy() * nbLignes + direction.getDx());
+        checkPosition(positionVoisin);
+        return positionVoisin;
+    }
+
+    public NatureTerrain getTerrain(int position) throws IllegalArgumentException {
+        checkPosition(position);
+        return map.get(position);
+    }
+
+    public NatureTerrain getTerrainVoisin(int position, Direction direction) throws IllegalArgumentException {
+        return map.get(getVoisin(position, direction));
+    }
+
+    public Boolean isTerrain(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
+        return (getTerrain(position) == natureTerrain);
+    }
+
+    public Boolean doesTerrainVoisinExist(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
+        for (Direction direction : Direction.values()) {
+            if (getTerrainVoisin(position, direction) == natureTerrain) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void checkPosition(int position) throws IllegalArgumentException {
+        int ligne = position % nbLignes;
+        int colonne = position / nbLignes;
+        if (!isOnmap(ligne, colonne)) {
+            throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
+        }
+    }
+
+    private Boolean isOnmap(int ligne, int colonne) {
+        return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
 
     public int getNbLignes() {

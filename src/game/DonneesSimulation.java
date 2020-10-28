@@ -20,8 +20,11 @@ public class DonneesSimulation {
      */
     private Carte carte;
     Map<Integer, Integer> incendies;
+    // 2 way hashmap
     // il peut y avoir plusieurs robots sur une même position
+    // a map hold references to its values
     Map<Integer, ArrayList<Robot>> robots;
+    Map<Robot, Integer> robotsCoordinates;
 
     public DonneesSimulation() {}
 
@@ -47,6 +50,14 @@ public class DonneesSimulation {
 
     public void setRobots(Map<Integer, ArrayList<Robot>> robots) {
         this.robots = robots;
+    }
+
+    public Map<Robot, Integer> getRobotsCoordinates() {
+        return robotsCoordinates;
+    }
+
+    public void setRobotsCoordinates(Map<Robot, Integer> robotsCoordinates) {
+        this.robotsCoordinates = robotsCoordinates;
     }
 
     @Override
