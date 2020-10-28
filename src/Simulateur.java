@@ -32,9 +32,11 @@ public class Simulateur implements Simulable {
     private int guiSizeFactor;
 
     private DonneesSimulation donneesSimulation;
+    private DonneesSimulation donneesSimulationSaved;
 
     private long currentDate;
     private PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
+    private PriorityQueue<Event> eventQueueSaved = new PriorityQueue<Event>();
 
     private ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
 
@@ -73,6 +75,7 @@ public class Simulateur implements Simulable {
 
         this.guiSizeFactor = guiSizeFactor;
         this.donneesSimulation = donneesSimulation;
+        this.donneesSimulationSaved = new DonneesSimulation(donneesSimulation);
 
         initMap();
     }
@@ -129,9 +132,14 @@ public class Simulateur implements Simulable {
         for (Map.Entry<Integer, Integer> fire : incendies.entrySet()) {
             int position = fire.getKey();
 
-            int intensite = fire.getValue();
-            int normalizedIntensity = (int)normUtil.normalize(intensite);
-            LOGGER.info("Intensite de l'incendie: {}, {}", intensite, normalizedIntensity);
+            int intensity = fire.getValue();
+            int normalizedIntensity = (int)normUtil.normalize(intensity);
+            LOGGER.info("Intensite de l'incendie: {}, {}", intensity, normalizedIntensity);
+
+            // si le feu est éteint on ne l'affiche pas
+            if (intensity == 0) {
+                normalizedIntensity = 0;
+            }
 
             tileImgsArray.get(position).setFireNormalizedIntensity(normalizedIntensity);
         }
@@ -174,6 +182,7 @@ public class Simulateur implements Simulable {
         LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
 
         eventQueue.add(event);
+        eventQueueSaved.add(event);
     }
 
     private void executeNextEvents() {
@@ -182,18 +191,12 @@ public class Simulateur implements Simulable {
 
         // peek/remove is faster than poll/add 
         Event event = eventQueue.peek();
-        if (event != null) {
-            LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
-        }
         while (event != null && event.getDate() <= this.currentDate) {
+            LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
             event.execute();
             eventQueue.remove();
             event = eventQueue.peek();
         }
-    }
-
-    public Boolean isSimulationEnded() {
-        return eventQueue.isEmpty();
     }
 
     public void updateCurrentDate() {
@@ -215,11 +218,17 @@ public class Simulateur implements Simulable {
     @Override
     public void restart() {
         this.currentDate = 0;
-        // repositionner les incendies et robots
-        // réinitialiser eventQueue
+        LOGGER.info("{}", this.donneesSimulation);
+        this.donneesSimulation = this.donneesSimulationSaved;
+        LOGGER.info("{}", this.donneesSimulation);
+        LOGGER.info("{}", this.eventQueue);
+        this.eventQueue = this.eventQueueSaved;
+        LOGGER.info("{}", this.eventQueue);
+        this.tileImgsArray.clear();
 
         // Update de l'affichage
         gui.reset();
+        populateTileImgsArray();
         updateAllTileImgs();
         for (TileImg tileImg : this.tileImgsArray) {
             gui.addGraphicalElement(tileImg);

@@ -36,7 +36,7 @@ public class TileImg implements GraphicalElement {
     }
 
     public void setFireNormalizedIntensity(int fireNormalizedIntensity) {
-        LOGGER.info("Assignation d'un dessin de feu en ({}, {}) d'intensite {}", this.x, this.y, fireNormalizedIntensity);
+        LOGGER.info("Assignation d'un dessin de feu en ({}, {}) d'intensite normalisée {}", this.x, this.y, fireNormalizedIntensity);
         this.fireNormalizedIntensity = fireNormalizedIntensity;
     }
 
@@ -58,7 +58,7 @@ public class TileImg implements GraphicalElement {
         }
 
         // Affichage du ou des robot(s)
-        // TODO: gérer l'affichage de plusieurs robots sur la même case
+        // TODO: revoir l'affichage de plusieurs robots sur la même case
         // coin en haut à gauche: imgsPadding = this.tileImgSize / 8, width = height = this.tileImgSize / 4
         // au milieu: imgsPadding = this.tileImgSize / 4, width = height = this.tileImgSize / 2
         if (this.tileForegroundImgsArray != null && !this.tileForegroundImgsArray.isEmpty()) {
