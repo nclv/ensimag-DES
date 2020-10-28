@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import game.robots.Robot;
@@ -27,6 +28,23 @@ public class DonneesSimulation {
     Map<Robot, Integer> robotsCoordinates;
 
     public DonneesSimulation() {}
+
+    public DonneesSimulation(DonneesSimulation another) {
+        this.carte = new Carte(another.carte);
+        this.incendies = new HashMap<Integer, Integer>(another.incendies);
+        this.robots = new HashMap<Integer, ArrayList<Robot>>();
+        for (Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {
+            ArrayList<Robot> robotsList = new ArrayList<Robot>();
+            for (Robot robot : entry.getValue()) {
+                robotsList.add(new Robot(robot));
+            }
+            this.robots.put(entry.getKey(), robotsList);
+        }
+        this.robotsCoordinates = new HashMap<Robot, Integer>();
+        for (Map.Entry<Robot, Integer> entry : another.robotsCoordinates.entrySet()) {
+            this.robotsCoordinates.put(entry.getKey(), entry.getValue());
+        };
+    }
 
     public Carte getCarte() {
         return carte;

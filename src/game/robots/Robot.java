@@ -21,8 +21,15 @@ public class Robot {
         this.volume = robotType.getCapacity(); // le robot est initialement plein
     }
 
+    public Robot(Robot another) {
+        this.robotType = another.robotType;
+        this.vitesse = another.vitesse;
+        this.volume = another.volume;
+    }
+
     public Double deverserEau() {
         double emptiedVolume = this.robotType.getMaxEmptiedVolume();
+        // we make sure there cannot be < 0 volume values
         if (this.volume < emptiedVolume) {
             LOGGER.info(
                     "La quantité d'eau à déverser ({} L) est supérieure à la quantité d'eau présente dans le robot ({} L)",
@@ -51,6 +58,10 @@ public class Robot {
 
     public int getTimeToFillUp() {
         return this.robotType.getTimeToFillUp();
+    }
+
+    public int getMaxEmptiedVolume() {
+        return this.robotType.getMaxEmptiedVolume();
     }
 
     public Double getVitesse(NatureTerrain natureTerrain) {

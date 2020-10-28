@@ -21,6 +21,7 @@ public class EventMove extends Event {
         this.robot = robot;
         this.direction = direction;
 
+        // on a besoin des positions pour update la durée du mouvement
         int position = this.donneesSimulation.getRobotsCoordinates().get(this.robot);
         try {
             // throws IllegalArgumentException if outside the map

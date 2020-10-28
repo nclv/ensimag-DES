@@ -3,6 +3,7 @@ package game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Carte {
@@ -34,6 +35,13 @@ public class Carte {
         this.nbColonnes = nbColonnes;
         this.tailleCases = tailleCases;
         this.map = map;
+    }
+
+    public Carte(Carte another) {
+        this.nbLignes = another.nbLignes;
+        this.nbColonnes = another.nbColonnes;
+        this.tailleCases = another.tailleCases;
+        this.map = new HashMap<Integer, NatureTerrain>(another.map);
     }
 
     /**
