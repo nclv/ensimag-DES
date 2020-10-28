@@ -9,6 +9,14 @@
             "name": "CodeLens (Launch) - TestGUI",
             "request": "launch",
             "mainClass": "TestGUI",
+            "projectName": "ensimag-robots-pompiers_50671edf",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestGUI",
+            "request": "launch",
+            "mainClass": "TestGUI",
             "projectName": "ensimag-robots-pompiers_ecafeb16",
             "args": "${command:SpecifyProgramArgs}"
         },
@@ -17,7 +25,7 @@
             "name": "CodeLens (Launch) - TestInvader",
             "request": "launch",
             "mainClass": "TestInvader",
-            "projectName": "ensimag-robots-pompiers_ecafeb16"
+            "projectName": "ensimag-robots-pompiers_ecafeb16",
         },
         {
             "type": "java",
