@@ -19,7 +19,7 @@ public abstract class Event implements Comparable<Event> {
     }
 
     public void updateDate(long newdate) {
-        if (newdate > this.date)
+        if (this.date < newdate)
             this.date = newdate;
     }
 
