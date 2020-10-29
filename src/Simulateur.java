@@ -212,7 +212,7 @@ public class Simulateur implements Simulable {
         // le robot est occupé pendant duration, on ne peut plus exécuter d'actions avec ce robot
         // il faut incrémenter la date des évènements de ce robot de duration
         ArrayList<Event> eventsToAdd = new ArrayList<Event>();
-        Iterator<Event> events = eventQueue.iterator();
+        Iterator<Event> events = this.eventQueue.iterator();
         while (events.hasNext()) {
             Event currentEvent = events.next();
             // problème d'égalité possible si l'égalité des volumes est vérifiée dans equals()
@@ -226,7 +226,7 @@ public class Simulateur implements Simulable {
                 eventsToAdd.add(currentEvent);
             }
         }
-        eventQueue.addAll(eventsToAdd);
+        this.eventQueue.addAll(eventsToAdd);
     }
 
     @Override
