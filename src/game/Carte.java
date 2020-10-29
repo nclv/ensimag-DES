@@ -38,10 +38,7 @@ public class Carte {
     }
 
     public Carte(Carte another) {
-        this.nbLignes = another.nbLignes;
-        this.nbColonnes = another.nbColonnes;
-        this.tailleCases = another.tailleCases;
-        this.map = new HashMap<Integer, NatureTerrain>(another.map);
+        this(another.nbLignes, another.nbColonnes, another.tailleCases, new HashMap<Integer, NatureTerrain>(another.map));
     }
 
     /**

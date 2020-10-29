@@ -18,6 +18,10 @@ public class EventFill extends Event {
         super(date, donneesSimulation, robot);
     }
 
+    public EventFill copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
+        return new EventFill(this.date, donneesSimulationSaved, robotSaved);
+    }
+
     public long getDuration() {
         long timeToFillUp = getRobot().getTimeToFillUp();
         

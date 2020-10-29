@@ -70,6 +70,15 @@ public class DonneesSimulation {
         this.robots = robots;
     }
 
+    public Robot getRobot(Robot robot) {
+        for (Robot currentRobot : this.robotsCoordinates.keySet()) {
+            if (currentRobot.equals(robot)) {
+                return currentRobot;
+            }
+        }
+        return null;
+    }
+
     public Map<Robot, Integer> getRobotsCoordinates() {
         return robotsCoordinates;
     }

@@ -16,6 +16,10 @@ public class EventEmpty extends Event {
         super(date, donneesSimulation, robot);
     }
 
+    public EventEmpty copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
+        return new EventEmpty(this.date, donneesSimulationSaved, robotSaved);
+    }
+
     public long getDuration() {
         long timeToEmpty = 0;
         // le feu se trouve sur la position du robot

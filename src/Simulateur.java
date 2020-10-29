@@ -183,7 +183,11 @@ public class Simulateur implements Simulable {
         LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
 
         eventQueue.add(event);
-        eventQueueSaved.add(event);
+        Robot robotSaved = this.donneesSimulationSaved.getRobot(event.getRobot());
+        if (robotSaved == null) {
+            LOGGER.error("ERREUR: le robot n'est pas présent");
+        }
+        eventQueueSaved.add(event.copy(this.donneesSimulationSaved, robotSaved));
     }
 
     private void executeNextEvents() {
@@ -259,6 +263,7 @@ public class Simulateur implements Simulable {
         gui.reset();
         populateTileImgsArray();
         updateAllTileImgs();
+        LOGGER.info("{}", this.tileImgsArray);
         for (TileImg tileImg : this.tileImgsArray) {
             gui.addGraphicalElement(tileImg);
         }

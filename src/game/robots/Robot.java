@@ -24,9 +24,7 @@ public class Robot implements IdentifiedEntity<Long> {
     }
 
     public Robot(Robot another) {
-        this.robotType = another.robotType;
-        this.vitesse = another.vitesse;
-        this.volume = another.volume;
+        this(another.robotType, another.robotId);
     }
 
     public Double deverserEau() {
@@ -66,8 +64,13 @@ public class Robot implements IdentifiedEntity<Long> {
         return this.robotType.getMaxEmptiedVolume();
     }
 
-    public Double getVitesse(NatureTerrain natureTerrain) {
-        return this.vitesse * this.robotType.getTerrainVitesse().get(natureTerrain);
+    public Double getVitesse(NatureTerrain natureTerrain) throws IllegalArgumentException {
+        // vitesse nulle si le robot ne peut pas se déplacer sur le terrain
+        double speedFactor = this.robotType.getTerrainVitesse().getOrDefault(natureTerrain, 0.0);
+        if (speedFactor == 0.0) {
+            throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
+        }
+        return this.vitesse * speedFactor;
     }
 
     public void setVitesse(Double vitesse) {
