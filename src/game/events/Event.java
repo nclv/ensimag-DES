@@ -14,6 +14,8 @@ public abstract class Event implements Comparable<Event> {
         this.robot = robot;
     }
 
+    public abstract Event copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved);
+
     public long getDate() {
         return this.date;
     }
@@ -27,8 +29,8 @@ public abstract class Event implements Comparable<Event> {
         return robot;
     }
 
-    public abstract void execute();
     public abstract long getDuration();
+    public abstract void execute();
 
     @Override
     public int compareTo(Event o) {
@@ -40,5 +42,10 @@ public abstract class Event implements Comparable<Event> {
 			return 0;
 		else
 			return 1;
+    }
+
+    @Override
+    public String toString() {
+        return this.robot + "\nDate: " + this.date + "\n" + donneesSimulation.getRobots();
     }
 }

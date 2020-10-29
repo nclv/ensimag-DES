@@ -20,6 +20,10 @@ public class EventMove extends Event {
         this.direction = direction;
     }
 
+    public EventMove copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
+        return new EventMove(this.date, donneesSimulationSaved, robotSaved, this.direction);
+    }
+
     public long getDuration() {
         long timeToMove = 0;
         // on a besoin des positions pour update la durée du mouvement
@@ -39,7 +43,7 @@ public class EventMove extends Event {
 
     // Le temps nécessaire pour se rendre d’une case à l’autre sera la moyenne de la
     // vitesse sur chacune des cases multipliée par la taille des cases.
-    public long getTimeToMove(int position, int newPosition) {
+    public long getTimeToMove(int position, int newPosition) throws IllegalArgumentException {
         Carte carte = this.donneesSimulation.getCarte();
         // LOGGER.info("{}km/h sur {}, {}km/h sur {}, pour des cases de taille {}",
         //         getRobot().getVitesse(carte.getTerrain(position)), carte.getTerrain(position),
