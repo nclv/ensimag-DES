@@ -31,7 +31,7 @@ public class TestEventsScenario1 {
         simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
         count += Simulateur.INCREMENT;
         
-        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot, 5 * donneesSimulation.getCarte().getNbLignes() + 5, 8000));
+        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot));
         count += Simulateur.INCREMENT;
 
         simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.OUEST));
@@ -47,7 +47,7 @@ public class TestEventsScenario1 {
         simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.EST));
         count += Simulateur.INCREMENT;
 
-        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot, 5 * donneesSimulation.getCarte().getNbLignes() + 5, 3000));
+        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot));
         count += Simulateur.INCREMENT;
     }
 

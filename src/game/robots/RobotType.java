@@ -10,6 +10,8 @@ import game.NatureTerrain;
 
 public class RobotType {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotType.class);
+    private static long id = 0;  // tous les types de robots partage le même id de départ
+
     private MyRobotTypes.Type type;
     private Filling filling; // méthode de remplissage: ON, NEXT or NONE
     private Double vitesse;
@@ -35,7 +37,7 @@ public class RobotType {
     }
 
     public Robot newRobot() {
-        return new Robot(this);
+        return new Robot(this, id++);
     }
 
     public MyRobotTypes.Type getType() {

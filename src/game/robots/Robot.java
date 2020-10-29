@@ -8,15 +8,17 @@ import org.slf4j.LoggerFactory;
 import game.NatureTerrain;
 
 // on ne peut pas instancier une classe abstraite
-public class Robot {
+public class Robot implements IdentifiedEntity<Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(Robot.class);
     RobotType robotType;
+    private long robotId;
     private Double vitesse;
     private Double volume;
 
-    public Robot(RobotType robotType) {
+    public Robot(RobotType robotType, long robotId) {
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
         this.robotType = robotType;
+        this.robotId = robotId;
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
     }
@@ -91,6 +93,11 @@ public class Robot {
     }
 
     @Override
+    public Long getId() {
+        return this.robotId;
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(this.robotType, this.volume, this.vitesse);
     }
@@ -105,7 +112,8 @@ public class Robot {
         if (obj == null || getClass() != obj.getClass())
             return false;
         Robot other = (Robot) obj; // cast
-        return Objects.equals(robotType, other.robotType) && Objects.equals(volume, other.volume)
-                && Objects.equals(vitesse, other.vitesse);
+        // le volume est variable pour un même robot, il ne sert donc pas à identifier un robot mais son état
+        // && Objects.equals(volume, other.volume)
+        return Objects.equals(robotType, other.robotType) && Objects.equals(vitesse, other.vitesse);
     }
 }
