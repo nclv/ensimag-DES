@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
@@ -186,14 +187,15 @@ public class Simulateur implements Simulable {
     }
 
     private void executeNextEvents() {
-        updateCurrentDate();
-        LOGGER.info("Date courante: {}", this.currentDate);
-
         // peek/remove is faster than poll/add 
         Event event = eventQueue.peek();
         while (event != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
+            
+            updateEventQueue(event);
+            // on exécute l'action pour le robot
             event.execute();
+            
             eventQueue.remove();
             event = eventQueue.peek();
         }
@@ -203,9 +205,36 @@ public class Simulateur implements Simulable {
         this.currentDate += INCREMENT;
     }
 
+    public void updateEventQueue(Event event) {
+        // récupère la durée de l'event
+        long duration = event.getDuration();
+        LOGGER.info("Fin d'exécution: {}", duration);
+        // le robot est occupé pendant duration, on ne peut plus exécuter d'actions avec ce robot
+        // il faut incrémenter la date des évènements de ce robot de duration
+        ArrayList<Event> eventsToAdd = new ArrayList<Event>();
+        Iterator<Event> events = eventQueue.iterator();
+        while (events.hasNext()) {
+            Event currentEvent = events.next();
+            // problème d'égalité possible si l'égalité des volumes est vérifiée dans equals()
+            // on implémente un id propre à chaque robot
+            if (currentEvent.getRobot().getId().equals(event.getRobot().getId())) {
+                // on incrémente la date de l'event de la durée de l'event exécuté
+                // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
+                currentEvent.updateDate(this.currentDate + duration);
+                LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
+                events.remove();
+                eventsToAdd.add(currentEvent);
+            }
+        }
+        eventQueue.addAll(eventsToAdd);
+    }
+
     @Override
     public void next() {
         executeNextEvents();
+
+        updateCurrentDate();
+        LOGGER.info("Date courante: {}", this.currentDate);
 
         // Update de l'affichage
         gui.reset();
