@@ -33,7 +33,7 @@ public class Simulateur implements Simulable {
     private int guiSizeFactor;
 
     private DonneesSimulation donneesSimulation;
-    private DonneesSimulation donneesSimulationSaved;
+    private final DonneesSimulation donneesSimulationSaved;
 
     private long currentDate;
     private PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
@@ -113,6 +113,17 @@ public class Simulateur implements Simulable {
         }
     }
 
+    private void resetTileImgs() {
+        Map<Integer, NatureTerrain> map = this.donneesSimulation.getCarte().getMap();
+
+        for (Map.Entry<Integer, NatureTerrain> tile : map.entrySet()) {
+            int position = tile.getKey();
+            TileImg tileImg = tileImgsArray.get(position);
+            tileImg.setFireNormalizedIntensity(0);
+            tileImg.setTileForegroundImgsArray(null);
+        }
+    }
+
     private void updateAllTileImgs() {
         if (!this.tileImgsArray.isEmpty()) {
             setIncendies();
@@ -183,11 +194,11 @@ public class Simulateur implements Simulable {
         LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
 
         eventQueue.add(event);
-        Robot robotSaved = this.donneesSimulationSaved.getRobot(event.getRobot());
-        if (robotSaved == null) {
-            LOGGER.error("ERREUR: le robot n'est pas présent");
-        }
-        eventQueueSaved.add(event.copy(this.donneesSimulationSaved, robotSaved));
+        eventQueueSaved.add(event.copy(this.donneesSimulation));
+    }
+
+    public void restoreEvents() {
+
     }
 
     private void executeNextEvents() {
@@ -196,9 +207,14 @@ public class Simulateur implements Simulable {
         while (event != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
             
-            updateEventQueue(event);
-            // on exécute l'action pour le robot
-            event.execute();
+            // on exécute l'action pour le robot si l'action est valide
+            try {
+                updateEventQueue(event);
+                event.execute();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+            
             
             eventQueue.remove();
             event = eventQueue.peek();
@@ -209,7 +225,7 @@ public class Simulateur implements Simulable {
         this.currentDate += INCREMENT;
     }
 
-    public void updateEventQueue(Event event) {
+    public void updateEventQueue(Event event) throws IllegalArgumentException {
         // récupère la durée de l'event
         long duration = event.getDuration();
         LOGGER.info("Fin d'exécution: {}", duration);
@@ -251,19 +267,19 @@ public class Simulateur implements Simulable {
     @Override
     public void restart() {
         this.currentDate = 0;
-        LOGGER.info("{}", this.donneesSimulation);
-        this.donneesSimulation = this.donneesSimulationSaved;
-        LOGGER.info("{}", this.donneesSimulation);
-        LOGGER.info("{}", this.eventQueue);
-        this.eventQueue = this.eventQueueSaved;
-        LOGGER.info("{}", this.eventQueue);
-        this.tileImgsArray.clear();
-
+        
+        this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
+        this.eventQueue = new PriorityQueue<Event>();
+        // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument lorsuqe l'on exécute l'event
+        this.eventQueueSaved.stream().forEach((event) -> eventQueue.add(event.copy(this.donneesSimulation)));
+        
+        
         // Update de l'affichage
         gui.reset();
-        populateTileImgsArray();
+        // this.tileImgsArray.clear();
+        // populateTileImgsArray();
+        resetTileImgs(); // mieux
         updateAllTileImgs();
-        LOGGER.info("{}", this.tileImgsArray);
         for (TileImg tileImg : this.tileImgsArray) {
             gui.addGraphicalElement(tileImg);
         }

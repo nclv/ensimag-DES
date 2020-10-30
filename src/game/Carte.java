@@ -37,10 +37,6 @@ public class Carte {
         this.map = map;
     }
 
-    public Carte(Carte another) {
-        this(another.nbLignes, another.nbColonnes, another.tailleCases, new HashMap<Integer, NatureTerrain>(another.map));
-    }
-
     /**
      * Renvoie la position voisine suivant la direction.
      * @param ligne
