@@ -16,8 +16,8 @@ public class EventEmpty extends Event {
         super(date, donneesSimulation, robot);
     }
 
-    public EventEmpty copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
-        return new EventEmpty(this.date, donneesSimulationSaved, robotSaved);
+    public EventEmpty copy(DonneesSimulation donneesSimulation){
+        return new EventEmpty(getDate(), donneesSimulation, getRobot());
     }
 
     public long getDuration() {
@@ -31,9 +31,7 @@ public class EventEmpty extends Event {
             // temps mis pour une extinction globale
             timeToEmpty = getRobot().getTimeToEmpty() * (intensity / getRobot().getMaxEmptiedVolume());
             LOGGER.info("Intensité: {}, Temps: {}", intensity, timeToEmpty);
-            // updateDate(timeToEmpty);
         }
-        // LOGGER.info("Fin d'exécution à {}", getDate());
 
         return timeToEmpty;
     }

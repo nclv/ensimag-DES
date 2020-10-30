@@ -69,4 +69,11 @@ public class TileImg implements GraphicalElement {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        String res = "Intensité du feu: " + this.fireNormalizedIntensity + "\n";
+        res += "Robot présent: " + (this.tileForegroundImgsArray != null);
+        return res;
+    }
 }

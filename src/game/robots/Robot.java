@@ -19,12 +19,12 @@ public class Robot implements IdentifiedEntity<Long> {
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
         this.robotType = robotType;
         this.robotId = robotId;
-        this.vitesse = robotType.getVitesse();
-        this.volume = robotType.getCapacity(); // le robot est initialement plein
+        init();
     }
 
-    public Robot(Robot another) {
-        this(another.robotType, another.robotId);
+    public void init() {
+        this.vitesse = robotType.getVitesse();
+        this.volume = robotType.getCapacity(); // le robot est initialement plein
     }
 
     public Double deverserEau() {

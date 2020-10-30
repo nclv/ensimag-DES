@@ -20,24 +20,20 @@ public class EventMove extends Event {
         this.direction = direction;
     }
 
-    public EventMove copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
-        return new EventMove(this.date, donneesSimulationSaved, robotSaved, this.direction);
+    public EventMove copy(DonneesSimulation donneesSimulation){
+        return new EventMove(getDate(), donneesSimulation, getRobot(), this.direction);
     }
 
-    public long getDuration() {
+    public long getDuration() throws IllegalArgumentException {
         long timeToMove = 0;
         // on a besoin des positions pour update la durée du mouvement
         int position = this.donneesSimulation.getRobotsCoordinates().get(getRobot());
-        try {
-            // throws IllegalArgumentException if outside the map
-            int newPosition = this.donneesSimulation.getCarte().getVoisin(position, this.direction);
-            timeToMove = getTimeToMove(position, newPosition);
-            LOGGER.info("Réception de l'ordre à {}", getDate());
-            // updateDate(timeToMove);
-            // LOGGER.info("Fin d'exécution à {}", getDate());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
+        // throws IllegalArgumentException if outside the map
+        int newPosition = this.donneesSimulation.getCarte().getVoisin(position, this.direction);
+        // throws IllegalArgumentException if the robot can't move on the position
+        timeToMove = getTimeToMove(position, newPosition);
+        LOGGER.info("Réception de l'ordre à {}", getDate());
+        
         return timeToMove;
     }
 
@@ -67,7 +63,10 @@ public class EventMove extends Event {
 
             // update the robot position
             robotsCoordinates.put(getRobot(), newPosition);
-            robots.get(position).remove(getRobot());
+            ArrayList<Robot> robotsList = robots.get(position);
+            // delete the robot
+            robotsList.remove(getRobot());
+            
             robots.computeIfAbsent(newPosition, k -> new ArrayList<Robot>()).add(getRobot());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();

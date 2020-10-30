@@ -18,22 +18,20 @@ public class EventFill extends Event {
         super(date, donneesSimulation, robot);
     }
 
-    public EventFill copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved){
-        return new EventFill(this.date, donneesSimulationSaved, robotSaved);
+    public EventFill copy(DonneesSimulation donneesSimulation){
+        return new EventFill(getDate(), donneesSimulation, getRobot());
     }
 
     public long getDuration() {
         long timeToFillUp = getRobot().getTimeToFillUp();
         
         LOGGER.info("Réception de l'ordre à {}", getDate());
-        // updateDate(timeToFillUp);
-        // LOGGER.info("Fin d'exécution à {}", getDate());
         
         return timeToFillUp;
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IllegalArgumentException {
         Map<Robot, Integer> robotsCoordinates = this.donneesSimulation.getRobotsCoordinates();
         Carte carte = this.donneesSimulation.getCarte();
 
@@ -53,20 +51,17 @@ public class EventFill extends Event {
             canFill = true;
         }
 
-        try {
-            if (!canFill) {
-                throw new IllegalArgumentException("On ne peut pas remplir le robot sur cette position.");
-            }
-
-            LOGGER.info("{} en {} se remplit.", getRobot(), position);
-            // remove old robot
-            robotsCoordinates.remove(getRobot());
-            getRobot().remplirReservoir();
-            LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
-            // put same robot with updated volume field
-            robotsCoordinates.put(getRobot(), position);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
+        if (!canFill) {
+            throw new IllegalArgumentException("On ne peut pas remplir le robot sur cette position.");
         }
+
+        // on remplit si canFill == true
+        LOGGER.info("{} en {} se remplit.", getRobot(), position);
+        // remove old robot
+        robotsCoordinates.remove(getRobot());
+        getRobot().remplirReservoir();
+        LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
+        // put same robot with updated volume field
+        robotsCoordinates.put(getRobot(), position);
     }
 }

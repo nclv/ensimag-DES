@@ -14,7 +14,7 @@ public abstract class Event implements Comparable<Event> {
         this.robot = robot;
     }
 
-    public abstract Event copy(DonneesSimulation donneesSimulationSaved, Robot robotSaved);
+    public abstract Event copy(DonneesSimulation donneesSimulation);
 
     public long getDate() {
         return this.date;
