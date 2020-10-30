@@ -32,7 +32,6 @@ public class EventMove extends Event {
         int newPosition = this.donneesSimulation.getCarte().getVoisin(position, this.direction);
         // throws IllegalArgumentException if the robot can't move on the position
         timeToMove = getTimeToMove(position, newPosition);
-        LOGGER.info("Réception de l'ordre à {}", getDate());
         
         return timeToMove;
     }

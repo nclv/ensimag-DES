@@ -76,6 +76,7 @@ public class Simulateur implements Simulable {
 
         this.guiSizeFactor = guiSizeFactor;
         this.donneesSimulation = donneesSimulation;
+        LOGGER.info("Copie des données initiales de la simulation");
         this.donneesSimulationSaved = new DonneesSimulation(donneesSimulation);
 
         initMap();
@@ -253,11 +254,13 @@ public class Simulateur implements Simulable {
     public void next() {
         executeNextEvents();
 
+        LOGGER.info("Ancienne date courante: {}", this.currentDate);
         updateCurrentDate();
-        LOGGER.info("Date courante: {}", this.currentDate);
+        LOGGER.info("Nouvelle date courante: {}", this.currentDate);
 
         // Update de l'affichage
         gui.reset();
+        LOGGER.info("Mise à jour des entités:");
         updateAllTileImgs();
         for (TileImg tileImg : this.tileImgsArray) {
             gui.addGraphicalElement(tileImg);
