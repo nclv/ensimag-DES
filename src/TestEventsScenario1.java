@@ -30,9 +30,6 @@ public class TestEventsScenario1 {
         long count = 0;
         simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
         count += Simulateur.INCREMENT;
-
-        simulateur.addEvent(new EventFill(count, donneesSimulation, robot));
-        count += Simulateur.INCREMENT;
         
         simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot));
         count += Simulateur.INCREMENT;

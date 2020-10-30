@@ -41,7 +41,7 @@ public class DonneesSimulation {
         // on rappelle que les 2 HashMaps doivent être synchrones.
         this.robots = new HashMap<Integer, ArrayList<Robot>>();
         this.robotsCoordinates = new HashMap<Robot, Integer>();
-        LOGGER.info("Another robots: {} \n {}", another.robots, another.robotsCoordinates);
+        // LOGGER.info("Another robots: {} \n {}", another.robots, another.robotsCoordinates);
         for (Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {
             for (Robot robot : entry.getValue()) {
                 robot.init(); // on ne cré pas de nouveaux objets robots, on les réinitialise
@@ -49,7 +49,7 @@ public class DonneesSimulation {
                 this.robotsCoordinates.put(robot, entry.getKey()); // on stocke les nouveaux robots
             }
         }
-        LOGGER.info("My robots: {} \n {}", this.robots, this.robotsCoordinates);
+        // LOGGER.info("My robots: {} \n {}", this.robots, this.robotsCoordinates);
     }
 
     public Carte getCarte() {

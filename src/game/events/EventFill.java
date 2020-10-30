@@ -24,9 +24,6 @@ public class EventFill extends Event {
 
     public long getDuration() {
         long timeToFillUp = getRobot().getTimeToFillUp();
-        
-        LOGGER.info("Réception de l'ordre à {}", getDate());
-        
         return timeToFillUp;
     }
 

@@ -25,7 +25,6 @@ public class EventEmpty extends Event {
         // le feu se trouve sur la position du robot
         int firePosition = this.donneesSimulation.getRobotsCoordinates().get(getRobot());
         // calcul du temps mis pour éteindre complètement l'incendie
-        LOGGER.info("Réception de l'ordre à {}", getDate());
         Integer intensity = this.donneesSimulation.getIncendies().get(firePosition);
         if (intensity != null) {
             // temps mis pour une extinction globale
