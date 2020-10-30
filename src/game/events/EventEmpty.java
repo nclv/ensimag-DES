@@ -12,20 +12,20 @@ public class EventEmpty extends Event {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventEmpty.class);
 
     // le robot déverse de l'eau sur sa position
-    public EventEmpty(long date, DonneesSimulation donneesSimulation, Robot robot) {
+    public EventEmpty(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
         super(date, donneesSimulation, robot);
     }
 
-    public EventEmpty copy(DonneesSimulation donneesSimulation){
+    public EventEmpty copy(final DonneesSimulation donneesSimulation) {
         return new EventEmpty(getDate(), donneesSimulation, getRobot());
     }
 
     public long getDuration() {
         long timeToEmpty = 0;
         // le feu se trouve sur la position du robot
-        int firePosition = this.donneesSimulation.getRobotsCoordinates().get(getRobot());
+        final int firePosition = getRobot().getPosition();
         // calcul du temps mis pour éteindre complètement l'incendie
-        Integer intensity = this.donneesSimulation.getIncendies().get(firePosition);
+        final Integer intensity = getDonneesSimulation().getIncendies().get(firePosition);
         if (intensity != null) {
             // temps mis pour une extinction globale
             timeToEmpty = getRobot().getTimeToEmpty() * (intensity / getRobot().getMaxEmptiedVolume());
@@ -37,15 +37,11 @@ public class EventEmpty extends Event {
 
     @Override
     public void execute() {
-        Map<Robot, Integer> robotsCoordinates = this.donneesSimulation.getRobotsCoordinates();
-        Map<Integer, Integer> incendies = this.donneesSimulation.getIncendies();
+        final Map<Integer, Integer> incendies = getDonneesSimulation().getIncendies();
 
         // save position
-        int position = robotsCoordinates.get(getRobot());
-
+        final int position = getRobot().getPosition();
         LOGGER.info("{} en {} déverse de l'eau.", getRobot(), position);
-        // remove old robot
-        robotsCoordinates.remove(getRobot());
 
         // extinction totale
         // on diminue l'intensité de l'incendie s'il y a un incendie à cette position
@@ -64,8 +60,5 @@ public class EventEmpty extends Event {
             }
         }
         LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
-        
-        // put same robot with updated volume field
-        robotsCoordinates.put(getRobot(), position);
     }
 }

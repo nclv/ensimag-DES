@@ -5,22 +5,28 @@ import game.robots.Robot;
 
 public abstract class Event implements Comparable<Event> {
     protected long date;
-    private Robot robot;
+    protected Robot robot;
     protected DonneesSimulation donneesSimulation;
 
-    public Event(long date, DonneesSimulation donneesSimulation, Robot robot) {
+    public Event(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
         this.date = date;
         this.donneesSimulation = donneesSimulation;
         this.robot = robot;
     }
 
+    /**
+     * Renvoie une copy de l'évènement avec des données de simulation différentes.
+     * 
+     * @param donneesSimulation
+     * @return nouvel event
+     */
     public abstract Event copy(DonneesSimulation donneesSimulation);
 
     public long getDate() {
         return this.date;
     }
 
-    public void updateDate(long newdate) {
+    public void updateDate(final long newdate) {
         if (this.date < newdate)
             this.date = newdate;
     }
@@ -29,11 +35,16 @@ public abstract class Event implements Comparable<Event> {
         return robot;
     }
 
+    public DonneesSimulation getDonneesSimulation() {
+        return donneesSimulation;
+    }
+
     public abstract long getDuration();
+
     public abstract void execute();
 
     @Override
-    public int compareTo(Event o) {
+    public int compareTo(final Event o) {
 		if (o == null)
 			throw new NullPointerException();
 		if (this.date < o.getDate())

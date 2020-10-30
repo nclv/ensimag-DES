@@ -73,8 +73,8 @@ public class Carte {
     }
 
     private void checkPosition(int position) throws IllegalArgumentException {
-        int ligne = position % nbLignes;
-        int colonne = position / nbLignes;
+        int ligne = position / nbLignes;
+        int colonne = position % nbLignes;
         if (!isOnmap(ligne, colonne)) {
             throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
         }

@@ -10,21 +10,23 @@ import game.NatureTerrain;
 // on ne peut pas instancier une classe abstraite
 public class Robot implements IdentifiedEntity<Long> {
     private static final Logger LOGGER = LoggerFactory.getLogger(Robot.class);
-    RobotType robotType;
-    private long robotId;
+    private final RobotType robotType;
+    private final long robotId;
     private Double vitesse;
     private Double volume;
+    private Integer position;
 
-    public Robot(RobotType robotType, long robotId) {
+    public Robot(final RobotType robotType, final long robotId, final int position) {
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
         this.robotType = robotType;
         this.robotId = robotId;
-        init();
+        init(position);
     }
 
-    public void init() {
+    public void init(final int position) {
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
+        this.position = position;
     }
 
     public Double deverserEau() {
@@ -38,6 +40,10 @@ public class Robot implements IdentifiedEntity<Long> {
         }
         this.volume -= emptiedVolume;
         return emptiedVolume;
+    }
+
+    public Double getVolume() {
+        return volume;
     }
 
     public void remplirReservoir() {
@@ -64,17 +70,17 @@ public class Robot implements IdentifiedEntity<Long> {
         return this.robotType.getMaxEmptiedVolume();
     }
 
-    public Double getVitesse(NatureTerrain natureTerrain) throws IllegalArgumentException {
+    public Double getVitesse(final NatureTerrain natureTerrain) throws IllegalArgumentException {
         // vitesse nulle si le robot ne peut pas se déplacer sur le terrain
-        double speedFactor = this.robotType.getTerrainVitesse().getOrDefault(natureTerrain, 0.0);
+        final double speedFactor = this.robotType.getTerrainVitesse().getOrDefault(natureTerrain, 0.0);
         if (speedFactor == 0.0) {
             throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
         }
         return this.vitesse * speedFactor;
     }
 
-    public void setVitesse(Double vitesse) {
-        Double vitesseMax = robotType.getVitesseMax();
+    public void setVitesse(final Double vitesse) {
+        final Double vitesseMax = robotType.getVitesseMax();
         if (vitesse <= vitesseMax) {
             LOGGER.info("Set vitesse = {} km/h", vitesse);
             this.vitesse = vitesse;
@@ -83,8 +89,17 @@ public class Robot implements IdentifiedEntity<Long> {
         }
     }
 
-    public Double getVolume() {
-        return volume;
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(final Integer position) {
+        this.position = position;
+    }
+
+    @Override
+    public Long getId() {
+        return this.robotId;
     }
 
     @Override
@@ -96,17 +111,12 @@ public class Robot implements IdentifiedEntity<Long> {
     }
 
     @Override
-    public Long getId() {
-        return this.robotId;
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(this.robotType, this.volume, this.vitesse);
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         // self check
         if (this == obj)
             return true;
@@ -114,9 +124,8 @@ public class Robot implements IdentifiedEntity<Long> {
         // instances of the type and its subtypes can never equal.
         if (obj == null || getClass() != obj.getClass())
             return false;
-        Robot other = (Robot) obj; // cast
+        final Robot other = (Robot) obj; // cast
         // le volume est variable pour un même robot, il ne sert donc pas à identifier un robot mais son état
-        // && Objects.equals(volume, other.volume)
-        return Objects.equals(robotType, other.robotType) && Objects.equals(vitesse, other.vitesse);
+        return Objects.equals(robotId, other.robotId);
     }
 }

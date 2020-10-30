@@ -54,9 +54,10 @@ public class LecteurDonnees {
      * 
      * @param fichierDonnees nom du fichier à lire
      */
-    public static DonneesSimulation lire(String fichierDonnees) throws FileNotFoundException, DataFormatException {
+    public static DonneesSimulation lire(final String fichierDonnees)
+            throws FileNotFoundException, DataFormatException {
         LOGGER.info("Lecture du fichier {}", fichierDonnees);
-        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+        final LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
         donneesSimulation = new DonneesSimulation();
 
         lecteur.lireCarte();
@@ -78,7 +79,7 @@ public class LecteurDonnees {
      * 
      * @param fichierDonnees nom du fichier a lire
      */
-    private LecteurDonnees(String fichierDonnees) throws FileNotFoundException {
+    private LecteurDonnees(final String fichierDonnees) throws FileNotFoundException {
         scanner = new Scanner(new File(fichierDonnees));
         scanner.useLocale(Locale.US);
     }
@@ -91,9 +92,9 @@ public class LecteurDonnees {
     private void lireCarte() throws DataFormatException {
         ignorerCommentaires();
         try {
-            int nbLignes = scanner.nextInt();
-            int nbColonnes = scanner.nextInt();
-            int tailleCases = scanner.nextInt(); // en m
+            final int nbLignes = scanner.nextInt();
+            final int nbColonnes = scanner.nextInt();
+            final int tailleCases = scanner.nextInt(); // en m
 
             // Création de la carte
             donneesSimulation.setCarte(new Carte(nbLignes, nbColonnes, tailleCases,
@@ -108,7 +109,7 @@ public class LecteurDonnees {
                 }
             }
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException("Format invalide. " + "Attendu: nbLignes nbColonnes tailleCases");
         }
         // une ExceptionFormat levee depuis lireCase est remontee telle quelle
@@ -117,7 +118,7 @@ public class LecteurDonnees {
     /**
      * Lit et affiche les donnees d'une case.
      */
-    private void lireCase(int lig, int col) throws DataFormatException {
+    private void lireCase(final int lig, final int col) throws DataFormatException {
         ignorerCommentaires();
         String chaineNature = new String();
         // NatureTerrain nature;
@@ -129,14 +130,14 @@ public class LecteurDonnees {
             // NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
 
             // on stocke le type de terrain
-            Carte carte = donneesSimulation.getCarte();
+            final Carte carte = donneesSimulation.getCarte();
             carte.getMap().put(lig * carte.getNbLignes() + col, NatureTerrain.valueOf(chaineNature));
 
             verifieLigneTerminee();
 
             LOGGER.info("Case ({}, {}): {}", lig, col, chaineNature);
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. " + "Attendu: nature altitude [valeur_specifique]");
         }
     }
@@ -147,7 +148,7 @@ public class LecteurDonnees {
     private void lireIncendies() throws DataFormatException {
         ignorerCommentaires();
         try {
-            int nbIncendies = scanner.nextInt();
+            final int nbIncendies = scanner.nextInt();
             LOGGER.info("Il y a {} incendies", nbIncendies);
 
             // initialisation du stockage des incendies
@@ -157,7 +158,7 @@ public class LecteurDonnees {
                 lireIncendie(i);
             }
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException("Format invalide. " + "Attendu: nbIncendies");
         }
     }
@@ -167,13 +168,13 @@ public class LecteurDonnees {
      * 
      * @param i
      */
-    private void lireIncendie(int i) throws DataFormatException {
+    private void lireIncendie(final int i) throws DataFormatException {
         ignorerCommentaires();
 
         try {
-            int lig = scanner.nextInt();
-            int col = scanner.nextInt();
-            int intensite = scanner.nextInt();
+            final int lig = scanner.nextInt();
+            final int col = scanner.nextInt();
+            final int intensite = scanner.nextInt();
             if (intensite <= 0) {
                 throw new DataFormatException("incendie " + i + "nb litres pour eteindre doit etre > 0");
             }
@@ -185,7 +186,7 @@ public class LecteurDonnees {
 
             LOGGER.info("Incendie {} d'intensité {} en position ({}, {})", i, intensite, lig, col);
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException("format d'incendie invalide. " + "Attendu: ligne colonne intensite");
         }
     }
@@ -196,7 +197,7 @@ public class LecteurDonnees {
     private void lireRobots() throws DataFormatException {
         ignorerCommentaires();
         try {
-            int nbRobots = scanner.nextInt();
+            final int nbRobots = scanner.nextInt();
             LOGGER.info("Il y a {} robots", nbRobots);
 
             if (nbRobots == 0) {
@@ -205,13 +206,12 @@ public class LecteurDonnees {
 
             // initialisation du stockage des robots
             donneesSimulation.setRobots(new HashMap<Integer, ArrayList<Robot>>());
-            donneesSimulation.setRobotsCoordinates(new HashMap<Robot, Integer>());
 
             for (int i = 0; i < nbRobots; i++) {
                 lireRobot(i);
             }
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException("Format invalide. " + "Attendu: nbRobots");
         }
     }
@@ -221,42 +221,38 @@ public class LecteurDonnees {
      * 
      * @param i
      */
-    private void lireRobot(int i) throws DataFormatException {
+    private void lireRobot(final int i) throws DataFormatException {
         ignorerCommentaires();
 
         try {
-            int lig = scanner.nextInt();
-            int col = scanner.nextInt();
-            String type = scanner.next();
+            final int lig = scanner.nextInt();
+            final int col = scanner.nextInt();
+            final String type = scanner.next();
 
             LOGGER.info("Robot {} de type {} en position ({}, {})", i, type, lig, col);
+
+            final int position = lig * donneesSimulation.getCarte().getNbLignes() + col;
             // on stocke le robot
-            Robot robot = MyRobotTypes.getType(MyRobotTypes.Type.valueOf(type)).newRobot();
+            final Robot robot = MyRobotTypes.getType(MyRobotTypes.Type.valueOf(type)).newRobot(position);
+            // création de la liste s'il n'y a aucun robot à cette position
+            donneesSimulation.getRobots().computeIfAbsent(position, k -> new ArrayList<Robot>()).add(robot);
 
             // lecture eventuelle d'une vitesse du robot (entier)
-            String s = scanner.findInLine("(\\d+)"); // 1 or more digit(s) ?
+            final String s = scanner.findInLine("(\\d+)"); // 1 or more digit(s) ?
             // pour lire un flottant: ("(\\d+(\\.\\d+)?)");
 
             if (s == null) {
                 LOGGER.info("Déplacement à la vitesse par défaut");
             } else {
-                int vitesse = Integer.parseInt(s);
+                final int vitesse = Integer.parseInt(s);
                 LOGGER.info("Déplacement à {} km/h", vitesse);
                 // on modifie la vitesse par défaut
-                robot.setVitesse((double)vitesse);
+                robot.setVitesse((double) vitesse);
             }
-    
-            int position = lig * donneesSimulation.getCarte().getNbLignes() + col;
-            // création de la liste s'il n'y a aucun robot à cette position
-            donneesSimulation.getRobots().computeIfAbsent(
-                position, 
-                k -> new ArrayList<Robot>())
-                .add(robot);
-            donneesSimulation.getRobotsCoordinates().put(robot, position);
 
             verifieLigneTerminee();
 
-        } catch (NoSuchElementException e) {
+        } catch (final NoSuchElementException e) {
             throw new DataFormatException(
                     "format de robot invalide. " + "Attendu: ligne colonne type [valeur_specifique]");
         }

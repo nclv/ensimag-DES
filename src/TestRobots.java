@@ -7,11 +7,11 @@ public class TestRobots {
         // RobotType Chenilles = MyRobotTypes.getChenilles();
         // RobotType Pattes = MyRobotTypes.getPattes();
 
-        Robot drone = Drone.newRobot();
-        Robot drone1 = Drone.newRobot();
-        // Robot roues = Roues.newRobot();
-        // Robot chenilles = Chenilles.newRobot();
-        // Robot pattes = Pattes.newRobot();
+        Robot drone = Drone.newRobot(50);
+        Robot drone1 = Drone.newRobot(60);
+        // Robot roues = Roues.newRobot(0);
+        // Robot chenilles = Chenilles.newRobot(1);
+        // Robot pattes = Pattes.newRobot(3);
 
         // System.out.println(drone);
         // System.out.println(drone1);
