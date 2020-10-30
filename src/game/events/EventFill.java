@@ -1,7 +1,5 @@
 package game.events;
 
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,32 +12,26 @@ import game.robots.Robot;
 public class EventFill extends Event {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventFill.class);
 
-    public EventFill(long date, DonneesSimulation donneesSimulation, Robot robot) {
+    public EventFill(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
         super(date, donneesSimulation, robot);
     }
 
-    public EventFill copy(DonneesSimulation donneesSimulation){
+    public EventFill copy(final DonneesSimulation donneesSimulation) {
         return new EventFill(getDate(), donneesSimulation, getRobot());
     }
 
     public long getDuration() {
-        long timeToFillUp = getRobot().getTimeToFillUp();
-        return timeToFillUp;
+        return getRobot().getTimeToFillUp();
     }
 
-    @Override
-    public void execute() throws IllegalArgumentException {
-        Map<Robot, Integer> robotsCoordinates = this.donneesSimulation.getRobotsCoordinates();
-        Carte carte = this.donneesSimulation.getCarte();
-
-        // save position
-        int position = robotsCoordinates.get(getRobot());
-
+    private Boolean canFill() {
         // on sépare la logique de la carte (position) de celle des robots (filling)
+        final Carte carte = getDonneesSimulation().getCarte();
+        final int position = getRobot().getPosition();
         // le robot se remplit sur sa position, à côté d'une case EAU ou ne se remplit
         // pas
         Boolean canFill = false;
-        Filling filling = getRobot().getFilling();
+        final Filling filling = getRobot().getFilling();
         if (filling == Filling.ON) {
             canFill = carte.isTerrain(position, NatureTerrain.EAU);
         } else if (filling == Filling.NEXT) {
@@ -47,18 +39,17 @@ public class EventFill extends Event {
         } else if (filling == Filling.NONE) {
             canFill = true;
         }
+        return canFill;
+    }
 
-        if (!canFill) {
+    @Override
+    public void execute() throws IllegalArgumentException {
+        if (!canFill()) {
             throw new IllegalArgumentException("On ne peut pas remplir le robot sur cette position.");
         }
-
         // on remplit si canFill == true
-        LOGGER.info("{} en {} se remplit.", getRobot(), position);
-        // remove old robot
-        robotsCoordinates.remove(getRobot());
+        LOGGER.info("{} en {} se remplit.", getRobot(), getRobot().getPosition());
         getRobot().remplirReservoir();
         LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
-        // put same robot with updated volume field
-        robotsCoordinates.put(getRobot(), position);
     }
 }

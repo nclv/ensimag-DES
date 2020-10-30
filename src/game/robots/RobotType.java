@@ -22,8 +22,9 @@ public class RobotType {
     private int timeToFillUp;
     EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
-    public RobotType(MyRobotTypes.Type type, Filling filling, Double vitesse, Double vitesseMax, Double capacity,
-            int maxEmptiedVolume, int timeToEmpty, int timeToFillUp, EnumMap<NatureTerrain, Double> terrainVitesse) {
+    public RobotType(final MyRobotTypes.Type type, final Filling filling, final Double vitesse, final Double vitesseMax,
+            final Double capacity, final int maxEmptiedVolume, final int timeToEmpty, final int timeToFillUp,
+            final EnumMap<NatureTerrain, Double> terrainVitesse) {
         LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
         this.filling = filling;
@@ -36,15 +37,15 @@ public class RobotType {
         this.terrainVitesse = terrainVitesse;
     }
 
-    public Robot newRobot() {
-        return new Robot(this, id++);
+    public Robot newRobot(final int position) {
+        return new Robot(this, id++, position);
     }
 
     public MyRobotTypes.Type getType() {
         return type;
     }
 
-    public void setType(MyRobotTypes.Type type) {
+    public void setType(final MyRobotTypes.Type type) {
         this.type = type;
     }
 
@@ -52,7 +53,7 @@ public class RobotType {
         return vitesse;
     }
 
-    public void setVitesse(Double vitesse) {
+    public void setVitesse(final Double vitesse) {
         this.vitesse = vitesse;
     }
 
@@ -60,7 +61,7 @@ public class RobotType {
         return vitesseMax;
     }
 
-    public void setVitesseMax(Double vitesseMax) {
+    public void setVitesseMax(final Double vitesseMax) {
         this.vitesseMax = vitesseMax;
     }
 
@@ -68,7 +69,7 @@ public class RobotType {
         return capacity;
     }
 
-    public void setCapacity(Double capacity) {
+    public void setCapacity(final Double capacity) {
         this.capacity = capacity;
     }
 
@@ -76,7 +77,7 @@ public class RobotType {
         return maxEmptiedVolume;
     }
 
-    public void setMaxEmptiedVolume(int maxEmptiedVolume) {
+    public void setMaxEmptiedVolume(final int maxEmptiedVolume) {
         this.maxEmptiedVolume = maxEmptiedVolume;
     }
 
@@ -84,7 +85,7 @@ public class RobotType {
         return timeToEmpty;
     }
 
-    public void setTimeToEmpty(int timeToEmpty) {
+    public void setTimeToEmpty(final int timeToEmpty) {
         this.timeToEmpty = timeToEmpty;
     }
 
@@ -92,7 +93,7 @@ public class RobotType {
         return timeToFillUp;
     }
 
-    public void setTimeToFillUp(int timeToFillUp) {
+    public void setTimeToFillUp(final int timeToFillUp) {
         this.timeToFillUp = timeToFillUp;
     }
 
@@ -100,7 +101,7 @@ public class RobotType {
         return terrainVitesse;
     }
 
-    public void setTerrainVitesse(EnumMap<NatureTerrain, Double> terrainVitesse) {
+    public void setTerrainVitesse(final EnumMap<NatureTerrain, Double> terrainVitesse) {
         this.terrainVitesse = terrainVitesse;
     }
 
@@ -108,7 +109,7 @@ public class RobotType {
         return filling;
     }
 
-    public void setFilling(Filling filling) {
+    public void setFilling(final Filling filling) {
         this.filling = filling;
     }
 
@@ -126,7 +127,7 @@ public class RobotType {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         // self check
         if (this == obj)
             return true;
@@ -134,7 +135,7 @@ public class RobotType {
         // instances of the type and its subtypes can never equal.
         if (obj == null || getClass() != obj.getClass())
             return false;
-        RobotType other = (RobotType) obj; // cast
+        final RobotType other = (RobotType) obj; // cast
         return Objects.equals(type, other.type) && Objects.equals(filling, other.filling)
                 && Objects.equals(vitesse, other.vitesse) && Objects.equals(vitesseMax, other.vitesseMax)
                 && Objects.equals(capacity, other.capacity) && Objects.equals(maxEmptiedVolume, other.maxEmptiedVolume)

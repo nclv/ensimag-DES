@@ -25,12 +25,9 @@ public class DonneesSimulation {
      */
     private Carte carte;
     Map<Integer, Integer> incendies;
-    // 2 way hashmap
-    // on rappelle que les 2 HashMaps doivent être synchrones.
     // il peut y avoir plusieurs robots sur une même position
     // a map hold references to its values
     Map<Integer, ArrayList<Robot>> robots;
-    Map<Robot, Integer> robotsCoordinates;
 
     public DonneesSimulation() {}
 
@@ -40,16 +37,14 @@ public class DonneesSimulation {
 
         // on rappelle que les 2 HashMaps doivent être synchrones.
         this.robots = new HashMap<Integer, ArrayList<Robot>>();
-        this.robotsCoordinates = new HashMap<Robot, Integer>();
-        // LOGGER.info("Another robots: {} \n {}", another.robots, another.robotsCoordinates);
+        // LOGGER.info("Another robots: {}", another.robots);
         for (Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {
             for (Robot robot : entry.getValue()) {
-                robot.init(); // on ne cré pas de nouveaux objets robots, on les réinitialise
+                robot.init(entry.getKey()); // on ne cré pas de nouveaux objets robots, on les réinitialise
                 this.robots.computeIfAbsent(entry.getKey(), k -> new ArrayList<Robot>()).add(robot);
-                this.robotsCoordinates.put(robot, entry.getKey()); // on stocke les nouveaux robots
             }
         }
-        // LOGGER.info("My robots: {} \n {}", this.robots, this.robotsCoordinates);
+        // LOGGER.info("My robots: {}", this.robots);
     }
 
     public Carte getCarte() {
@@ -74,23 +69,6 @@ public class DonneesSimulation {
 
     public void setRobots(Map<Integer, ArrayList<Robot>> robots) {
         this.robots = robots;
-    }
-
-    public Robot getRobot(Robot robot) {
-        for (Robot currentRobot : this.robotsCoordinates.keySet()) {
-            if (currentRobot.equals(robot)) {
-                return currentRobot;
-            }
-        }
-        return null;
-    }
-
-    public Map<Robot, Integer> getRobotsCoordinates() {
-        return robotsCoordinates;
-    }
-
-    public void setRobotsCoordinates(Map<Robot, Integer> robotsCoordinates) {
-        this.robotsCoordinates = robotsCoordinates;
     }
 
     @Override
