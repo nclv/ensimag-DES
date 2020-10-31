@@ -1,4 +1,8 @@
-import game.robots.*;
+package tests;
+
+import game.robots.MyRobotTypes;
+import game.robots.Robot;
+import game.robots.RobotType;
 
 public class TestRobots {
     public static void main(String[] args) {

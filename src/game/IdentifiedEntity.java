@@ -1,4 +1,4 @@
-package game.robots;
+package game;
 
 public interface IdentifiedEntity<L> {
     L getId();
