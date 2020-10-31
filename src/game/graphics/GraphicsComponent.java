@@ -52,6 +52,7 @@ public class GraphicsComponent {
 
         this.gui = gui;
         LOGGER.info("GUI de dimensions {}x{}", gui.getPanelHeight(), gui.getPanelWidth());
+        this.gui.reset(); // clear the window
         this.guiSizeFactor = guiSizeFactor;
 
         setNormUtil(donneesSimulation.getIncendies(), this.guiSizeFactor / 1.5, this.guiSizeFactor / 6);
@@ -74,27 +75,30 @@ public class GraphicsComponent {
     }
 
     public void init() {
-        setTiles();
-        draw();
-    }
-
-    public void draw() {
         this.gui.reset(); // clear the window
 
-        LOGGER.info("Mise à jour des entités:");
+        setTiles();
         updateAllTileImgs();
+
         // Ajout des composants à l'instance de JFrame
         for (final TileImg tileImg : this.tileImgsArray) {
             this.gui.addGraphicalElement(tileImg);
         }
     }
 
+    /**
+     * On dessine la carte et ses éléments
+     * Drawing is automatic, no need to repaint
+     */
+    public void draw() {
+        updateAllTileImgs();
+    }
+
     public void reset() {
         final Map<Integer, NatureTerrain> map = donneesSimulation.getCarte().getMap();
 
         for (final Map.Entry<Integer, NatureTerrain> tile : map.entrySet()) {
-            final int position = tile.getKey();
-            final TileImg tileImg = this.tileImgsArray.get(position);
+            final TileImg tileImg = this.tileImgsArray.get(tile.getKey());
             tileImg.setFireNormalizedIntensity(0);
             tileImg.setTileForegroundImgsArray(null);
         }
@@ -117,6 +121,7 @@ public class GraphicsComponent {
     }
 
     private void updateAllTileImgs() {
+        LOGGER.info("Mise à jour des entités:");
         if (!this.tileImgsArray.isEmpty()) {
             setIncendies();
             setRobots();
@@ -127,32 +132,28 @@ public class GraphicsComponent {
         final Map<Integer, Integer> incendies = donneesSimulation.getIncendies();
 
         for (final Map.Entry<Integer, Integer> fire : incendies.entrySet()) {
-            final int position = fire.getKey();
-
             final int intensity = fire.getValue();
             int normalizedIntensity = (int) this.normUtil.normalize(intensity);
-            LOGGER.info("Intensite de l'incendie: {}, {}", intensity, normalizedIntensity);
-
             // si le feu est éteint on ne l'affiche pas
             if (intensity == 0) {
                 normalizedIntensity = 0;
             }
+            LOGGER.info("Intensite de l'incendie: {}, {}", intensity, normalizedIntensity);
 
-            tileImgsArray.get(position).setFireNormalizedIntensity(normalizedIntensity);
+            tileImgsArray.get(fire.getKey()).setFireNormalizedIntensity(normalizedIntensity);
         }
     }
 
     private void setRobots() {
         final Map<Integer, ArrayList<Robot>> robotsMap = donneesSimulation.getRobots();
         for (final Map.Entry<Integer, ArrayList<Robot>> robots : robotsMap.entrySet()) {
-            final int position = robots.getKey();
             // on veut dessiner un ou plusieurs robot(s) sur les cases,
             // on récupère la liste des images des robots en utilisant un stream (JDK8), on
             // pourrait aussi faire une boucle
             final ArrayList<BufferedImage> robotsImgsList = robots.getValue().stream()
                     .map((robot) -> this.imagesBuffer.getImg(ressourcesRobots.get(robot.getType())))
                     .collect(Collectors.toCollection(ArrayList::new));
-            tileImgsArray.get(position).setTileForegroundImgsArray(robotsImgsList);
+            tileImgsArray.get(robots.getKey()).setTileForegroundImgsArray(robotsImgsList);
         }
     }
 

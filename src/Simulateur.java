@@ -68,7 +68,7 @@ public class Simulateur implements Simulable {
         }
     }
 
-    public void updateEventQueue(final Event event) throws IllegalArgumentException {
+    private void updateEventQueue(final Event event) throws IllegalArgumentException {
         // récupère la durée de l'event
         final long duration = event.getDuration();
         LOGGER.info("Fin d'exécution: {}", duration);
@@ -81,8 +81,8 @@ public class Simulateur implements Simulable {
             final Event currentEvent = events.next();
             // problème d'égalité possible si l'égalité des volumes est vérifiée dans
             // equals()
-            // on implémente un id propre à chaque robot
-            if (currentEvent.getRobot().getId().equals(event.getRobot().getId())) {
+            // on implémente un id propre à chaque robot qui vérifie l'égalité
+            if (currentEvent.getRobot().equals(event.getRobot())) {
                 // on incrémente la date de l'event de la durée de l'event exécuté
                 // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
                 currentEvent.updateDate(this.currentDate + duration);
@@ -100,6 +100,7 @@ public class Simulateur implements Simulable {
 
     @Override
     public void next() {
+        // update donneesSimulation and eventQueue
         executeNextEvents();
 
         LOGGER.info("Ancienne date courante: {}", this.currentDate);
