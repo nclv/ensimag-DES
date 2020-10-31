@@ -4,6 +4,7 @@ import java.util.zip.DataFormatException;
 
 import game.Direction;
 import game.DonneesSimulation;
+import game.graphics.GraphicsComponent;
 import game.events.EventEmpty;
 import game.events.EventFill;
 import game.events.EventMove;
@@ -23,7 +24,9 @@ public class TestEventsScenario1 {
             Color.BLACK
         );
 
-        Simulateur simulateur = new Simulateur(gui, guiSizeFactor, donneesSimulation);
+        GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
+
+        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
 
         Robot robot = donneesSimulation.getRobots().get(6 * donneesSimulation.getCarte().getNbLignes() + 5).get(0);
 
