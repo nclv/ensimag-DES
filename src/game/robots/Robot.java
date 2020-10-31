@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import game.IdentifiedEntity;
 import game.NatureTerrain;
 
 // on ne peut pas instancier une classe abstraite

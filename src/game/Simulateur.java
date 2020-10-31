@@ -1,3 +1,5 @@
+package game;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.PriorityQueue;
@@ -5,7 +7,6 @@ import java.util.PriorityQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import game.DonneesSimulation;
 import game.graphics.GraphicsComponent;
 import game.events.Event;
 import gui.Simulable;

@@ -8,6 +8,20 @@
             "type": "java",
             "name": "CodeLens (Launch) - TestEventsScenario1",
             "request": "launch",
+            "mainClass": "tests.TestEventsScenario1",
+            "projectName": "ensimag-robots-pompiers_50671edf"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestGUI",
+            "request": "launch",
+            "mainClass": "tests.TestGUI",
+            "projectName": "ensimag-robots-pompiers_50671edf"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestEventsScenario1",
+            "request": "launch",
             "mainClass": "TestEventsScenario1",
             "projectName": "ensimag-robots-pompiers_50671edf"
         },
