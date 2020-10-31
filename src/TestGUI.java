@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.zip.DataFormatException;
 
 import game.DonneesSimulation;
+import game.graphics.GraphicsComponent;
 import gui.GUISimulator;
 import io.LecteurDonnees;
 
@@ -17,7 +18,9 @@ public class TestGUI {
             Color.BLACK
         );
 
-        Simulateur simulateur = new Simulateur(gui, guiSizeFactor, donneesSimulation);
+        GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
+
+        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
     }
 
     public static DonneesSimulation getDonneesSimulation(String[] args) {
