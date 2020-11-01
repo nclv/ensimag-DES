@@ -80,6 +80,20 @@ public class Carte {
         }
     }
 
+    public LinkedList<Integer> getNeighbors(int position) {
+    LinkedList<Integer> neighbors = new LinkedList<Integer>();
+    for (Direction direction : Direction.values()) {
+        try {
+            int neighbor = getVoisin(position, direction);
+            if (getTerrain(neighbor) == NatureTerrain.TERRAIN_LIBRE) {
+                neighbors.add(neighbor);
+            }
+        } 
+        catch(Exception IllegalArgumentException) {}
+    }
+        return neighbors;
+    }
+
     private Boolean isOnmap(int ligne, int colonne) {
         return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
