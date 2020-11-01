@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Carte {
@@ -39,6 +40,7 @@ public class Carte {
 
     /**
      * Renvoie la position voisine suivant la direction.
+     * 
      * @param ligne
      * @param colonne
      * @param direction
@@ -81,16 +83,14 @@ public class Carte {
     }
 
     public LinkedList<Integer> getNeighbors(int position) {
-    LinkedList<Integer> neighbors = new LinkedList<Integer>();
-    for (Direction direction : Direction.values()) {
-        try {
-            int neighbor = getVoisin(position, direction);
-            if (getTerrain(neighbor) == NatureTerrain.TERRAIN_LIBRE) {
+        LinkedList<Integer> neighbors = new LinkedList<Integer>();
+        for (Direction direction : Direction.values()) {
+            try {
+                int neighbor = getVoisin(position, direction);
                 neighbors.add(neighbor);
+            } catch (Exception IllegalArgumentException) {
             }
-        } 
-        catch(Exception IllegalArgumentException) {}
-    }
+        }
         return neighbors;
     }
 
