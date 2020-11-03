@@ -77,9 +77,13 @@ public class Carte {
     private void checkPosition(int position) throws IllegalArgumentException {
         int ligne = position / nbLignes;
         int colonne = position % nbLignes;
-        if (!isOnmap(ligne, colonne)) {
+        if (!isOnMap(ligne, colonne)) {
             throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
         }
+    }
+
+    private Boolean isOnMap(int ligne, int colonne) {
+        return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
 
     public LinkedList<Integer> getNeighbors(int position) {
@@ -92,10 +96,6 @@ public class Carte {
             }
         }
         return neighbors;
-    }
-
-    private Boolean isOnmap(int ligne, int colonne) {
-        return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
 
     public int getNbLignes() {

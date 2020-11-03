@@ -74,15 +74,13 @@ public class Simulateur implements Simulable {
         final long duration = event.getDuration();
         LOGGER.info("Fin d'exécution: {}", duration);
         // le robot est occupé pendant duration, on ne peut plus exécuter d'actions avec
-        // ce robot
-        // il faut incrémenter la date des évènements de ce robot de duration
+        // ce robot. Il faut incrémenter la date des évènements de ce robot de duration
         final ArrayList<Event> eventsToAdd = new ArrayList<Event>();
         final Iterator<Event> events = this.eventQueue.iterator();
         while (events.hasNext()) {
             final Event currentEvent = events.next();
             // problème d'égalité possible si l'égalité des volumes est vérifiée dans
-            // equals()
-            // on implémente un id propre à chaque robot qui vérifie l'égalité
+            // equals(). On implémente un id propre à chaque robot qui vérifie l'égalité
             if (currentEvent.getRobot().equals(event.getRobot())) {
                 // on incrémente la date de l'event de la durée de l'event exécuté
                 // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
@@ -118,8 +116,7 @@ public class Simulateur implements Simulable {
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
         this.eventQueue = new PriorityQueue<Event>();
-        // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument
-        // lorsque l'on exécute l'event
+        // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument lorsque l'on exécute l'event
         this.eventQueueSaved.stream().forEach((event) -> eventQueue.add(event.copy(this.donneesSimulation)));
 
         // Update de l'affichage

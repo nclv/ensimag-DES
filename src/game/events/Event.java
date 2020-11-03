@@ -26,9 +26,13 @@ public abstract class Event implements Comparable<Event> {
         return this.date;
     }
 
-    public void updateDate(final long newdate) {
-        if (this.date < newdate)
-            this.date = newdate;
+    /**
+     * Change la date de l'event si elle est plus petite que la nouvelle date
+     * @param newdate
+     */
+    public void updateDate(final long newDate) {
+        if (this.date < newDate)
+            this.date = newDate;
     }
 
     public Robot getRobot() {

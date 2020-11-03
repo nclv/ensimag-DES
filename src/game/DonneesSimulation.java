@@ -35,7 +35,6 @@ public class DonneesSimulation {
         this.carte = another.carte; // la carte ne change pas entre deux restarts
         this.incendies = new HashMap<Integer, Integer>(another.incendies);
 
-        // on rappelle que les 2 HashMaps doivent être synchrones.
         this.robots = new HashMap<Integer, ArrayList<Robot>>();
         // LOGGER.info("Another robots: {}", another.robots);
         for (Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {

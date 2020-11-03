@@ -21,8 +21,4 @@ public enum Direction {
     public int getDx() {
         return dx;
     }
-
-    public Direction next() {
-        return values()[(ordinal() + 1) % values().length];
-    }
 }
