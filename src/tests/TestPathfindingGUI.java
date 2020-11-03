@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import game.Direction;
 import game.DonneesSimulation;
 import game.Pathfinding;
 import game.Simulateur;
