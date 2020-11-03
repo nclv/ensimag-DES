@@ -18,12 +18,12 @@ public class RobotType {
     private Double vitesseMax;
     private Double capacity; // au sens de capacité
     private int maxEmptiedVolume; // volume maximal que le robot peut déverser
-    private int timeToEmpty; // temps mis pour déverser maxEmptiedVolume
+    private int maxtimeToEmpty; // temps mis pour déverser maxEmptiedVolume
     private int timeToFillUp;
-    EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
+    private EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
     public RobotType(final MyRobotTypes.Type type, final Filling filling, final Double vitesse, final Double vitesseMax,
-            final Double capacity, final int maxEmptiedVolume, final int timeToEmpty, final int timeToFillUp,
+            final Double capacity, final int maxEmptiedVolume, final int maxtimeToEmpty, final int timeToFillUp,
             final EnumMap<NatureTerrain, Double> terrainVitesse) {
         LOGGER.info("Déclaration d'un robot de type {}", type);
         this.type = type;
@@ -32,7 +32,7 @@ public class RobotType {
         this.vitesseMax = vitesseMax;
         this.capacity = capacity;
         this.maxEmptiedVolume = maxEmptiedVolume;
-        this.timeToEmpty = timeToEmpty;
+        this.maxtimeToEmpty = maxtimeToEmpty;
         this.timeToFillUp = timeToFillUp;
         this.terrainVitesse = terrainVitesse;
     }
@@ -81,12 +81,12 @@ public class RobotType {
         this.maxEmptiedVolume = maxEmptiedVolume;
     }
 
-    public int getTimeToEmpty() {
-        return timeToEmpty;
+    public int getMaxTimeToEmpty() {
+        return maxtimeToEmpty;
     }
 
-    public void setTimeToEmpty(final int timeToEmpty) {
-        this.timeToEmpty = timeToEmpty;
+    public void setMaxTimeToEmpty(final int maxtimeToEmpty) {
+        this.maxtimeToEmpty = maxtimeToEmpty;
     }
 
     public int getTimeToFillUp() {
@@ -116,14 +116,14 @@ public class RobotType {
     @Override
     public String toString() {
         return "RobotType [filling=" + filling + ", maxEmptiedVolume=" + maxEmptiedVolume + ", terrainVitesse="
-                + terrainVitesse + ", timeToEmpty=" + timeToEmpty + ", timeToFillUp=" + timeToFillUp + ", type=" + type
+                + terrainVitesse + ", timeToEmpty=" + maxtimeToEmpty + ", timeToFillUp=" + timeToFillUp + ", type=" + type
                 + ", vitesse=" + vitesse + ", capacity=" + capacity + "]";
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.type, this.filling, this.vitesse, this.vitesseMax, this.capacity,
-                this.maxEmptiedVolume, this.timeToEmpty, this.timeToFillUp, this.terrainVitesse);
+                this.maxEmptiedVolume, this.maxtimeToEmpty, this.timeToFillUp, this.terrainVitesse);
     }
 
     @Override
@@ -139,7 +139,7 @@ public class RobotType {
         return Objects.equals(type, other.type) && Objects.equals(filling, other.filling)
                 && Objects.equals(vitesse, other.vitesse) && Objects.equals(vitesseMax, other.vitesseMax)
                 && Objects.equals(capacity, other.capacity) && Objects.equals(maxEmptiedVolume, other.maxEmptiedVolume)
-                && Objects.equals(timeToEmpty, other.timeToEmpty) && Objects.equals(timeToFillUp, other.timeToFillUp)
+                && Objects.equals(maxtimeToEmpty, other.maxtimeToEmpty) && Objects.equals(timeToFillUp, other.timeToFillUp)
                 && Objects.equals(terrainVitesse, other.terrainVitesse);
     }
 }

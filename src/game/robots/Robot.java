@@ -1,7 +1,5 @@
 package game.robots;
 
-import java.util.Objects;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,12 +22,22 @@ public class Robot implements IdentifiedEntity<Long> {
         init(position);
     }
 
+    /**
+     * Initialisation du robot.
+     * Utile pour en éviter la copie lors d'un restart.
+     * @param position
+     */
     public void init(final int position) {
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
         this.position = position;
     }
 
+    /**
+     * Diminue le volume du robot de maxEmptiedVolume
+     * On assure que le volume du robot reste >= 0
+     * @return le volume déversé par le robot
+     */
     public Double deverserEau() {
         double emptiedVolume = this.robotType.getMaxEmptiedVolume();
         // we make sure there cannot be < 0 volume values
@@ -59,8 +67,8 @@ public class Robot implements IdentifiedEntity<Long> {
         return this.robotType.getFilling();
     }
 
-    public int getTimeToEmpty() {
-        return this.robotType.getTimeToEmpty();
+    public int getMaxTimeToEmpty() {
+        return this.robotType.getMaxTimeToEmpty();
     }
 
     public int getTimeToFillUp() {
@@ -71,15 +79,31 @@ public class Robot implements IdentifiedEntity<Long> {
         return this.robotType.getMaxEmptiedVolume();
     }
 
+    /**
+     * @param natureTerrain
+     * @return la vitesse du robot sur le terrain
+     * @throws IllegalArgumentException si le robot ne peut pas se déplacer sur le type de terrain
+     */
     public Double getVitesse(final NatureTerrain natureTerrain) throws IllegalArgumentException {
-        // vitesse nulle si le robot ne peut pas se déplacer sur le terrain
-        final double speedFactor = this.robotType.getTerrainVitesse().getOrDefault(natureTerrain, 0.0);
-        if (speedFactor == 0.0) {
-            throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
-        }
+        checkWalkable(natureTerrain);
+        final double speedFactor = this.robotType.getTerrainVitesse().get(natureTerrain);
         return this.vitesse * speedFactor;
     }
 
+    public void checkWalkable(final NatureTerrain natureTerrain) throws IllegalArgumentException {
+        if (!isWalkable(natureTerrain)) {
+            throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
+        }
+    }
+
+    private Boolean isWalkable(final NatureTerrain natureTerrain) {
+        return this.robotType.getTerrainVitesse().containsKey(natureTerrain);
+    }
+
+    /**
+     * Set la vitesse si elle est inférieure à la vitesse maximale autorisée, ne fait rien sinon
+     * @param vitesse
+     */
     public void setVitesse(final Double vitesse) {
         final Double vitesseMax = robotType.getVitesseMax();
         if (vitesse <= vitesseMax) {
@@ -109,24 +133,5 @@ public class Robot implements IdentifiedEntity<Long> {
         res += "Robot de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
                 + " litres d'eau";
         return res;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.robotType, this.volume, this.vitesse);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        // self check
-        if (this == obj)
-            return true;
-        // null check and type check
-        // instances of the type and its subtypes can never equal.
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        final Robot other = (Robot) obj; // cast
-        // le volume est variable pour un même robot, il ne sert donc pas à identifier un robot mais son état
-        return Objects.equals(robotId, other.robotId);
     }
 }

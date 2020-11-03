@@ -20,7 +20,11 @@ public class EventEmpty extends Event {
         return new EventEmpty(getDate(), donneesSimulation, getRobot());
     }
 
+    /**
+     * @return durée mise pour vider le robot / éteindre l'incendie
+     */
     public long getDuration() {
+        // s'il n'y a aucun incendie sur la position on ne vide pas le robot
         long timeToEmpty = 0;
         // le feu se trouve sur la position du robot
         final int firePosition = getRobot().getPosition();
@@ -28,7 +32,8 @@ public class EventEmpty extends Event {
         final Integer intensity = getDonneesSimulation().getIncendies().get(firePosition);
         if (intensity != null) {
             // temps mis pour une extinction globale
-            timeToEmpty = getRobot().getTimeToEmpty() * (intensity / getRobot().getMaxEmptiedVolume());
+            // getMaxTimeToEmpty renvoie le temps mis par le robot pour déverser la quantité maximale d'eau qu'il peut déverser
+            timeToEmpty = getRobot().getMaxTimeToEmpty() * (intensity / getRobot().getMaxEmptiedVolume());
             LOGGER.info("Intensité: {}, Temps: {}", intensity, timeToEmpty);
         }
 
