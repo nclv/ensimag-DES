@@ -8,17 +8,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 public class Pathfinding {
-
-    private static final int NB_LIGNES = 8;
-    private static final int NB_COLONNES = 8;
-    private static final int TAILLES_CASES = 64;
-
     private final Carte carte;
-    private final int position;
 
-    public Pathfinding(Carte carte, int position) {
+    public Pathfinding(Carte carte) {
         this.carte = carte;
-        this.position = position;
     }
     
     /**
@@ -56,7 +49,7 @@ public class Pathfinding {
     }
 
     /**
-        Supprime le couple (neighbor,gscore) de la file de priorité
+     * Supprime le couple (neighbor,gscore) de la file de priorité
      */
     public void removeNeighbor(PriorityQueue<SimpleEntry<Integer, Integer>> queue, Integer neighbor) {
         Iterator<SimpleEntry<Integer, Integer>> iter = queue.iterator();
@@ -70,9 +63,9 @@ public class Pathfinding {
     }
 
     /**
-        Calcule le plus court chemin, la solution est l'une des meilleures
+     * Calcule le plus court chemin, la solution est l'une des meilleures
      */
-    public LinkedList<Integer> shortestWay(int dest) {
+    public LinkedList<Integer> shortestWay(int src, int dest) {
         /*File de pairs (position,fScore)*/
         PriorityQueue<SimpleEntry<Integer, Integer>> open = new PriorityQueue<SimpleEntry<Integer, Integer>>(11, new SimplyEntryComparator());//initializeFScores(Integer.MAX_VALUE);
         /*HashMap des gScore*/
@@ -80,9 +73,9 @@ public class Pathfinding {
         /*HashMap du path*/
         HashMap<Integer, Integer> close = new HashMap<Integer, Integer>();
 
-        /*On start avec la position du robot*/
-        open.add(new SimpleEntry<Integer, Integer>(position, manhattanDistance(position, dest)));
-        gScore.replace(position, 0);
+        /* On start avec la position du robot */
+        open.add(new SimpleEntry<Integer, Integer>(src, manhattanDistance(src, dest)));
+        gScore.replace(src, 0);
 
 
         while (!open.isEmpty()) {
@@ -92,9 +85,9 @@ public class Pathfinding {
                 return reconstructPath(close, current.getKey());
             }
             
-            /*On explore les voisins*/
+            /* On explore les voisins */
             for (Integer neighbor : carte.getNeighbors(current.getKey())) {
-                int tentativeGScore = gScore.get(current.getKey()) + 1; //1 is the distance between current and his neighbor
+                int tentativeGScore = gScore.get(current.getKey()) + 1; // 1 is the distance between current and his neighbor
                 if (tentativeGScore < gScore.get(neighbor)) {
                     close.put(neighbor, current.getKey());
                     gScore.replace(neighbor, tentativeGScore);
@@ -109,7 +102,7 @@ public class Pathfinding {
     }
 
     /**
-        Reconstruit le plus court chemin.
+     * Reconstruit le plus court chemin.
      */
     public LinkedList<Integer> reconstructPath(HashMap<Integer, Integer> map, Integer dest) {
         LinkedList<Integer> path = new LinkedList<Integer>();
@@ -120,42 +113,4 @@ public class Pathfinding {
         }
         return path;
     }
-
-    /*Teste une carte*/
-    public static Carte testCarte() {
-        HashMap<Integer, NatureTerrain> map = new HashMap<Integer, NatureTerrain>();
-        for (int i = 0; i < NB_LIGNES * NB_COLONNES; i++) {
-            map.put(i, NatureTerrain.TERRAIN_LIBRE);
-        }
-        map.replace(1, NatureTerrain.ROCHE);
-        map.replace(9, NatureTerrain.ROCHE);
-        map.replace(17, NatureTerrain.ROCHE);
-        map.replace(25, NatureTerrain.ROCHE);
-        map.replace(63, NatureTerrain.ROCHE);
-
-        return new Carte(NB_LIGNES, NB_COLONNES, TAILLES_CASES, map);
-    }
-
-    @Override
-    public String toString() {
-        return "Je suis un robot à la position " + String.valueOf(position);
-    }
-
-    public static void main(String[] args) {
-        /*Génération du robot*/
-        Pathfinding pathfinding = new Pathfinding(testCarte(), 0);
-        System.out.println(pathfinding);
-
-        /*Calcul du plus court chemin entre (pos_robot, dest)*/
-        LinkedList<Integer> path = pathfinding.shortestWay(27);
-
-        /*Affichage du path*/
-        System.out.println("Affichage du path:");
-        Iterator<Integer> iter = path.iterator();
-        while (iter.hasNext()) {
-            Integer element = iter.next();
-            System.out.println("(" + String.valueOf(element / NB_LIGNES) + "," + String.valueOf(element % NB_LIGNES) + ")");
-        }
-    }
-
 }
