@@ -30,7 +30,8 @@
             "name": "CodeLens (Launch) - TestGUI",
             "request": "launch",
             "mainClass": "tests.TestGUI",
-            "projectName": "ensimag-robots-pompiers_50671edf"
+            "projectName": "ensimag-robots-pompiers_50671edf",
+            "args": "${command:SpecifyProgramArgs}"
         },
         {
             "type": "java",
