@@ -26,7 +26,7 @@ public class TestEventsScenario0 implements InterfaceDonneesSimulation {
 
         Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
 
-        Robot robot = donneesSimulation.getRobots().get(3 * donneesSimulation.getCarte().getNbLignes() + 3).get(0);
+        Robot robot = donneesSimulation.getRobot(0);
 
         long count = 0;
         simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));

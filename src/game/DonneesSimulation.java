@@ -70,6 +70,22 @@ public class DonneesSimulation {
         this.robots = robots;
     }
 
+    /**
+     * Return a specific robot
+     * @param robotId
+     * @return the robot which id match
+     */
+    public Robot getRobot(long robotId) {
+        ArrayList<Robot> robotsList = new ArrayList<Robot>();
+        this.robots.values().forEach(robotsList::addAll);
+        for (Robot robot : robotsList) {
+            if (robot.getId().equals(robotId)) {
+                return robot;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         String res = new String();
