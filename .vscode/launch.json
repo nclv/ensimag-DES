@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TestEventsScenario0",
+            "request": "launch",
+            "mainClass": "tests.TestEventsScenario0",
+            "projectName": "ensimag-robots-pompiers_50671edf"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Pathfinding",
             "request": "launch",
             "mainClass": "game.Pathfinding",

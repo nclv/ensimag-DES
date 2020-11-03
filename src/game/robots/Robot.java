@@ -90,12 +90,21 @@ public class Robot implements IdentifiedEntity<Long> {
         return this.vitesse * speedFactor;
     }
 
+    /**
+     * Vérifie que le robot peut se déplacer sur le type de terrain.
+     * @param natureTerrain
+     * @throws IllegalArgumentException
+     */
     public void checkWalkable(final NatureTerrain natureTerrain) throws IllegalArgumentException {
         if (!isWalkable(natureTerrain)) {
             throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
         }
     }
 
+    /**
+     * @param natureTerrain
+     * @return true if the robot can move on natureTerrain
+     */
     private Boolean isWalkable(final NatureTerrain natureTerrain) {
         return this.robotType.getTerrainVitesse().containsKey(natureTerrain);
     }
