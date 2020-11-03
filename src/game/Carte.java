@@ -51,6 +51,15 @@ public class Carte {
         return positionVoisin;
     }
 
+    public Direction getDirection(int position, int positionVoisin) throws IllegalArgumentException {
+        checkPosition(positionVoisin);
+        int ligne = position / nbLignes;
+        int colonne = position % nbLignes;
+        int ligneVoisin = positionVoisin / nbLignes;
+        int colonneVoisin = positionVoisin % nbLignes;
+        return Direction.getDirection((ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne));
+    }
+
     public NatureTerrain getTerrain(int position) throws IllegalArgumentException {
         checkPosition(position);
         return map.get(position);

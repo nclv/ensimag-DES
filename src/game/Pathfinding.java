@@ -1,17 +1,22 @@
 package game;
 
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.stream.IntStream;
+
+import game.robots.Robot;
+
 import java.util.Comparator;
 import java.util.Iterator;
 
 public class Pathfinding {
-    private final Carte carte;
+    private final DonneesSimulation donneesSimulation;
 
-    public Pathfinding(Carte carte) {
-        this.carte = carte;
+    public Pathfinding(DonneesSimulation donneesSimulation) {
+        this.donneesSimulation = donneesSimulation;
     }
     
     /**
@@ -30,6 +35,7 @@ public class Pathfinding {
      * Calcule la distance de Manhattan entre src et dest
      */
     public int manhattanDistance(int src, int dest) {
+        final Carte carte = this.donneesSimulation.getCarte();
         int yB = dest / carte.getNbLignes();
         int xB = dest % carte.getNbLignes();
         int yA = src / carte.getNbLignes();
@@ -40,11 +46,9 @@ public class Pathfinding {
     /**
      * Initialise les valeurs de la HashMap pour la carte (par défaut à MAX_VALUE)
      */
-    public HashMap<Integer, Integer> initializeGScores(Integer value) {
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for (int i = 0; i < carte.getNbLignes() * carte.getNbColonnes(); i++) {
-            map.put((Integer) i, value);
-        }
+    public HashMap<Integer, Integer> initializeGScores(int value) {
+        int size = this.donneesSimulation.getCarte().getNbLignes() * this.donneesSimulation.getCarte().getNbColonnes();
+        HashMap<Integer, Integer> map = IntStream.range(0, size).collect(HashMap::new, (m, position) -> m.put(position, value), Map::putAll);
         return map;
     }
 
@@ -65,7 +69,7 @@ public class Pathfinding {
     /**
      * Calcule le plus court chemin, la solution est l'une des meilleures
      */
-    public LinkedList<Integer> shortestWay(int src, int dest) {
+    public LinkedList<Integer> shortestWay(Robot robot, int src, int dest) {
         /*File de pairs (position,fScore)*/
         PriorityQueue<SimpleEntry<Integer, Integer>> open = new PriorityQueue<SimpleEntry<Integer, Integer>>(11, new SimplyEntryComparator());//initializeFScores(Integer.MAX_VALUE);
         /*HashMap des gScore*/
@@ -79,17 +83,19 @@ public class Pathfinding {
 
 
         while (!open.isEmpty()) {
-            SimpleEntry<Integer, Integer> current = open.poll();
-            /*Si on a atteint la destination, on reconstruit le chemin*/
-            if (current.getKey() == dest) {
-                return reconstructPath(close, current.getKey());
+            int position = open.poll().getKey();
+            /* Si on a atteint la destination, on reconstruit le chemin */
+            if (position == dest) {
+                return reconstructPath(close, position);
             }
             
             /* On explore les voisins */
-            for (Integer neighbor : carte.getNeighbors(current.getKey())) {
-                int tentativeGScore = gScore.get(current.getKey()) + 1; // 1 is the distance between current and his neighbor
+            for (Integer neighbor : this.donneesSimulation.getCarte().getNeighbors(position)) {
+                // 1 is the distance between current and his neighbor
+                // donneesSimulation.getTimeToMove(robot, position, neighbor)
+                int tentativeGScore = gScore.get(position) + (int)donneesSimulation.getTimeToMove(robot, position, neighbor);
                 if (tentativeGScore < gScore.get(neighbor)) {
-                    close.put(neighbor, current.getKey());
+                    close.put(neighbor, position);
                     gScore.replace(neighbor, tentativeGScore);
                     removeNeighbor(open, neighbor);
                     SimpleEntry<Integer, Integer> neighborWithCost = new SimpleEntry<Integer, Integer>(neighbor, gScore.get(neighbor) + manhattanDistance(neighbor, dest));

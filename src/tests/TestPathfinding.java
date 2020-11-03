@@ -5,17 +5,17 @@ import java.util.LinkedList;
 
 import game.DonneesSimulation;
 import game.Pathfinding;
+import game.robots.Robot;
 
 public class TestPathfinding {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
+        Pathfinding pathfinding = new Pathfinding(donneesSimulation);
 
-        /* Génération du robot */
-        Pathfinding pathfinding = new Pathfinding(donneesSimulation.getCarte());
-
-        /* Calcul du plus court chemin entre (src, dest) */
-        LinkedList<Integer> path = pathfinding.shortestWay(0, 27);
+        /* Calcul du plus court chemin (robot, src, dest) */
+        Robot robot = donneesSimulation.getRobot(0);
+        LinkedList<Integer> path = pathfinding.shortestWay(robot, robot.getPosition(), 3);
 
         /* Affichage du path */
         System.out.println("Affichage du chemin:");

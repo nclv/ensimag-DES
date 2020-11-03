@@ -23,7 +23,6 @@ public class TestEventsScenario1 implements InterfaceDonneesSimulation {
             donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, 
             Color.BLACK
         );
-
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
         Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
