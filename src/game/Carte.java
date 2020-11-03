@@ -111,7 +111,7 @@ public class Carte {
             } catch (Exception IllegalArgumentException) {
             }
         }
-        LOGGER.info("voisins: {}", neighbors);
+        // LOGGER.info("voisins: {}", neighbors);
         return neighbors;
     }
 
