@@ -46,8 +46,10 @@ public class Carte {
      * @return -1 si on est en dehors de la carte, la position voisine sinon
      */
     public int getVoisin(int position, Direction direction) throws IllegalArgumentException {
+        int ligne = position / nbLignes;
+        int colonne = position % nbLignes;
+        checkPosition(ligne + direction.getDy(), colonne + direction.getDx());
         int positionVoisin = position + (direction.getDy() * nbLignes + direction.getDx());
-        checkPosition(positionVoisin);
         return positionVoisin;
     }
 
@@ -90,6 +92,12 @@ public class Carte {
         }
     }
 
+    private void checkPosition(int ligne, int colonne) throws IllegalArgumentException {
+        if (!isOnMap(ligne, colonne)) {
+            throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
+        }
+    }
+
     private Boolean isOnMap(int ligne, int colonne) {
         return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
@@ -103,6 +111,7 @@ public class Carte {
             } catch (Exception IllegalArgumentException) {
             }
         }
+        LOGGER.info("voisins: {}", neighbors);
         return neighbors;
     }
 
