@@ -24,10 +24,9 @@ public class DonneesSimulation {
      * Il y a une carte.
      */
     private Carte carte;
-    Map<Integer, Integer> incendies;
+    private Map<Integer, Integer> incendies;
     // il peut y avoir plusieurs robots sur une même position
-    // a map hold references to its values
-    Map<Integer, ArrayList<Robot>> robots;
+    private Map<Integer, ArrayList<Robot>> robots;
 
     public DonneesSimulation() {}
 
@@ -84,6 +83,27 @@ public class DonneesSimulation {
             }
         }
         return null;
+    }
+
+    /**
+     * Le temps mis pour se rendre d’une case à l’autre est la moyenne de la
+     * vitesse sur chacune des cases multipliée par la taille des cases.
+     * @param position
+     * @param newPosition
+     * @return temps mis pour se déplacer de position à newPosition
+     * @throws IllegalArgumentException if the robot can't move on newPosition
+     */
+    public long getTimeToMove(final Robot robot, final int position, final int newPosition) throws IllegalArgumentException {
+        // LOGGER.info("{}km/h sur {}, {}km/h sur {}, pour des cases de taille {}",
+        // robot.getVitesse(this.carte.getTerrain(position)),
+        // this.carte.getTerrain(position),
+        // robot.getVitesse(this.carte.getTerrain(newPosition)),
+        // this.carte.getTerrain(newPosition),
+        // this.carte.getTailleCases());
+
+        // throws IllegalArgumentException if the robot can't move on the position
+        return (long) ((robot.getVitesse(this.carte.getTerrain(position))
+                + robot.getVitesse(this.carte.getTerrain(newPosition))) / 2 * carte.getTailleCases());
     }
 
     @Override

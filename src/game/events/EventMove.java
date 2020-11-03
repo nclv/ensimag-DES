@@ -35,29 +35,8 @@ public class EventMove extends Event {
         // throws IllegalArgumentException if outside the map
         final int newPosition = getDonneesSimulation().getCarte().getVoisin(position, this.direction);
         // throws IllegalArgumentException if the robot can't move on the position
-        final long timeToMove = getTimeToMove(position, newPosition);
+        final long timeToMove = getDonneesSimulation().getTimeToMove(getRobot(), position, newPosition);
         return timeToMove;
-    }
-
-    /**
-     * Le temps mis pour se rendre d’une case à l’autre est la moyenne de la
-     * vitesse sur chacune des cases multipliée par la taille des cases.
-     * @param position
-     * @param newPosition
-     * @return temps mis pour se déplacer de position à newPosition
-     * @throws IllegalArgumentException if the robot can't move on newPosition
-     */
-    private long getTimeToMove(final int position, final int newPosition) throws IllegalArgumentException {
-        final Carte carte = getDonneesSimulation().getCarte();
-        // LOGGER.info("{}km/h sur {}, {}km/h sur {}, pour des cases de taille {}",
-        // getRobot().getVitesse(carte.getTerrain(position)),
-        // carte.getTerrain(position),
-        // getRobot().getVitesse(carte.getTerrain(newPosition)),
-        // carte.getTerrain(newPosition),
-        // carte.getTailleCases());
-        // throws IllegalArgumentException if the robot can't move on the position
-        return (long) ((getRobot().getVitesse(carte.getTerrain(position))
-                + getRobot().getVitesse(carte.getTerrain(newPosition))) / 2 * carte.getTailleCases());
     }
 
     @Override
