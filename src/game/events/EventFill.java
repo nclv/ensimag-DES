@@ -35,7 +35,7 @@ public class EventFill extends Event {
         if (filling == Filling.ON) {
             canFill = carte.isTerrain(position, NatureTerrain.EAU);
         } else if (filling == Filling.NEXT) {
-            canFill = carte.doesTerrainVoisinExist(position, NatureTerrain.EAU);
+            canFill = carte.existTerrainVoisin(position, NatureTerrain.EAU);
         } else if (filling == Filling.NONE) {
             canFill = true;
         }

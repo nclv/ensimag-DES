@@ -14,7 +14,7 @@ import gui.Simulable;
 public class Simulateur implements Simulable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulateur.class);
 
-    public static final long INCREMENT = 1500000;
+    public static final long INCREMENT = 375000;
 
     private DonneesSimulation donneesSimulation;
     private final DonneesSimulation donneesSimulationSaved;
@@ -55,7 +55,7 @@ public class Simulateur implements Simulable {
         // peek/remove is faster than poll/add
         Event event;
         while ((event = eventQueue.peek()) != null && event.getDate() <= this.currentDate) {
-            LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
+            LOGGER.info("Date de l'évènement (execution): {}\n{}", event.getDate(), event.getRobot());
 
             // on exécute l'action pour le robot si l'action est valide
             try {
@@ -65,7 +65,8 @@ public class Simulateur implements Simulable {
                 e.printStackTrace();
             }
 
-            eventQueue.remove();
+            eventQueue.remove(event);
+            // LOGGER.info("Next event: {}", event);
         }
     }
 

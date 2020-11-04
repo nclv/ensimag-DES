@@ -34,9 +34,12 @@ public class TestPathfindingGUI {
 
         /* Affichage du path */
         System.out.println("Affichage du chemin:");
+
         long count = 0;
         long increment = Simulateur.INCREMENT;
+
         Iterator<Integer> iter = path.iterator();
+        
         int currentPosition = iter.next();
         System.out.println("(" + String.valueOf(currentPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(currentPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
         while (iter.hasNext()) {
