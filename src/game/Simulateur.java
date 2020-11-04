@@ -26,12 +26,10 @@ public class Simulateur implements Simulable {
     GraphicsComponent graphicsComponent;
 
     /**
-     * Crée un Simulateur et le dessine.
+     * Initialisation d'un Simulateur
      * 
-     * @param gui   l'interface graphique associée, dans laquelle se fera le dessin
-     *              et qui enverra les messages via les méthodes héritées de
-     *              Simulable.
-     * @param color la couleur du simulateur
+     * @param graphicsComponent s'occupe de l'affichage
+     * @param donneesSimulation
      */
     public Simulateur(final GraphicsComponent graphicsComponent, final DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
