@@ -53,6 +53,14 @@ public class Carte {
         return positionVoisin;
     }
 
+    /**
+     * Renvoie la direction selon la position voisine.
+     * 
+     * @param position
+     * @param positionVoisin
+     * @return Direction
+     * @throws IllegalArgumentException
+     */
     public Direction getDirection(int position, int positionVoisin) throws IllegalArgumentException {
         checkPosition(positionVoisin);
         int ligne = position / nbLignes;
@@ -75,7 +83,7 @@ public class Carte {
         return (getTerrain(position) == natureTerrain);
     }
 
-    public Boolean doesTerrainVoisinExist(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
+    public Boolean existTerrainVoisin(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
         for (Direction direction : Direction.values()) {
             if (getTerrainVoisin(position, direction) == natureTerrain) {
                 return true;
@@ -87,9 +95,7 @@ public class Carte {
     private void checkPosition(int position) throws IllegalArgumentException {
         int ligne = position / nbLignes;
         int colonne = position % nbLignes;
-        if (!isOnMap(ligne, colonne)) {
-            throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
-        }
+        checkPosition(ligne, colonne);
     }
 
     private void checkPosition(int ligne, int colonne) throws IllegalArgumentException {

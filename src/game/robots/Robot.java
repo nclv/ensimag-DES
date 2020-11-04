@@ -81,13 +81,13 @@ public class Robot implements IdentifiedEntity<Long> {
 
     /**
      * @param natureTerrain
-     * @return la vitesse du robot sur le terrain
+     * @return la vitesse du robot sur le terrain en m/s
      * @throws IllegalArgumentException si le robot ne peut pas se déplacer sur le type de terrain
      */
     public Double getVitesse(final NatureTerrain natureTerrain) throws IllegalArgumentException {
         checkWalkable(natureTerrain);
         final double speedFactor = this.robotType.getTerrainVitesse().get(natureTerrain);
-        return this.vitesse * speedFactor;
+        return this.vitesse * 1000 / 3600 * speedFactor;
     }
 
     /**
