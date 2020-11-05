@@ -91,9 +91,12 @@ public class Pathfinding {
             
             /* On explore les voisins */
             for (Integer neighbor : this.donneesSimulation.getCarte().getNeighbors(position)) {
-                // 1 is the distance between current and his neighbor
-                // donneesSimulation.getTimeToMove(robot, position, neighbor)
-                int tentativeGScore = gScore.get(position) + (int)donneesSimulation.getTimeToMove(robot, position, neighbor);
+                int tentativeGScore = Integer.MAX_VALUE;
+                try {
+                    tentativeGScore = gScore.get(position) + (int)donneesSimulation.getTimeToMove(robot, position, neighbor);
+                } catch (final IllegalArgumentException e) {
+                    e.printStackTrace();
+                }
                 if (tentativeGScore < gScore.get(neighbor)) {
                     close.put(neighbor, position);
                     gScore.replace(neighbor, tentativeGScore);

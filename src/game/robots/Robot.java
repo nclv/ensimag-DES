@@ -14,6 +14,12 @@ public class Robot implements IdentifiedEntity<Long> {
     private Double vitesse;
     private Double volume;
     private Integer position;
+    private State state = State.FREE;
+
+    public static enum State {
+        FREE,
+        BUSY
+    }
 
     public Robot(final RobotType robotType, final long robotId, final int position) {
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
@@ -131,6 +137,14 @@ public class Robot implements IdentifiedEntity<Long> {
         this.position = position;
     }
 
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
     @Override
     public Long getId() {
         return this.robotId;
@@ -139,7 +153,7 @@ public class Robot implements IdentifiedEntity<Long> {
     @Override
     public String toString() {
         String res = new String();
-        res += "Robot de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
+        res += "Le robot " + ((state == State.BUSY) ? "BUSY" : "FREE") + " de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
                 + " litres d'eau";
         return res;
     }

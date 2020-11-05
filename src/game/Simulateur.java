@@ -7,9 +7,11 @@ import java.util.PriorityQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import game.graphics.GraphicsComponent;
 import game.events.Event;
+import game.graphics.GraphicsComponent;
+import game.robots.Robot.State;
 import gui.Simulable;
+import strategie.Strategie;
 
 public class Simulateur implements Simulable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulateur.class);
@@ -23,10 +25,11 @@ public class Simulateur implements Simulable {
     private PriorityQueue<Event> eventQueue = new PriorityQueue<Event>();
     private final PriorityQueue<Event> eventQueueSaved = new PriorityQueue<Event>();
 
-    GraphicsComponent graphicsComponent;
+    private GraphicsComponent graphicsComponent;
+    private Strategie strategie = null;
 
     /**
-     * Initialisation d'un Simulateur
+     * Initialisation d'un Simulateur sans stratégie définie
      * 
      * @param graphicsComponent s'occupe de l'affichage
      * @param donneesSimulation
@@ -41,39 +44,82 @@ public class Simulateur implements Simulable {
         this.graphicsComponent.init();
     }
 
+    /**
+     * Initialisation d'un Simulateur avec stratégie
+     * 
+     * @param graphicsComponent
+     * @param donneesSimulation
+     * @param strategie
+     */
+    public Simulateur(final GraphicsComponent graphicsComponent, final DonneesSimulation donneesSimulation, Strategie strategie) {
+        this(graphicsComponent, donneesSimulation);
+        this.strategie = strategie;
+    }    
+
     public void addEvent(final Event event) {
         LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
 
-        eventQueue.add(event);
+        this.eventQueue.add(event);
         // ajout à la queue de sauvegarde
-        eventQueueSaved.add(event.copy(this.donneesSimulation));
+        this.eventQueueSaved.add(event.copy(this.donneesSimulation));
+        // on marque le robot comme occupé s'il ne l'est pas déjà
+        if (event.getRobot().getState() == State.FREE) {
+            event.getRobot().setState(State.BUSY);
+        }
     }
 
+    /**
+     * Execute les évènements présents entre deux dates.
+     */
     private void executeNextEvents() {
         // peek/remove is faster than poll/add
         Event event;
         while ((event = eventQueue.peek()) != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}\n{}", event.getDate(), event.getRobot());
 
-            // on exécute l'action pour le robot si l'action est valide
+            // on récupère la durée de l'event si l'event est valide
+            // sinon la durée de l'event est nulle
+            // on exécute ensuite l'action pour le robot si l'action est valide
+            long duration = 0;
             try {
-                updateEventQueue(event);
+                // throws IllegalArgumentException if outside the map or if the robot can't move on the position (EventMove)
+                duration = event.getDuration();
+                // throws IllegalArgumentException if outside the map or if the robot can't move on the position (EventMove)
                 event.execute();
+                // LOGGER.info("Il y a {} events concernant le robot {}", sameRobotEventsCount - 1, event.getRobot().getId());
             } catch (final IllegalArgumentException e) {
                 e.printStackTrace();
             }
+            LOGGER.info("Fin d'exécution: {}", duration);
 
+            // on récupère le nombre d'events concernant le même robot et on update leurs dates
+            // si la durée est nulle la date reste inchangée
+            // on a ainsi le bon nombre d'events concernant le même robot si on a une action non 
+            // valide suivie d'actions valides
+            int sameRobotEventsCount = updateEventQueue(event, duration);
+
+            // s'il n'y a plus qu'un event concernant ce robot (cet event vient d'être exécuté) 
+            // alors le robot est de nouveau libre
+            if (sameRobotEventsCount == 1) {
+                assert event.getRobot().getState() == State.BUSY;
+                event.getRobot().setState(State.FREE);
+                LOGGER.info("Le robot {} est FREE", event.getRobot().getId());
+            }
             eventQueue.remove(event);
-            // LOGGER.info("Next event: {}", event);
         }
     }
 
-    private void updateEventQueue(final Event event) throws IllegalArgumentException {
-        // récupère la durée de l'event
-        final long duration = event.getDuration();
-        LOGGER.info("Fin d'exécution: {}", duration);
+    /**
+     * Il faut réordonner la priority queue si le robot peut exécuter l'action.
+     * Tous les events du robot exécutant l'action doivent être incrémentés de la durée de l'action.
+     * 
+     * @param event
+     * @return nombre d'events concernant le même robot dans eventQueue
+     */
+    private int updateEventQueue(final Event event, final long duration) throws IllegalArgumentException {
         // le robot est occupé pendant duration, on ne peut plus exécuter d'actions avec
         // ce robot. Il faut incrémenter la date des évènements de ce robot de duration
+        int count = 0; // compteur des occurrences du robot dans eventQueue
         final ArrayList<Event> eventsToAdd = new ArrayList<Event>();
         final Iterator<Event> events = this.eventQueue.iterator();
         while (events.hasNext()) {
@@ -85,11 +131,14 @@ public class Simulateur implements Simulable {
                 // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
                 currentEvent.updateDate(this.currentDate + duration);
                 LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
+                count++;
                 events.remove();
                 eventsToAdd.add(currentEvent);
+
             }
         }
         this.eventQueue.addAll(eventsToAdd);
+        return count;
     }
 
     public void updateCurrentDate() {
@@ -100,6 +149,7 @@ public class Simulateur implements Simulable {
     public void next() {
         // update donneesSimulation and eventQueue
         executeNextEvents();
+        if (strategie != null) strategie.execute(this);
 
         LOGGER.info("Ancienne date courante: {}", this.currentDate);
         updateCurrentDate();
@@ -122,5 +172,13 @@ public class Simulateur implements Simulable {
         this.graphicsComponent.setDonneesSimulation(donneesSimulation);
         this.graphicsComponent.reset();
         this.graphicsComponent.draw();
+    }
+
+    public DonneesSimulation getDonneesSimulation() {
+        return donneesSimulation;
+    }
+
+    public void setDonneesSimulation(DonneesSimulation donneesSimulation) {
+        this.donneesSimulation = donneesSimulation;
     }
 }
