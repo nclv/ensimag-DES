@@ -48,6 +48,7 @@ public class TestEventsScenario01 {
         count += increment;
 
         simulateur.addEvent(new EventFill(count, donneesSimulation, roues));
+        simulateur.addEvent(new EventMove(count, donneesSimulation, drone, Direction.SUD));
         count += increment;
 
         simulateur.addEvent(new EventMove(count, donneesSimulation, roues, Direction.EST));

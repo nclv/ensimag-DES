@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TestStrategieElementaire",
+            "request": "launch",
+            "mainClass": "tests.TestStrategieElementaire",
+            "projectName": "ensimag-robots-pompiers_50671edf"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TestEventsScenario01",
             "request": "launch",
             "mainClass": "tests.TestEventsScenario01",
