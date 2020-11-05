@@ -29,6 +29,7 @@ public class EventMove extends Event {
      * @return temps mis par le robot pour se déplacer
      * @throws IllegalArgumentException if outside the map or if the robot can't move on the position
      */
+    @Override
     public long getDuration() throws IllegalArgumentException {
         // on a besoin des positions pour update la durée du mouvement
         final int position = getRobot().getPosition();
@@ -39,6 +40,9 @@ public class EventMove extends Event {
         return timeToMove;
     }
 
+    /**
+     * Déplace le robot (si possible)
+     */
     @Override
     public void execute() {
         final Carte carte = getDonneesSimulation().getCarte();

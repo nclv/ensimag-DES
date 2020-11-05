@@ -31,6 +31,7 @@ public class Robot implements IdentifiedEntity<Long> {
     /**
      * Initialisation du robot.
      * Utile pour en éviter la copie lors d'un restart.
+     * 
      * @param position
      */
     public void init(final int position) {
@@ -42,6 +43,7 @@ public class Robot implements IdentifiedEntity<Long> {
     /**
      * Diminue le volume du robot de maxEmptiedVolume
      * On assure que le volume du robot reste >= 0
+     * 
      * @return le volume déversé par le robot
      */
     public Double deverserEau() {
@@ -61,6 +63,9 @@ public class Robot implements IdentifiedEntity<Long> {
         return volume;
     }
 
+    /**
+     * On restore le volume du robot à sa capacité.
+     */
     public void remplirReservoir() {
         this.volume = this.robotType.getCapacity();
     }

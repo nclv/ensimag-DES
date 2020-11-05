@@ -13,7 +13,9 @@ import gui.GraphicalElement;
 public class TileImg implements GraphicalElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(TileImg.class);
     
+    /* Image de fond (type de case) */
     private BufferedImage tileBackgroundImg = null;
+    /* Liste des images affichées par dessus l'image de fond (robots) */
     private ArrayList<BufferedImage> tileForegroundImgsArray = null;
 
     private final int tileBackgroundImgSize;
@@ -21,6 +23,7 @@ public class TileImg implements GraphicalElement {
     private final int x;
     private final int y;
 
+    /* Inensité normalisée du feu à afficher */
     private int fireNormalizedIntensity = 0;
 
     public TileImg(final int x, final int y, final int tileBackgroundImgSize, final BufferedImage tileBackgroundImg) {
@@ -43,6 +46,9 @@ public class TileImg implements GraphicalElement {
         this.fireNormalizedIntensity = fireNormalizedIntensity;
     }
 
+    /**
+     * Affichage de l'image finale, superposition de l'image de fond, des dessins et des images du premier plan
+     */
     @Override
     public void paint(final Graphics2D g2d) {
         // L'ordre est IMPORTANT. On superpose des images et dessins.

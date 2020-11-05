@@ -1,13 +1,13 @@
 package game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Carte {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Carte.class);
+    // private static final Logger LOGGER = LoggerFactory.getLogger(Carte.class);
     /**
      * Pour le moment on choisit de fixer la taille d'une carte, on ne peut pas
      * redimmensionner la carte. Donc pas de setters pour les attributs nbLignes et
@@ -23,11 +23,6 @@ public class Carte {
      * use HashMap<Coordinate, Data>, Coordinate may be a Point, It does not
      * guarantee any order of the elements stored internally in the map.
      */
-    // on peut préciser la capacité initiale en paramètre: nbLignes * nbColonnes
-    // See https://www.javatpoint.com/java-hashmap
-    // Map<Coordinate, NatureTerrain> map = new HashMap<Coordinate,
-    // NatureTerrain>();
-    // Map<Integer, Map<Integer, Tile>>
     private final Map<Integer, NatureTerrain> map;
 
     public Carte(int nbLignes, int nbColonnes, int tailleCases, Map<Integer, NatureTerrain> map) {
@@ -70,19 +65,50 @@ public class Carte {
         return Direction.getDirection((ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne));
     }
 
+    /**
+     * Renvoie la nature du terrain de la position
+     * 
+     * @param position
+     * @return NatureTerrain
+     * @throws IllegalArgumentException
+     */
     public NatureTerrain getTerrain(int position) throws IllegalArgumentException {
         checkPosition(position);
         return map.get(position);
     }
 
+    /**
+     * Renvoie la nature du terrain de la position voisine
+     * 
+     * @param position
+     * @param direction
+     * @return NatureTerrain
+     * @throws IllegalArgumentException
+     */
     public NatureTerrain getTerrainVoisin(int position, Direction direction) throws IllegalArgumentException {
         return map.get(getVoisin(position, direction));
     }
 
+    /**
+     * Renvoie true si le type de terrain de la position match celui passé en argument
+     * 
+     * @param position
+     * @param natureTerrain
+     * @return Boolean
+     * @throws IllegalArgumentException
+     */
     public Boolean isTerrain(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
         return (getTerrain(position) == natureTerrain);
     }
 
+    /**
+     * Renvoie true s'il existe un terrain de type natureTerrain sur une position voisine de position
+     * 
+     * @param position
+     * @param natureTerrain
+     * @return
+     * @throws IllegalArgumentException
+     */
     public Boolean existTerrainVoisin(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
         for (Direction direction : Direction.values()) {
             if (getTerrainVoisin(position, direction) == natureTerrain) {
@@ -92,26 +118,53 @@ public class Carte {
         return false;
     }
 
+    /**
+     * Renvoie une exception si la position n'est pas sur la carte
+     * 
+     * @param position
+     * @throws IllegalArgumentException
+     */
     private void checkPosition(int position) throws IllegalArgumentException {
         int ligne = position / nbLignes;
         int colonne = position % nbLignes;
         checkPosition(ligne, colonne);
     }
 
+    /**
+     * Renvoie une exception si la position n'est pas sur la carte
+     * 
+     * @param ligne
+     * @param colonne
+     * @throws IllegalArgumentException
+     */
     private void checkPosition(int ligne, int colonne) throws IllegalArgumentException {
         if (!isOnMap(ligne, colonne)) {
             throw new IllegalArgumentException("La position (" + ligne + ", " + colonne + ") n'est pas sur la carte.");
         }
     }
 
+    /**
+     * Renvoie true si la position est sur la carte.
+     * 
+     * @param ligne
+     * @param colonne
+     * @return
+     */
     private Boolean isOnMap(int ligne, int colonne) {
         return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
     }
 
-    public LinkedList<Integer> getNeighbors(int position) {
-        LinkedList<Integer> neighbors = new LinkedList<Integer>();
+    /**
+     * Renvoie une liste des positions voisines de position.
+     * 
+     * @param position
+     * @return ArrayList<Integer> de positions voisines de position
+     */
+    public ArrayList<Integer> getNeighbors(int position) {
+        ArrayList<Integer> neighbors = new ArrayList<Integer>();
         for (Direction direction : Direction.values()) {
             try {
+                // throw IllegalArgumentException if the voisin is not on the map
                 int neighbor = getVoisin(position, direction);
                 neighbors.add(neighbor);
             } catch (Exception IllegalArgumentException) {

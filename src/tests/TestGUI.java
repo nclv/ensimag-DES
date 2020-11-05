@@ -20,7 +20,7 @@ public class TestGUI implements InterfaceDonneesSimulation {
 
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
+        new Simulateur(graphicsComponent, donneesSimulation);
     }
 }
 

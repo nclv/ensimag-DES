@@ -1,7 +1,7 @@
 package game;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+// import org.slf4j.Logger;
+// import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.Map;
 import game.robots.Robot;
 
 public class DonneesSimulation {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DonneesSimulation.class);
+    // private static final Logger LOGGER = LoggerFactory.getLogger(DonneesSimulation.class);
     /**
      * DonneesSimulation est "propriétaire" des instances de Incendie, Carte et
      * Robot qui la composent. Si les données de la simulation sont détruites, les
@@ -30,6 +30,11 @@ public class DonneesSimulation {
 
     public DonneesSimulation() {}
 
+    /**
+     * Copy constructor
+     * 
+     * Robots are reinitialized
+     */
     public DonneesSimulation(DonneesSimulation another) {
         this.carte = another.carte; // la carte ne change pas entre deux restarts
         this.incendies = new HashMap<Integer, Integer>(another.incendies);
