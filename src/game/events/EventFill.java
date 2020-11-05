@@ -20,10 +20,19 @@ public class EventFill extends Event {
         return new EventFill(getDate(), donneesSimulation, getRobot());
     }
 
+    /**
+     * @return temps mis pour remplir le robot 
+     */
+    @Override
     public long getDuration() {
         return getRobot().getTimeToFillUp();
     }
 
+    /**
+     * Renvoie true si on peut remplir le robot
+     * 
+     * @return true if you can fill the robot from his position
+     */
     private Boolean canFill() {
         // on sépare la logique de la carte (position) de celle des robots (filling)
         final Carte carte = getDonneesSimulation().getCarte();
@@ -42,6 +51,9 @@ public class EventFill extends Event {
         return canFill;
     }
 
+    /**
+     * Remplit le robot (si possible)
+     */
     @Override
     public void execute() throws IllegalArgumentException {
         if (!canFill()) {

@@ -23,10 +23,8 @@ public class TestStrategieElementaire {
         );
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        /* Initialisation de l'algorithme de pathfinding */
-        Pathfinding pathfinding = new Pathfinding(donneesSimulation);
-        Strategie strategie = new StrategieElementaire(pathfinding);
+        Strategie strategie = new StrategieElementaire(new Pathfinding(donneesSimulation));
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, strategie);
+        new Simulateur(graphicsComponent, donneesSimulation, strategie);
     }
 }

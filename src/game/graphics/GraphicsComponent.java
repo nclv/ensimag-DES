@@ -29,7 +29,9 @@ public class GraphicsComponent {
     private final GUISimulator gui;
     private final int guiSizeFactor;
 
+    /* Utilitaire pour normaliser l'intensité des feux */
     private NormUtil normUtil;
+    /* Buffer des images pour qu'on n'ait pas à les recharger à chaque affichage */
     private final ImagesBuffer imagesBuffer;
 
     private final ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
@@ -55,13 +57,26 @@ public class GraphicsComponent {
         this.gui.reset(); // clear the window
         this.guiSizeFactor = guiSizeFactor;
 
+        // initialisation de l'utilitaire de normalisation
         setNormUtil(donneesSimulation.getIncendies(), this.guiSizeFactor / 1.5, this.guiSizeFactor / 6);
     }
 
+    /**
+     * Set the gui simulable
+     * 
+     * @param simulable
+     */
     public void setSimulable(final Simulable simulable) {
         this.gui.setSimulable(simulable);
     }
 
+    /**
+     * Set the normalisation utility parameters
+     * 
+     * @param incendies
+     * @param normalizedHigh
+     * @param normalizedLow
+     */
     private void setNormUtil(final Map<Integer, Integer> incendies, final double normalizedHigh,
             final double normalizedLow) {
         // on va normaliser les intensités des incendies pour afficher des incendies de
@@ -74,6 +89,9 @@ public class GraphicsComponent {
         this.normUtil = new NormUtil(maxIntensity, minIntensity, normalizedHigh, normalizedLow);
     }
 
+    /**
+     * Initialise l'interface graphique
+     */
     public void init() {
         this.gui.reset(); // clear the window
 
@@ -87,13 +105,19 @@ public class GraphicsComponent {
     }
 
     /**
-     * On dessine la carte et ses éléments
+     * Dessine la carte et ses éléments
+     * 
      * Drawing is automatic, no need to repaint
      */
     public void draw() {
         updateAllTileImgs();
     }
 
+    /**
+     * Retour à la carte initiale sans incendies et robots
+     * 
+     * On garde seulement les images de fond (qui représentent le type des cases)
+     */
     public void reset() {
         final Map<Integer, NatureTerrain> map = donneesSimulation.getCarte().getMap();
 
@@ -104,6 +128,9 @@ public class GraphicsComponent {
         }
     }
 
+    /**
+     * Ajoût des images des cases à tileImgsArray
+     */
     private void setTiles() {
         final int nbLignes = donneesSimulation.getCarte().getNbLignes();
         final Map<Integer, NatureTerrain> map = donneesSimulation.getCarte().getMap();
@@ -120,6 +147,9 @@ public class GraphicsComponent {
         }
     }
 
+    /**
+     * Mise à jour des images des cases (incendies et robots)
+     */
     private void updateAllTileImgs() {
         LOGGER.info("Mise à jour des entités:");
         if (!this.tileImgsArray.isEmpty()) {
@@ -128,6 +158,9 @@ public class GraphicsComponent {
         }
     }
 
+    /**
+     * Mise à jour des incendies
+     */
     private void setIncendies() {
         final Map<Integer, Integer> incendies = donneesSimulation.getIncendies();
 
@@ -144,6 +177,9 @@ public class GraphicsComponent {
         }
     }
 
+    /**
+     * Mise à jour des robots
+     */
     private void setRobots() {
         final Map<Integer, ArrayList<Robot>> robotsMap = donneesSimulation.getRobots();
         for (final Map.Entry<Integer, ArrayList<Robot>> robots : robotsMap.entrySet()) {
@@ -198,8 +234,16 @@ class NormUtil {
 
 class ImagesBuffer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImagesBuffer.class);
+
+    /* Stockage des images */
     private final HashMap<String, BufferedImage> picturesCache = new HashMap<String, BufferedImage>();
 
+    /**
+     * Chargement d'une image dans le buffer
+     * 
+     * @param imgFilename
+     * @return image chargée BufferedImage
+     */
     public BufferedImage loadImg(final String imgFilename) {
         BufferedImage bufferedImage = null;
         try {
@@ -212,6 +256,13 @@ class ImagesBuffer {
         return bufferedImage;
     }
 
+    /**
+     * Renvoie l'image présente dans le buffer
+     * Chargement de l'image si elle n'est pas présente dans le buffer
+     * 
+     * @param imgFilename
+     * @return BufferedImage présente dans le buffer
+     */
     public BufferedImage getImg(final String imgFilename) {
         BufferedImage img = this.picturesCache.get(imgFilename);
         if (img == null) {

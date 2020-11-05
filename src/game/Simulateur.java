@@ -56,6 +56,12 @@ public class Simulateur implements Simulable {
         this.strategie = strategie;
     }    
 
+    /**
+     * Ajout d'un event à eventQueue et à sa sauvegarde
+     * Marquage du robot comme étant occupé
+     * 
+     * @param event
+     */
     public void addEvent(final Event event) {
         LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
 
@@ -112,8 +118,10 @@ public class Simulateur implements Simulable {
     /**
      * Il faut réordonner la priority queue si le robot peut exécuter l'action.
      * Tous les events du robot exécutant l'action doivent être incrémentés de la durée de l'action.
+     * On en profite pour compter le nombre d'events concernant le même robot
      * 
      * @param event
+     * @param duration durée de l'event passé en argument
      * @return nombre d'events concernant le même robot dans eventQueue
      */
     private int updateEventQueue(final Event event, final long duration) throws IllegalArgumentException {
@@ -141,6 +149,9 @@ public class Simulateur implements Simulable {
         return count;
     }
 
+    /**
+     * Incrémente la date courante d'INCREMENT
+     */
     public void updateCurrentDate() {
         this.currentDate += INCREMENT;
     }
@@ -176,9 +187,5 @@ public class Simulateur implements Simulable {
 
     public DonneesSimulation getDonneesSimulation() {
         return donneesSimulation;
-    }
-
-    public void setDonneesSimulation(DonneesSimulation donneesSimulation) {
-        this.donneesSimulation = donneesSimulation;
     }
 }

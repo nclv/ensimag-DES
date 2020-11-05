@@ -27,7 +27,8 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Change la date de l'event si elle est plus petite que la nouvelle date
+     * Change la date de l'event si elle arrive plus tôt que la nouvelle date
+     * 
      * @param newdate
      */
     public void updateDate(final long newDate) {
@@ -43,8 +44,16 @@ public abstract class Event implements Comparable<Event> {
         return donneesSimulation;
     }
 
+    /**
+     * Renvoie la durée de l'action
+     * 
+     * @return durée de l'action
+     */
     public abstract long getDuration();
 
+    /**
+     * Exécute l'action
+     */
     public abstract void execute();
 
     @Override

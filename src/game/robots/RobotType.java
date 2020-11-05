@@ -16,7 +16,7 @@ public class RobotType {
     private Filling filling; // méthode de remplissage: ON, NEXT or NONE
     private Double vitesse;
     private Double vitesseMax;
-    private Double capacity; // au sens de capacité
+    private Double capacity;
     private int maxEmptiedVolume; // volume maximal que le robot peut déverser
     private int maxtimeToEmpty; // temps mis pour déverser maxEmptiedVolume
     private int timeToFillUp;

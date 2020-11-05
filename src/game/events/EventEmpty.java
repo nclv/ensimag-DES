@@ -11,7 +11,6 @@ import game.robots.Robot;
 public class EventEmpty extends Event {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventEmpty.class);
 
-    // le robot déverse de l'eau sur sa position
     public EventEmpty(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
         super(date, donneesSimulation, robot);
     }
@@ -23,6 +22,7 @@ public class EventEmpty extends Event {
     /**
      * @return durée mise pour vider le robot / éteindre l'incendie
      */
+    @Override
     public long getDuration() {
         // s'il n'y a aucun incendie sur la position on ne vide pas le robot
         long timeToEmpty = 0;
@@ -40,6 +40,9 @@ public class EventEmpty extends Event {
         return timeToEmpty;
     }
 
+    /**
+     * Vide une partie de l'eau du robot sur sa position
+     */
     @Override
     public void execute() {
         final Map<Integer, Integer> incendies = getDonneesSimulation().getIncendies();
@@ -52,6 +55,7 @@ public class EventEmpty extends Event {
         // on diminue l'intensité de l'incendie s'il y a un incendie à cette position
         Integer intensity = incendies.get(position);
         if (intensity != null) {
+            // le robot déverse de l'eau sur sa position
             // empty all necessary water until there is no more water or the fire is extinguished
             // test != 0 because we make sure there cannot be < 0 values
             while (getRobot().getVolume() != 0.0 && intensity != 0) {

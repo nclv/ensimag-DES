@@ -24,7 +24,7 @@ public class TestRobots {
         // System.out.println(pattes);
 
         drone1.setVitesse(50.0);
-        // System.out.println(drone1);
-        // System.out.println(drone);
+        System.out.println(drone1);
+        System.out.println(drone);
     }
 }

@@ -7,6 +7,7 @@ import game.NatureTerrain;
 
 public final class MyRobotTypes {
 
+    /* On nous donne 4 types de robots, il est facile d'en rajouter */
     public static enum Type {
         DRONE, ROUES, CHENILLES, PATTES
     }

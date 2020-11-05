@@ -10,7 +10,9 @@ public enum Direction {
 
     private final int dy;
     private final int dx;
-    private static final int MULT = 2; // needs to be >= 1 
+
+    /* on veut obtenir une Direction à partir d'une position et d'une position voisine */
+    private static final int MULT = 2; // needs to be >= 1
     private static final HashMap<Integer, Direction> BY_RELATIVE_POSITION = new HashMap<Integer, Direction>();
 
     static {
@@ -24,6 +26,9 @@ public enum Direction {
         this.dy = dy;
     }
 
+    /**
+     * Renvoie la direction correspondant à la position relative passée en argument
+     */
     public static Direction getDirection(int relativePosition) {
         return BY_RELATIVE_POSITION.get(relativePosition);
     }
@@ -36,6 +41,9 @@ public enum Direction {
         return dx;
     }
 
+    /**
+     * @return multiplicative coefficient used to get corresponding direction from relative position
+     */
     public static int getMult() {
         return MULT;
     }
