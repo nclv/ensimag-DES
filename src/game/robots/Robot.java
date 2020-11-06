@@ -35,6 +35,7 @@ public class Robot implements IdentifiedEntity<Long> {
      * @param position
      */
     public void init(final int position) {
+        this.state = State.FREE;
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
         this.position = position;
