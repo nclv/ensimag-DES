@@ -2,13 +2,16 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import game.events.Event;
+import game.events.EventMove;
 import game.graphics.GraphicsComponent;
+import game.robots.Robot;
 import game.robots.Robot.State;
 import gui.Simulable;
 import strategie.Strategie;
@@ -67,10 +70,30 @@ public class Simulateur implements Simulable {
 
         this.eventQueue.add(event);
         // ajout à la queue de sauvegarde
-        this.eventQueueSaved.add(event.copy(this.donneesSimulation));
+        if (strategie == null) {
+            this.eventQueueSaved.add(event.copy(this.donneesSimulation));
+        }
         // on marque le robot comme occupé s'il ne l'est pas déjà
         if (event.getRobot().getState() == State.FREE) {
             event.getRobot().setState(State.BUSY);
+        }
+    }
+
+    /**
+     * Ajout d'une suite d'events move à la simulation
+     * 
+     * @param robot
+     * @param path
+     * @param count compteur externe ordonnant les déplacements
+     */
+    public void addEventsMove(Robot robot, LinkedList<Integer> path, long count) {
+        Iterator<Integer> iter = path.iterator();
+        int currentPosition = iter.next();
+        while (iter.hasNext()) {
+            int nextPosition = iter.next();
+            this.addEvent(new EventMove(count, this.getDonneesSimulation(), robot, this.getDonneesSimulation().getCarte().getDirection(currentPosition, nextPosition)));
+            count += Simulateur.INCREMENT;
+            currentPosition = nextPosition;
         }
     }
 
@@ -173,12 +196,15 @@ public class Simulateur implements Simulable {
     @Override
     public void restart() {
         this.currentDate = 0;
+        if (strategie != null) strategie.setCount(0);
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
         this.eventQueue = new PriorityQueue<Event>();
-        // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument lorsque l'on exécute l'event
-        this.eventQueueSaved.stream().forEach((event) -> eventQueue.add(event.copy(this.donneesSimulation)));
-
+        if (strategie == null) {
+            // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument lorsque l'on exécute l'event
+            this.eventQueueSaved.stream().forEach((event) -> eventQueue.add(event.copy(this.donneesSimulation)));
+        }
+        
         // Update de l'affichage
         this.graphicsComponent.setDonneesSimulation(donneesSimulation);
         this.graphicsComponent.reset();
