@@ -106,7 +106,7 @@ public class Simulateur implements Simulable {
 
             // s'il n'y a plus qu'un event concernant ce robot (cet event vient d'être exécuté) 
             // alors le robot est de nouveau libre
-            if (sameRobotEventsCount == 1) {
+            if (sameRobotEventsCount == 1 && strategie.canFree(event.getRobot())) {
                 assert event.getRobot().getState() == State.BUSY;
                 event.getRobot().setState(State.FREE);
                 LOGGER.info("Le robot {} est FREE", event.getRobot().getId());
@@ -158,9 +158,9 @@ public class Simulateur implements Simulable {
 
     @Override
     public void next() {
+        if (strategie != null) strategie.execute(this);
         // update donneesSimulation and eventQueue
         executeNextEvents();
-        if (strategie != null) strategie.execute(this);
 
         LOGGER.info("Ancienne date courante: {}", this.currentDate);
         updateCurrentDate();

@@ -3,7 +3,7 @@ package strategie;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import game.Pathfinding;
+import game.pathfinding.Pathfinding;
 import game.Simulateur;
 import game.events.EventMove;
 import game.robots.Robot;
@@ -17,6 +17,7 @@ public abstract class Strategie {
     }
 
     public abstract void execute(Simulateur simulateur);
+    public abstract Boolean canFree(Robot robot);
 
     public void addEventsMove(Simulateur simulateur, Robot robot, LinkedList<Integer> path) {
         Iterator<Integer> iter = path.iterator();

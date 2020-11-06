@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
-import game.Pathfinding;
+import game.pathfinding.Pathfinding;
 import game.Simulateur;
 import game.events.EventEmpty;
 import game.robots.Robot;
@@ -20,7 +20,6 @@ public class StrategieElementaire extends Strategie {
     public void execute(Simulateur simulateur) {
         ArrayList<Robot> robots = new ArrayList<Robot>();
         simulateur.getDonneesSimulation().getRobots().values().forEach(robots::addAll);
-        LinkedList<Integer> path;
 
         for(Map.Entry<Integer, Integer> incendie: simulateur.getDonneesSimulation().getIncendies().entrySet()) {
             int intensite = incendie.getValue();
@@ -30,15 +29,23 @@ public class StrategieElementaire extends Strategie {
             for (Robot robot : robots) {
                 if (robot.getState() == State.BUSY) continue;
                 
-                path = pathfinding.shortestWay(robot, robot.getPosition(), positionIncendie);
-                if (path == null) continue;
+                LinkedList<Integer> path;
+                try {
+                    path = getPathfinding().shortestWay(robot, robot.getPosition(), positionIncendie);
+                } catch (IllegalStateException e) {
+                    e.printStackTrace();
+                    continue;
+                }
                 
                 addEventsMove(simulateur, robot, path);
                 simulateur.addEvent(new EventEmpty(getCount(), simulateur.getDonneesSimulation(), robot));
                 setCount(count + Simulateur.INCREMENT);
-
-                if (robot.getVolume() == 0.0) robot.setState(State.BUSY);
             }
         }
+    }
+
+    @Override
+    public Boolean canFree(Robot robot) {
+        return (robot.getVolume() != 0.0);
     }
 }

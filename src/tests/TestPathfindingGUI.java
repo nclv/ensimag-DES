@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import game.DonneesSimulation;
-import game.Pathfinding;
+import game.pathfinding.AStar;
+import game.pathfinding.Pathfinding;
 import game.Simulateur;
 import game.events.EventMove;
 import game.graphics.GraphicsComponent;
@@ -16,7 +17,7 @@ public class TestPathfindingGUI {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
-        Pathfinding pathfinding = new Pathfinding(donneesSimulation);
+        Pathfinding pathfinding = new AStar(donneesSimulation);
 
         int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
         GUISimulator gui = new GUISimulator(
