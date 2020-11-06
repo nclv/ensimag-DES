@@ -10,8 +10,6 @@ import game.Carte;
 import game.DonneesSimulation;
 import game.robots.Robot;
 
-import java.util.Iterator;
-
 public class AStar extends Pathfinding implements Heuristique {
     private final DonneesSimulation donneesSimulation;
 
@@ -74,21 +72,13 @@ public class AStar extends Pathfinding implements Heuristique {
     }
 
     /**
-     * Supprime le couple (neighbor,gscore) de la file de priorité
-     */
-    private void removeNeighbor(PriorityQueue<Node> queue, Integer neighbor) {
-        Iterator<Node> iter = queue.iterator();
-        while (iter.hasNext()) {
-            Node current = iter.next();
-            if (current.getPosition() == neighbor) {
-                queue.remove(current);
-                break;
-            }
-        }
-    }
-
-    /**
-     * Calcule le plus court chemin, la solution est l'une des meilleures
+     * Calcule le plus court chemin pour le robot entre src et dest avec l'algorithme A*
+     * 
+     * @param robot
+     * @param src
+     * @param dest
+     * @return suite de positions
+     * @throws IllegalStateException if there is no path
      */
     @Override
     public LinkedList<Integer> shortestWay(Robot robot, int src, int dest) throws IllegalStateException {
@@ -102,7 +92,7 @@ public class AStar extends Pathfinding implements Heuristique {
                                 * this.donneesSimulation.getCarte().getNbColonnes())
                 .collect(HashMap::new, (m, position) -> m.put(position, Integer.MAX_VALUE), Map::putAll);
         
-        /* Chemin entre src et dst */
+        /* Chemin entre src et dst (neighbor, position) */
         HashMap<Integer, Integer> cameFrom = new HashMap<Integer, Integer>();
 
         /* On start avec la position du robot */
@@ -130,9 +120,10 @@ public class AStar extends Pathfinding implements Heuristique {
                     // This path to neighbor is better than any previous one. Record it!
                     cameFrom.put(neighbor, position);
                     gScore.replace(neighbor, tentativeGScore);
-                    removeNeighbor(openSet, neighbor);
                     Node neighborWithCost = new Node(neighbor, gScore.get(neighbor) + heuristique(neighbor, dest));
-                    openSet.add(neighborWithCost);
+                    if (!openSet.contains(neighborWithCost)) {
+                        openSet.add(neighborWithCost);
+                    }
                 }
             }
         }
@@ -142,8 +133,12 @@ public class AStar extends Pathfinding implements Heuristique {
 
     /**
      * Reconstruit le plus court chemin.
+     * 
+     * @param map (neighbor, position)
+     * @param dest
+     * @return suite de positions
      */
-    private LinkedList<Integer> reconstructPath(HashMap<Integer, Integer> map, Integer dest) {
+    private LinkedList<Integer> reconstructPath(HashMap<Integer, Integer> map, int dest) {
         LinkedList<Integer> path = new LinkedList<Integer>();
         path.add(dest);
         while (map.containsKey(dest)) {
