@@ -4,14 +4,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import game.DonneesSimulation;
-import game.Pathfinding;
+import game.pathfinding.AStar;
+import game.pathfinding.Pathfinding;
 import game.robots.Robot;
 
 public class TestPathfinding {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
-        Pathfinding pathfinding = new Pathfinding(donneesSimulation);
+        Pathfinding pathfinding = new AStar(donneesSimulation);
 
         /* Calcul du plus court chemin (robot, src, dest) */
         Robot robot = donneesSimulation.getRobot(0);

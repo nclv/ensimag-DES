@@ -3,7 +3,7 @@ package tests;
 import java.awt.Color;
 
 import game.DonneesSimulation;
-import game.Pathfinding;
+import game.pathfinding.AStar;
 import game.Simulateur;
 import game.graphics.GraphicsComponent;
 import gui.GUISimulator;
@@ -23,7 +23,7 @@ public class TestStrategieElementaire {
         );
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Strategie strategie = new StrategieElementaire(new Pathfinding(donneesSimulation));
+        Strategie strategie = new StrategieElementaire(new AStar(donneesSimulation));
 
         new Simulateur(graphicsComponent, donneesSimulation, strategie);
     }
