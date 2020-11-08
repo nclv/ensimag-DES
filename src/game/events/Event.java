@@ -45,8 +45,6 @@ public abstract class Event implements Comparable<Event> {
     }
 
     /**
-     * Renvoie la durée de l'action
-     * 
      * @return durée de l'action
      */
     public abstract long getDuration();

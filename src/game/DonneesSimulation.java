@@ -111,6 +111,24 @@ public class DonneesSimulation {
                 + robot.getVitesse(this.carte.getTerrain(newPosition))) / 2 * carte.getTailleCases());
     }
 
+    /**
+     * @param robot
+     * @param firePosition
+     * @return temps mis par le robot pour se vider sur firePosition
+     */
+    public long getTimeToEmpty(final Robot robot, final int firePosition) {
+        long timeToEmpty = 0;
+        // calcul du temps mis pour éteindre complètement l'incendie
+        final Integer intensity = this.incendies.get(firePosition);
+        if (intensity != null) {
+            // temps mis pour une extinction globale
+            // getMaxTimeToEmpty renvoie le temps mis par le robot pour déverser la quantité maximale d'eau qu'il peut déverser
+            timeToEmpty = robot.getMaxTimeToEmpty() * (intensity / robot.getMaxEmptiedVolume());
+        }
+
+        return timeToEmpty;
+    }
+
     @Override
     public String toString() {
         String res = new String();
