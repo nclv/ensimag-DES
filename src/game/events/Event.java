@@ -1,17 +1,14 @@
 package game.events;
 
 import game.DonneesSimulation;
-import game.robots.Robot;
 
-public abstract class Event implements Comparable<Event> {
+public class Event implements Comparable<Event> {
     protected long date;
-    protected Robot robot;
-    protected DonneesSimulation donneesSimulation;
+    private Action action;
 
-    public Event(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
+    public Event(final long date, final Action action) {
         this.date = date;
-        this.donneesSimulation = donneesSimulation;
-        this.robot = robot;
+        this.action = action;
     }
 
     /**
@@ -20,10 +17,16 @@ public abstract class Event implements Comparable<Event> {
      * @param donneesSimulation
      * @return nouvel event
      */
-    public abstract Event copy(DonneesSimulation donneesSimulation);
+    public Event copy(DonneesSimulation donneesSimulation) {
+        return new Event(this.date, this.action.copy(donneesSimulation));
+    }
 
     public long getDate() {
         return this.date;
+    }
+
+    public Action getAction() {
+        return action;
     }
 
     /**
@@ -35,24 +38,6 @@ public abstract class Event implements Comparable<Event> {
         if (this.date < newDate)
             this.date = newDate;
     }
-
-    public Robot getRobot() {
-        return robot;
-    }
-
-    public DonneesSimulation getDonneesSimulation() {
-        return donneesSimulation;
-    }
-
-    /**
-     * @return durée de l'action
-     */
-    public abstract long getDuration();
-
-    /**
-     * Exécute l'action
-     */
-    public abstract void execute();
 
     @Override
     public int compareTo(final Event o) {
@@ -68,6 +53,6 @@ public abstract class Event implements Comparable<Event> {
 
     @Override
     public String toString() {
-        return this.robot + "\nDate: " + this.date + "\n" + donneesSimulation.getRobots();
+        return "Date: " + this.date + "\n" + this.action;
     }
 }

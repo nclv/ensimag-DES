@@ -11,33 +11,18 @@ import game.Direction;
 import game.DonneesSimulation;
 import game.robots.Robot;
 
-public class EventMove extends Event {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventMove.class);
-    private final Direction direction;
+public class ActionMove extends Action {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActionMove.class);
 
-    public EventMove(final long date, final DonneesSimulation donneesSimulation, final Robot robot,
-            final Direction direction) {
-        super(date, donneesSimulation, robot);
+    private Direction direction;
+
+    public ActionMove(final DonneesSimulation donneesSimulation, final Robot robot, final Direction direction) {
+        super(donneesSimulation, robot);
         this.direction = direction;
     }
 
-    public EventMove copy(final DonneesSimulation donneesSimulation) {
-        return new EventMove(getDate(), donneesSimulation, getRobot(), this.direction);
-    }
-
-    /**
-     * @return temps mis par le robot pour se déplacer
-     * @throws IllegalArgumentException if outside the map or if the robot can't move on the position
-     */
-    @Override
-    public long getDuration() throws IllegalArgumentException {
-        // on a besoin des positions pour update la durée du mouvement
-        final int position = getRobot().getPosition();
-        // throws IllegalArgumentException if outside the map
-        final int newPosition = getDonneesSimulation().getCarte().getVoisin(position, this.direction);
-        // throws IllegalArgumentException if the robot can't move on the position
-        final long timeToMove = getDonneesSimulation().getTimeToMove(getRobot(), position, newPosition);
-        return timeToMove;
+    public Action copy(DonneesSimulation donneesSimulation) {
+        return new ActionMove(donneesSimulation, getRobot(), this.direction);
     }
 
     /**
@@ -67,5 +52,20 @@ public class EventMove extends Event {
         } catch (final IllegalArgumentException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * @return temps mis par le robot pour se déplacer
+     * @throws IllegalArgumentException if outside the map or if the robot can't move on the position
+     */
+    @Override
+    public long getDuration() throws IllegalArgumentException {
+        // on a besoin des positions pour update la durée du mouvement
+        final int position = getRobot().getPosition();
+        // throws IllegalArgumentException if outside the map
+        final int newPosition = getDonneesSimulation().getCarte().getVoisin(position, this.direction);
+        // throws IllegalArgumentException if the robot can't move on the position
+        final long timeToMove = getDonneesSimulation().getTimeToMove(getRobot(), position, newPosition);
+        return timeToMove;
     }
 }

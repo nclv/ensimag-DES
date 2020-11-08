@@ -8,25 +8,15 @@ import org.slf4j.LoggerFactory;
 import game.DonneesSimulation;
 import game.robots.Robot;
 
-public class EventEmpty extends Event {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventEmpty.class);
+public class ActionEmpty extends Action {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActionEmpty.class);
 
-    public EventEmpty(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
-        super(date, donneesSimulation, robot);
+    public ActionEmpty(final DonneesSimulation donneesSimulation, final Robot robot) {
+        super(donneesSimulation, robot);
     }
 
-    public EventEmpty copy(final DonneesSimulation donneesSimulation) {
-        return new EventEmpty(getDate(), donneesSimulation, getRobot());
-    }
-
-    /**
-     * @return durée mise pour vider le robot / éteindre l'incendie
-     */
-    @Override
-    public long getDuration() {
-        // le feu se trouve sur la position du robot
-        final int firePosition = getRobot().getPosition();
-        return getDonneesSimulation().getTimeToEmpty(getRobot(), firePosition);
+    public Action copy(DonneesSimulation donneesSimulation) {
+        return new ActionEmpty(donneesSimulation, getRobot());
     }
 
     /**
@@ -58,5 +48,15 @@ public class EventEmpty extends Event {
             }
         }
         LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
+    }
+
+     /**
+     * @return durée mise pour vider le robot / éteindre l'incendie
+     */
+    @Override
+    public long getDuration() {
+        // le feu se trouve sur la position du robot
+        final int firePosition = getRobot().getPosition();
+        return getDonneesSimulation().getTimeToEmpty(getRobot(), firePosition);
     }
 }
