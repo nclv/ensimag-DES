@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import game.DonneesSimulation;
 import game.Simulateur;
-import game.events.EventEmpty;
 import game.pathfinding.Pathfinding;
 import game.robots.Robot;
 import game.robots.Robot.State;
@@ -63,10 +62,12 @@ public class StrategieEvoluee extends Strategie {
             } else {
                 // on envoie le robot le plus rapide
                 LOGGER.info("Ajoût des events pour le robot {}", robotMinDuration.getId());
-                simulateur.addEventsMove(robotMinDuration, pathMinDuration, getCount());
-                setCount(this.count + (pathMinDuration.size() - 1) * Simulateur.INCREMENT);
-                simulateur.addEvent(new EventEmpty(getCount(), simulateur.getDonneesSimulation(), robotMinDuration));
-                setCount(this.count + Simulateur.INCREMENT);
+
+                // exécution en série
+                simulateur.addPathSerial(robotMinDuration, pathMinDuration);
+                
+                // exécution en parallèle
+                // simulateur.addPathParallel(robotMinDuration, pathMinDuration);
             }
         }
     }

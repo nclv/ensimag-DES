@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import game.pathfinding.Pathfinding;
 import game.Simulateur;
-import game.events.EventEmpty;
 import game.robots.Robot;
 import game.robots.Robot.State;
 
@@ -43,10 +42,12 @@ public class StrategieElementaire extends Strategie {
                 }
                 
                 LOGGER.info("Ajoût des events");
-                simulateur.addEventsMove(robot, path, getCount());
-                setCount(this.count + (path.size() - 1) * Simulateur.INCREMENT);
-                simulateur.addEvent(new EventEmpty(getCount(), simulateur.getDonneesSimulation(), robot));
-                setCount(this.count + Simulateur.INCREMENT);
+                
+                // exécution en série
+                // simulateur.addPathSerial(robot, path);
+
+                // exécution en parallèle
+                simulateur.addPathParallel(robot, path);
             }
         }
     }

@@ -8,6 +8,7 @@ public abstract class Strategie {
     // algorithme de plus court chemin
     protected Pathfinding pathfinding;
     // compteur interne permettant d'ordonner une suite d'events
+    // utilisé pour effectuer les actions des robots en série
     protected long count = 0;
 
     public Strategie(Pathfinding pathfinding) {
