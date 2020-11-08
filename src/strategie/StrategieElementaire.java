@@ -31,8 +31,8 @@ public class StrategieElementaire extends Strategie {
             
             int positionIncendie = incendie.getKey();
             for (Robot robot : robots) {
-                LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
                 if (robot.getState() == State.BUSY) continue;
+                LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
                 
                 LinkedList<Integer> path;
                 try {
@@ -44,7 +44,7 @@ public class StrategieElementaire extends Strategie {
                 
                 LOGGER.info("Ajoût des events");
                 simulateur.addEventsMove(robot, path, getCount());
-                setCount(this.count + path.size() * Simulateur.INCREMENT);
+                setCount(this.count + (path.size() - 1) * Simulateur.INCREMENT);
                 simulateur.addEvent(new EventEmpty(getCount(), simulateur.getDonneesSimulation(), robot));
                 setCount(this.count + Simulateur.INCREMENT);
             }
