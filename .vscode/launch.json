@@ -9,6 +9,13 @@
             "name": "CodeLens (Launch) - TestStrategieElementaire",
             "request": "launch",
             "mainClass": "tests.TestStrategieElementaire",
+            "projectName": "ensimag-robots-pompiers_ecafeb16"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestStrategieElementaire",
+            "request": "launch",
+            "mainClass": "tests.TestStrategieElementaire",
             "projectName": "ensimag-robots-pompiers_50671edf"
         },
         {

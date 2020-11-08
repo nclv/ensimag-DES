@@ -117,7 +117,7 @@ public class Simulateur implements Simulable {
                 event.execute();
                 // LOGGER.info("Il y a {} events concernant le robot {}", sameRobotEventsCount - 1, event.getRobot().getId());
             } catch (final IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.warn(e.getMessage());
             }
             LOGGER.info("Fin d'exécution: {}", duration);
 
