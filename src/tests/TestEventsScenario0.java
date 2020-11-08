@@ -5,7 +5,8 @@ import java.awt.Color;
 import game.Direction;
 import game.DonneesSimulation;
 import game.Simulateur;
-import game.events.EventMove;
+import game.events.ActionMove;
+import game.events.Event;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -29,13 +30,13 @@ public class TestEventsScenario0 implements InterfaceDonneesSimulation {
         Robot robot = donneesSimulation.getRobot(0);
 
         long count = 0;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
         count += Simulateur.INCREMENT;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
         count += Simulateur.INCREMENT;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
         count += Simulateur.INCREMENT;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
     }
 }
 

@@ -9,23 +9,15 @@ import game.NatureTerrain;
 import game.robots.Filling;
 import game.robots.Robot;
 
-public class EventFill extends Event {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventFill.class);
+public class ActionFill extends Action {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActionFill.class);
 
-    public EventFill(final long date, final DonneesSimulation donneesSimulation, final Robot robot) {
-        super(date, donneesSimulation, robot);
+    public ActionFill(final DonneesSimulation donneesSimulation, final Robot robot) {
+        super(donneesSimulation, robot);
     }
 
-    public EventFill copy(final DonneesSimulation donneesSimulation) {
-        return new EventFill(getDate(), donneesSimulation, getRobot());
-    }
-
-    /**
-     * @return temps mis pour remplir le robot 
-     */
-    @Override
-    public long getDuration() {
-        return getRobot().getTimeToFillUp();
+    public Action copy(DonneesSimulation donneesSimulation) {
+        return new ActionFill(donneesSimulation, getRobot());
     }
 
     /**
@@ -63,5 +55,13 @@ public class EventFill extends Event {
         LOGGER.info("{} en {} se remplit.", getRobot(), getRobot().getPosition());
         getRobot().remplirReservoir();
         LOGGER.info("Il contient maintenant {}L d'eau", getRobot().getVolume());
+    }
+    
+    /**
+     * @return temps mis pour remplir le robot 
+     */
+    @Override
+    public long getDuration() {
+        return getRobot().getTimeToFillUp();
     }
 }

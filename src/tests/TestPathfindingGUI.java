@@ -8,7 +8,8 @@ import game.DonneesSimulation;
 import game.pathfinding.AStar;
 import game.pathfinding.Pathfinding;
 import game.Simulateur;
-import game.events.EventMove;
+import game.events.ActionMove;
+import game.events.Event;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -45,7 +46,7 @@ public class TestPathfindingGUI {
         System.out.println("(" + String.valueOf(currentPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(currentPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
         while (iter.hasNext()) {
             int nextPosition = iter.next();
-            simulateur.addEvent(new EventMove(count, donneesSimulation, robot, donneesSimulation.getCarte().getDirection(currentPosition, nextPosition)));
+            simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, donneesSimulation.getCarte().getDirection(currentPosition, nextPosition))));
             count += increment;
             System.out.println("(" + String.valueOf(nextPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(nextPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
             currentPosition = nextPosition;

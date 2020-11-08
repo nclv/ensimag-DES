@@ -5,10 +5,11 @@ import java.awt.Color;
 import game.Direction;
 import game.DonneesSimulation;
 import game.Simulateur;
+import game.events.ActionEmpty;
+import game.events.ActionFill;
+import game.events.ActionMove;
+import game.events.Event;
 import game.graphics.GraphicsComponent;
-import game.events.EventEmpty;
-import game.events.EventFill;
-import game.events.EventMove;
 import game.robots.Robot;
 import gui.GUISimulator;
 
@@ -31,26 +32,26 @@ public class TestEventsScenario1 implements InterfaceDonneesSimulation {
 
         long count = 0;
         long increment = Simulateur.INCREMENT;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.NORD));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
         count += increment;
         
-        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot));
+        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, robot)));
         count += increment;
 
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.OUEST));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.OUEST)));
         count += increment;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.OUEST));
-        count += increment;
-
-        simulateur.addEvent(new EventFill(count, donneesSimulation, robot));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.OUEST)));
         count += increment;
 
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.EST));
-        count += increment;
-        simulateur.addEvent(new EventMove(count, donneesSimulation, robot, Direction.EST));
+        simulateur.addEvent(new Event(count, new ActionFill(donneesSimulation, robot)));
         count += increment;
 
-        simulateur.addEvent(new EventEmpty(count, donneesSimulation, robot));
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.EST)));
+        count += increment;
+        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.EST)));
+        count += increment;
+
+        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, robot)));
         count += increment;
     }
 }
