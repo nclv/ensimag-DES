@@ -4,5 +4,6 @@
         "/home/n0way/Documents/Projets/ensimag-robots-pompiers/**/*.jar",
         "G:\\Nicolas\\ensimag-robots-pompiers\\**\\*.jar",
         "C:\\Users\\donisa\\Documents\\Nicolas\\ensimag-robots-pompiers\\**\\*.jar",
-    ]
+    ],
+    "java.debug.logLevel": "info"
 }

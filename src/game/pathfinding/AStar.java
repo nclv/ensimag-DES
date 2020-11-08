@@ -1,5 +1,8 @@
 package game.pathfinding;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
@@ -11,6 +14,8 @@ import game.DonneesSimulation;
 import game.robots.Robot;
 
 public class AStar extends Pathfinding implements Heuristique {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AStar.class);
+
     private final DonneesSimulation donneesSimulation;
 
     static class Node implements Comparable<Node> {
@@ -109,13 +114,9 @@ public class AStar extends Pathfinding implements Heuristique {
             /* On explore les voisins */
             for (Integer neighbor : this.donneesSimulation.getCarte().getNeighbors(position)) {
                 // tentativeGScore is the distance from start to the neighbor through position
-                int tentativeGScore = Integer.MAX_VALUE;
-                try {
-                    tentativeGScore = gScore.get(position)
-                            + (int) donneesSimulation.getTimeToMove(robot, position, neighbor);
-                } catch (final IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
+                int tentativeGScore = getTentativeGScore(gScore, robot, position, neighbor);
+                if (tentativeGScore == Integer.MAX_VALUE) continue;
+
                 if (tentativeGScore < gScore.get(neighbor)) {
                     // This path to neighbor is better than any previous one. Record it!
                     cameFrom.put(neighbor, position);
@@ -129,6 +130,22 @@ public class AStar extends Pathfinding implements Heuristique {
         }
         /* Pas de chemins, on renvoie une exception */
         throw new IllegalStateException("No route found");
+    }
+
+    /**
+     * @param gScore
+     * @param robot
+     * @param position
+     * @param neighbor
+     * @return the distance from start to the neighbor through position
+     */
+    private Integer getTentativeGScore(HashMap<Integer, Integer> gScore, Robot robot, int position, int neighbor) {
+        try {
+            return gScore.get(position) + (int)donneesSimulation.getTimeToMove(robot, position, neighbor);
+        } catch (final IllegalArgumentException e) {
+            LOGGER.warn(e.getMessage());
+            return Integer.MAX_VALUE;
+        }
     }
 
     /**
