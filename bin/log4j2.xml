@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Appenders>
-    <File name="file" fileName="app.log">
+    <File name="file" fileName="app.log" append="false">
         <PatternLayout pattern="[%d][%p] [%t] (%F:%L) - %m%n"/>
     </File>
     <Console name="STDOUT" target="SYSTEM_OUT">

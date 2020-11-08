@@ -1,90 +1,535 @@
-[2020-11-08 11:10:57,884][INFO] [main] (LecteurDonnees.java:59) - Lecture du fichier cartes/carteSujet.map
-[2020-11-08 11:10:57,895][INFO] [main] (LecteurDonnees.java:103) - Carte 8x8
-[2020-11-08 11:10:57,896][INFO] [main] (LecteurDonnees.java:104) - Cases de taille 10000
-[2020-11-08 11:10:57,897][INFO] [main] (LecteurDonnees.java:138) - Case (0, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,897][INFO] [main] (LecteurDonnees.java:138) - Case (0, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,897][INFO] [main] (LecteurDonnees.java:138) - Case (0, 2): TERRAIN_LIBRE
-[2020-11-08 11:10:57,898][INFO] [main] (LecteurDonnees.java:138) - Case (0, 3): TERRAIN_LIBRE
-[2020-11-08 11:10:57,898][INFO] [main] (LecteurDonnees.java:138) - Case (0, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,899][INFO] [main] (LecteurDonnees.java:138) - Case (0, 5): TERRAIN_LIBRE
-[2020-11-08 11:10:57,899][INFO] [main] (LecteurDonnees.java:138) - Case (0, 6): TERRAIN_LIBRE
-[2020-11-08 11:10:57,899][INFO] [main] (LecteurDonnees.java:138) - Case (0, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,900][INFO] [main] (LecteurDonnees.java:138) - Case (1, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,900][INFO] [main] (LecteurDonnees.java:138) - Case (1, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,900][INFO] [main] (LecteurDonnees.java:138) - Case (1, 2): TERRAIN_LIBRE
-[2020-11-08 11:10:57,900][INFO] [main] (LecteurDonnees.java:138) - Case (1, 3): TERRAIN_LIBRE
-[2020-11-08 11:10:57,901][INFO] [main] (LecteurDonnees.java:138) - Case (1, 4): ROCHE
-[2020-11-08 11:10:57,901][INFO] [main] (LecteurDonnees.java:138) - Case (1, 5): TERRAIN_LIBRE
-[2020-11-08 11:10:57,901][INFO] [main] (LecteurDonnees.java:138) - Case (1, 6): ROCHE
-[2020-11-08 11:10:57,901][INFO] [main] (LecteurDonnees.java:138) - Case (1, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,901][INFO] [main] (LecteurDonnees.java:138) - Case (2, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,902][INFO] [main] (LecteurDonnees.java:138) - Case (2, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,902][INFO] [main] (LecteurDonnees.java:138) - Case (2, 2): EAU
-[2020-11-08 11:10:57,902][INFO] [main] (LecteurDonnees.java:138) - Case (2, 3): EAU
-[2020-11-08 11:10:57,902][INFO] [main] (LecteurDonnees.java:138) - Case (2, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,902][INFO] [main] (LecteurDonnees.java:138) - Case (2, 5): FORET
-[2020-11-08 11:10:57,903][INFO] [main] (LecteurDonnees.java:138) - Case (2, 6): TERRAIN_LIBRE
-[2020-11-08 11:10:57,903][INFO] [main] (LecteurDonnees.java:138) - Case (2, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,903][INFO] [main] (LecteurDonnees.java:138) - Case (3, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,903][INFO] [main] (LecteurDonnees.java:138) - Case (3, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,903][INFO] [main] (LecteurDonnees.java:138) - Case (3, 2): EAU
-[2020-11-08 11:10:57,904][INFO] [main] (LecteurDonnees.java:138) - Case (3, 3): EAU
-[2020-11-08 11:10:57,904][INFO] [main] (LecteurDonnees.java:138) - Case (3, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,904][INFO] [main] (LecteurDonnees.java:138) - Case (3, 5): FORET
-[2020-11-08 11:10:57,904][INFO] [main] (LecteurDonnees.java:138) - Case (3, 6): FORET
-[2020-11-08 11:10:57,904][INFO] [main] (LecteurDonnees.java:138) - Case (3, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 2): EAU
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 3): TERRAIN_LIBRE
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 5): FORET
-[2020-11-08 11:10:57,905][INFO] [main] (LecteurDonnees.java:138) - Case (4, 6): FORET
-[2020-11-08 11:10:57,906][INFO] [main] (LecteurDonnees.java:138) - Case (4, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,906][INFO] [main] (LecteurDonnees.java:138) - Case (5, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,906][INFO] [main] (LecteurDonnees.java:138) - Case (5, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,906][INFO] [main] (LecteurDonnees.java:138) - Case (5, 2): EAU
-[2020-11-08 11:10:57,907][INFO] [main] (LecteurDonnees.java:138) - Case (5, 3): TERRAIN_LIBRE
-[2020-11-08 11:10:57,907][INFO] [main] (LecteurDonnees.java:138) - Case (5, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,907][INFO] [main] (LecteurDonnees.java:138) - Case (5, 5): HABITAT
-[2020-11-08 11:10:57,907][INFO] [main] (LecteurDonnees.java:138) - Case (5, 6): HABITAT
-[2020-11-08 11:10:57,907][INFO] [main] (LecteurDonnees.java:138) - Case (5, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 1): TERRAIN_LIBRE
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 2): EAU
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 3): EAU
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 5): TERRAIN_LIBRE
-[2020-11-08 11:10:57,908][INFO] [main] (LecteurDonnees.java:138) - Case (6, 6): TERRAIN_LIBRE
-[2020-11-08 11:10:57,909][INFO] [main] (LecteurDonnees.java:138) - Case (6, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,909][INFO] [main] (LecteurDonnees.java:138) - Case (7, 0): TERRAIN_LIBRE
-[2020-11-08 11:10:57,909][INFO] [main] (LecteurDonnees.java:138) - Case (7, 1): HABITAT
-[2020-11-08 11:10:57,909][INFO] [main] (LecteurDonnees.java:138) - Case (7, 2): HABITAT
-[2020-11-08 11:10:57,909][INFO] [main] (LecteurDonnees.java:138) - Case (7, 3): EAU
-[2020-11-08 11:10:57,910][INFO] [main] (LecteurDonnees.java:138) - Case (7, 4): TERRAIN_LIBRE
-[2020-11-08 11:10:57,910][INFO] [main] (LecteurDonnees.java:138) - Case (7, 5): TERRAIN_LIBRE
-[2020-11-08 11:10:57,910][INFO] [main] (LecteurDonnees.java:138) - Case (7, 6): TERRAIN_LIBRE
-[2020-11-08 11:10:57,910][INFO] [main] (LecteurDonnees.java:138) - Case (7, 7): TERRAIN_LIBRE
-[2020-11-08 11:10:57,910][INFO] [main] (LecteurDonnees.java:152) - Il y a 6 incendies
-[2020-11-08 11:10:57,911][INFO] [main] (LecteurDonnees.java:187) - Incendie 0 d'intensité 50000 en position (7, 0)
-[2020-11-08 11:10:57,911][INFO] [main] (LecteurDonnees.java:187) - Incendie 1 d'intensité 10000 en position (7, 1)
-[2020-11-08 11:10:57,911][INFO] [main] (LecteurDonnees.java:187) - Incendie 2 d'intensité 10000 en position (6, 0)
-[2020-11-08 11:10:57,911][INFO] [main] (LecteurDonnees.java:187) - Incendie 3 d'intensité 20000 en position (6, 1)
-[2020-11-08 11:10:57,911][INFO] [main] (LecteurDonnees.java:187) - Incendie 4 d'intensité 8000 en position (5, 5)
-[2020-11-08 11:10:57,912][INFO] [main] (LecteurDonnees.java:187) - Incendie 5 d'intensité 5000 en position (7, 7)
-[2020-11-08 11:10:57,912][INFO] [main] (LecteurDonnees.java:201) - Il y a 3 robots
-[2020-11-08 11:10:57,912][INFO] [main] (LecteurDonnees.java:232) - Robot 0 de type DRONE en position (3, 3)
-[2020-11-08 11:10:57,915][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type DRONE
-[2020-11-08 11:10:57,915][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type ROUES
-[2020-11-08 11:10:57,915][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type CHENILLES
-[2020-11-08 11:10:57,915][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type PATTES
-[2020-11-08 11:10:57,917][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type DRONE
-[2020-11-08 11:10:57,917][INFO] [main] (LecteurDonnees.java:248) - Déplacement à 150 km/h
-[2020-11-08 11:10:57,919][INFO] [main] (Robot.java:131) - Set vitesse = 150.0 km/h
-[2020-11-08 11:10:57,920][INFO] [main] (LecteurDonnees.java:232) - Robot 1 de type ROUES en position (6, 5)
-[2020-11-08 11:10:57,920][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type ROUES
-[2020-11-08 11:10:57,920][INFO] [main] (LecteurDonnees.java:245) - Déplacement à la vitesse par défaut
-[2020-11-08 11:10:57,921][INFO] [main] (LecteurDonnees.java:232) - Robot 2 de type PATTES en position (4, 7)
-[2020-11-08 11:10:57,921][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type PATTES
-[2020-11-08 11:10:57,921][INFO] [main] (LecteurDonnees.java:245) - Déplacement à la vitesse par défaut
-[2020-11-08 11:10:57,921][INFO] [main] (LecteurDonnees.java:68) - Lecture terminee
+[2020-11-08 11:54:46,605][INFO] [main] (LecteurDonnees.java:59) - Lecture du fichier cartes/carteSujet.map
+[2020-11-08 11:54:46,617][INFO] [main] (LecteurDonnees.java:103) - Carte 8x8
+[2020-11-08 11:54:46,618][INFO] [main] (LecteurDonnees.java:104) - Cases de taille 10000
+[2020-11-08 11:54:46,619][INFO] [main] (LecteurDonnees.java:138) - Case (0, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,619][INFO] [main] (LecteurDonnees.java:138) - Case (0, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,620][INFO] [main] (LecteurDonnees.java:138) - Case (0, 2): TERRAIN_LIBRE
+[2020-11-08 11:54:46,620][INFO] [main] (LecteurDonnees.java:138) - Case (0, 3): TERRAIN_LIBRE
+[2020-11-08 11:54:46,620][INFO] [main] (LecteurDonnees.java:138) - Case (0, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,621][INFO] [main] (LecteurDonnees.java:138) - Case (0, 5): TERRAIN_LIBRE
+[2020-11-08 11:54:46,621][INFO] [main] (LecteurDonnees.java:138) - Case (0, 6): TERRAIN_LIBRE
+[2020-11-08 11:54:46,621][INFO] [main] (LecteurDonnees.java:138) - Case (0, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,622][INFO] [main] (LecteurDonnees.java:138) - Case (1, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,622][INFO] [main] (LecteurDonnees.java:138) - Case (1, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,622][INFO] [main] (LecteurDonnees.java:138) - Case (1, 2): TERRAIN_LIBRE
+[2020-11-08 11:54:46,622][INFO] [main] (LecteurDonnees.java:138) - Case (1, 3): TERRAIN_LIBRE
+[2020-11-08 11:54:46,623][INFO] [main] (LecteurDonnees.java:138) - Case (1, 4): ROCHE
+[2020-11-08 11:54:46,623][INFO] [main] (LecteurDonnees.java:138) - Case (1, 5): TERRAIN_LIBRE
+[2020-11-08 11:54:46,623][INFO] [main] (LecteurDonnees.java:138) - Case (1, 6): ROCHE
+[2020-11-08 11:54:46,623][INFO] [main] (LecteurDonnees.java:138) - Case (1, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,623][INFO] [main] (LecteurDonnees.java:138) - Case (2, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,624][INFO] [main] (LecteurDonnees.java:138) - Case (2, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,624][INFO] [main] (LecteurDonnees.java:138) - Case (2, 2): EAU
+[2020-11-08 11:54:46,624][INFO] [main] (LecteurDonnees.java:138) - Case (2, 3): EAU
+[2020-11-08 11:54:46,624][INFO] [main] (LecteurDonnees.java:138) - Case (2, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,624][INFO] [main] (LecteurDonnees.java:138) - Case (2, 5): FORET
+[2020-11-08 11:54:46,625][INFO] [main] (LecteurDonnees.java:138) - Case (2, 6): TERRAIN_LIBRE
+[2020-11-08 11:54:46,625][INFO] [main] (LecteurDonnees.java:138) - Case (2, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,625][INFO] [main] (LecteurDonnees.java:138) - Case (3, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,625][INFO] [main] (LecteurDonnees.java:138) - Case (3, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,625][INFO] [main] (LecteurDonnees.java:138) - Case (3, 2): EAU
+[2020-11-08 11:54:46,626][INFO] [main] (LecteurDonnees.java:138) - Case (3, 3): EAU
+[2020-11-08 11:54:46,626][INFO] [main] (LecteurDonnees.java:138) - Case (3, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,626][INFO] [main] (LecteurDonnees.java:138) - Case (3, 5): FORET
+[2020-11-08 11:54:46,626][INFO] [main] (LecteurDonnees.java:138) - Case (3, 6): FORET
+[2020-11-08 11:54:46,626][INFO] [main] (LecteurDonnees.java:138) - Case (3, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 2): EAU
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 3): TERRAIN_LIBRE
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,627][INFO] [main] (LecteurDonnees.java:138) - Case (4, 5): FORET
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (4, 6): FORET
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (4, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (5, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (5, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (5, 2): EAU
+[2020-11-08 11:54:46,628][INFO] [main] (LecteurDonnees.java:138) - Case (5, 3): TERRAIN_LIBRE
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (5, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (5, 5): HABITAT
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (5, 6): HABITAT
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (5, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (6, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,629][INFO] [main] (LecteurDonnees.java:138) - Case (6, 1): TERRAIN_LIBRE
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 2): EAU
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 3): EAU
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 5): TERRAIN_LIBRE
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 6): TERRAIN_LIBRE
+[2020-11-08 11:54:46,630][INFO] [main] (LecteurDonnees.java:138) - Case (6, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 0): TERRAIN_LIBRE
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 1): HABITAT
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 2): HABITAT
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 3): EAU
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 4): TERRAIN_LIBRE
+[2020-11-08 11:54:46,631][INFO] [main] (LecteurDonnees.java:138) - Case (7, 5): TERRAIN_LIBRE
+[2020-11-08 11:54:46,632][INFO] [main] (LecteurDonnees.java:138) - Case (7, 6): TERRAIN_LIBRE
+[2020-11-08 11:54:46,632][INFO] [main] (LecteurDonnees.java:138) - Case (7, 7): TERRAIN_LIBRE
+[2020-11-08 11:54:46,632][INFO] [main] (LecteurDonnees.java:152) - Il y a 6 incendies
+[2020-11-08 11:54:46,632][INFO] [main] (LecteurDonnees.java:187) - Incendie 0 d'intensité 50000 en position (7, 0)
+[2020-11-08 11:54:46,632][INFO] [main] (LecteurDonnees.java:187) - Incendie 1 d'intensité 10000 en position (7, 1)
+[2020-11-08 11:54:46,633][INFO] [main] (LecteurDonnees.java:187) - Incendie 2 d'intensité 10000 en position (6, 0)
+[2020-11-08 11:54:46,633][INFO] [main] (LecteurDonnees.java:187) - Incendie 3 d'intensité 20000 en position (6, 1)
+[2020-11-08 11:54:46,633][INFO] [main] (LecteurDonnees.java:187) - Incendie 4 d'intensité 8000 en position (5, 5)
+[2020-11-08 11:54:46,633][INFO] [main] (LecteurDonnees.java:187) - Incendie 5 d'intensité 5000 en position (7, 7)
+[2020-11-08 11:54:46,633][INFO] [main] (LecteurDonnees.java:201) - Il y a 3 robots
+[2020-11-08 11:54:46,634][INFO] [main] (LecteurDonnees.java:232) - Robot 0 de type DRONE en position (3, 3)
+[2020-11-08 11:54:46,637][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type DRONE
+[2020-11-08 11:54:46,638][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type ROUES
+[2020-11-08 11:54:46,638][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type CHENILLES
+[2020-11-08 11:54:46,638][INFO] [main] (RobotType.java:28) - Déclaration d'un robot de type PATTES
+[2020-11-08 11:54:46,640][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type DRONE
+[2020-11-08 11:54:46,640][INFO] [main] (LecteurDonnees.java:248) - Déplacement à 150 km/h
+[2020-11-08 11:54:46,642][INFO] [main] (Robot.java:131) - Set vitesse = 150.0 km/h
+[2020-11-08 11:54:46,643][INFO] [main] (LecteurDonnees.java:232) - Robot 1 de type ROUES en position (6, 5)
+[2020-11-08 11:54:46,643][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type ROUES
+[2020-11-08 11:54:46,643][INFO] [main] (LecteurDonnees.java:245) - Déplacement à la vitesse par défaut
+[2020-11-08 11:54:46,644][INFO] [main] (LecteurDonnees.java:232) - Robot 2 de type PATTES en position (4, 7)
+[2020-11-08 11:54:46,644][INFO] [main] (Robot.java:25) - Instantiation d'un robot de type PATTES
+[2020-11-08 11:54:46,644][INFO] [main] (LecteurDonnees.java:245) - Déplacement à la vitesse par défaut
+[2020-11-08 11:54:46,644][INFO] [main] (LecteurDonnees.java:68) - Lecture terminee
+[2020-11-08 11:54:47,080][INFO] [main] (GraphicsComponent.java:56) - GUI de dimensions 640x640
+[2020-11-08 11:54:47,084][INFO] [main] (Simulateur.java:42) - Copie des données initiales de la simulation
+[2020-11-08 11:54:47,087][INFO] [main] (GraphicsComponent.java:96) - Initialisation de l'interface graphique
+[2020-11-08 11:54:47,112][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image terrain_libre.png dans le cache
+[2020-11-08 11:54:47,112][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 0)
+[2020-11-08 11:54:47,112][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 0)
+[2020-11-08 11:54:47,112][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 0)
+[2020-11-08 11:54:47,113][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 80)
+[2020-11-08 11:54:47,117][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 80)
+[2020-11-08 11:54:47,117][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 80)
+[2020-11-08 11:54:47,117][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 80)
+[2020-11-08 11:54:47,120][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image roche.png dans le cache
+[2020-11-08 11:54:47,120][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 80)
+[2020-11-08 11:54:47,120][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 80)
+[2020-11-08 11:54:47,121][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 80)
+[2020-11-08 11:54:47,121][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 80)
+[2020-11-08 11:54:47,121][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 160)
+[2020-11-08 11:54:47,121][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 160)
+[2020-11-08 11:54:47,124][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image eau.png dans le cache
+[2020-11-08 11:54:47,124][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 160)
+[2020-11-08 11:54:47,124][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 160)
+[2020-11-08 11:54:47,125][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 160)
+[2020-11-08 11:54:47,128][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image foret.png dans le cache
+[2020-11-08 11:54:47,128][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 160)
+[2020-11-08 11:54:47,128][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 160)
+[2020-11-08 11:54:47,128][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 160)
+[2020-11-08 11:54:47,128][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 240)
+[2020-11-08 11:54:47,129][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 240)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 240)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 320)
+[2020-11-08 11:54:47,130][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 320)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 320)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 400)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 400)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 400)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 400)
+[2020-11-08 11:54:47,131][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 400)
+[2020-11-08 11:54:47,134][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image habitat.png dans le cache
+[2020-11-08 11:54:47,134][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 400)
+[2020-11-08 11:54:47,134][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 400)
+[2020-11-08 11:54:47,134][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 400)
+[2020-11-08 11:54:47,134][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 480)
+[2020-11-08 11:54:47,135][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 480)
+[2020-11-08 11:54:47,137][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (0, 560)
+[2020-11-08 11:54:47,137][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (80, 560)
+[2020-11-08 11:54:47,137][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (160, 560)
+[2020-11-08 11:54:47,137][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (240, 560)
+[2020-11-08 11:54:47,137][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (320, 560)
+[2020-11-08 11:54:47,138][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (400, 560)
+[2020-11-08 11:54:47,138][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (480, 560)
+[2020-11-08 11:54:47,138][INFO] [main] (TileImg.java:30) - Création d'une image représentant une case de taille 80 en (560, 560)
+[2020-11-08 11:54:47,138][INFO] [main] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:47,138][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:47,138][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:47,138][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:47,138][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:47,139][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:47,139][DEBUG] [main] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:47,183][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image roues.png dans le cache
+[2020-11-08 11:54:47,190][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image pattes.png dans le cache
+[2020-11-08 11:54:47,197][INFO] [main] (GraphicsComponent.java:256) - Chargement de l'image drone.png dans le cache
+[2020-11-08 11:54:47,197][INFO] [main] (GraphicsComponent.java:102) - Ajout des composants à l'instance de JFrame
+[2020-11-08 11:54:47,223][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:47,226][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:47,229][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:47,231][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:47,232][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:47,233][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (400, 480)
+[2020-11-08 11:54:47,241][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:47,242][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:47,243][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:47,256][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:47,257][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:47,257][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:47,258][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:47,258][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:47,259][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (400, 480)
+[2020-11-08 11:54:47,259][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:47,260][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:47,261][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,344][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,346][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,348][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,349][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,350][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,351][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,352][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,353][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,354][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,355][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,356][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,357][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,360][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,361][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,362][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,363][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,364][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,365][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,366][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,367][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,368][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,369][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,370][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type FORET
+[2020-11-08 11:54:48,372][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,372][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,375][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type ROCHE
+[2020-11-08 11:54:48,376][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,377][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,378][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,378][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,379][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,380][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,381][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,382][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 0
+[2020-11-08 11:54:48,382][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 375000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 750000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 1125000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 1500000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 1875000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 2250000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 2625000
+[2020-11-08 11:54:48,383][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 3000000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 3375000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 3750000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 4125000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 4500000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 4875000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 5250000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 5625000
+[2020-11-08 11:54:48,384][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 6000000
+[2020-11-08 11:54:48,385][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 6375000
+[2020-11-08 11:54:48,385][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 6750000
+[2020-11-08 11:54:48,385][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 7125000
+[2020-11-08 11:54:48,385][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 7500000
+[2020-11-08 11:54:48,385][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 7875000
+[2020-11-08 11:54:48,386][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 8625000
+[2020-11-08 11:54:48,386][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,387][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,390][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,391][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,392][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,393][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,393][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,394][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,395][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,396][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,397][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,397][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,398][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,399][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,400][WARN] [AWT-EventQueue-0] (AStar.java:146) - Le robot FREE de type PATTES avançant à 30.0 km/h et contenant Infinity litres d'eau ne peut pas se déplacer sur une case de type EAU
+[2020-11-08 11:54:48,400][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 9000000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 9375000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 9750000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 10125000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 10500000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 10875000
+[2020-11-08 11:54:48,401][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 11250000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 11625000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 12000000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 12375000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 12750000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 13125000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 13500000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 13875000
+[2020-11-08 11:54:48,402][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 14250000
+[2020-11-08 11:54:48,403][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 14625000
+[2020-11-08 11:54:48,403][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 15375000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 15750000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 16125000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 16500000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 16875000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 17250000
+[2020-11-08 11:54:48,404][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 17625000
+[2020-11-08 11:54:48,405][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 18000000
+[2020-11-08 11:54:48,405][INFO] [AWT-EventQueue-0] (Simulateur.java:69) - Date de l'évènement (ajoût): 18750000
+[2020-11-08 11:54:48,405][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 0
+[2020-11-08 11:54:48,405][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 53 se déplace en 54 
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 222222
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 375000
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 750000
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1125000
+[2020-11-08 11:54:48,406][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1500000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1875000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,407][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,408][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,409][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 0
+[2020-11-08 11:54:48,409][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 375000
+[2020-11-08 11:54:48,409][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,409][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,409][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,409][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,409][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,409][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,410][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,420][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,420][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,420][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,421][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,421][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,422][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (480, 480)
+[2020-11-08 11:54:48,422][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,422][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,422][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,422][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 375000
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 54 se déplace en 55 
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 597222
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 750000
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1125000
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1500000
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1875000
+[2020-11-08 11:54:48,423][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,424][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 375000
+[2020-11-08 11:54:48,425][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 750000
+[2020-11-08 11:54:48,426][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,426][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,430][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,431][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,431][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,431][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,432][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,432][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 480)
+[2020-11-08 11:54:48,433][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,433][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,433][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,530][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 750000
+[2020-11-08 11:54:48,531][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 55 se déplace en 47 
+[2020-11-08 11:54:48,531][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,531][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 972222
+[2020-11-08 11:54:48,531][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1125000
+[2020-11-08 11:54:48,531][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1500000
+[2020-11-08 11:54:48,532][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1875000
+[2020-11-08 11:54:48,532][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,532][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,532][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,533][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,533][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,533][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,533][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,533][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,534][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,534][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,534][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,534][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,535][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,535][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,535][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,535][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,536][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,536][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 750000
+[2020-11-08 11:54:48,536][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 1125000
+[2020-11-08 11:54:48,536][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,537][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,537][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,537][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,537][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,538][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,538][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,551][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,551][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,552][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,552][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 400)
+[2020-11-08 11:54:48,553][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,553][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,554][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,554][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,555][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 1125000
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 47 se déplace en 39 
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1347222
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1500000
+[2020-11-08 11:54:48,646][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1875000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,647][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 1125000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 1500000
+[2020-11-08 11:54:48,648][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,649][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,654][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,654][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,654][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,655][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,655][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,655][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,655][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,656][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,762][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 1500000
+[2020-11-08 11:54:48,762][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 39 se déplace en 31 
+[2020-11-08 11:54:48,763][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,763][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1722222
+[2020-11-08 11:54:48,763][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 1875000
+[2020-11-08 11:54:48,763][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,764][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,764][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,765][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,765][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,765][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,765][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,766][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,766][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,766][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,766][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,767][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,767][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,767][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,768][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,768][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,768][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,768][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 1500000
+[2020-11-08 11:54:48,768][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 1875000
+[2020-11-08 11:54:48,769][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,769][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,769][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,769][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,770][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,770][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,770][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,778][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,778][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 240)
+[2020-11-08 11:54:48,779][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,779][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,779][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,780][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,780][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,781][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,781][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
+[2020-11-08 11:54:48,871][INFO] [AWT-EventQueue-0] (Simulateur.java:107) - Date de l'évènement (execution): 1875000
+[2020-11-08 11:54:48,871][INFO] [AWT-EventQueue-0] (EventMove.java:59) - Déplacement: Le robot BUSY de type ROUES avançant à 80.0 km/h et contenant 5000.0 litres d'eau initialement en 31 se déplace en 23 
+[2020-11-08 11:54:48,871][INFO] [AWT-EventQueue-0] (Simulateur.java:122) - Fin d'exécution: 222222
+[2020-11-08 11:54:48,871][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2097222
+[2020-11-08 11:54:48,872][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2250000
+[2020-11-08 11:54:48,872][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 2625000
+[2020-11-08 11:54:48,872][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3000000
+[2020-11-08 11:54:48,872][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3375000
+[2020-11-08 11:54:48,872][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 3750000
+[2020-11-08 11:54:48,873][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4125000
+[2020-11-08 11:54:48,873][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4500000
+[2020-11-08 11:54:48,873][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 4875000
+[2020-11-08 11:54:48,873][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5250000
+[2020-11-08 11:54:48,873][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 5625000
+[2020-11-08 11:54:48,874][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6000000
+[2020-11-08 11:54:48,875][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6375000
+[2020-11-08 11:54:48,875][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 6750000
+[2020-11-08 11:54:48,875][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7125000
+[2020-11-08 11:54:48,876][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7500000
+[2020-11-08 11:54:48,876][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 7875000
+[2020-11-08 11:54:48,876][INFO] [AWT-EventQueue-0] (Simulateur.java:164) - Nouvelle date de l'évènement: 8625000
+[2020-11-08 11:54:48,876][INFO] [AWT-EventQueue-0] (Simulateur.java:188) - Ancienne date courante: 1875000
+[2020-11-08 11:54:48,876][INFO] [AWT-EventQueue-0] (Simulateur.java:190) - Nouvelle date courante: 2250000
+[2020-11-08 11:54:48,877][INFO] [AWT-EventQueue-0] (GraphicsComponent.java:155) - Mise à jour des entités:
+[2020-11-08 11:54:48,877][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 50000, 53
+[2020-11-08 11:54:48,877][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,877][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 10000, 17
+[2020-11-08 11:54:48,877][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 20000, 26
+[2020-11-08 11:54:48,877][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 8000, 15
+[2020-11-08 11:54:48,878][DEBUG] [AWT-EventQueue-0] (GraphicsComponent.java:175) - Intensite de l'incendie: 5000, 13
+[2020-11-08 11:54:48,887][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 160)
+[2020-11-08 11:54:48,887][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (240, 240)
+[2020-11-08 11:54:48,887][DEBUG] [AWT-EventQueue-0] (TileImg.java:79) - Assignation d'une liste d'images (de robots) en (560, 320)
+[2020-11-08 11:54:48,888][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (400, 400) d'intensite normalisée 15
+[2020-11-08 11:54:48,888][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 480) d'intensite normalisée 17
+[2020-11-08 11:54:48,888][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 480) d'intensite normalisée 26
+[2020-11-08 11:54:48,889][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (0, 560) d'intensite normalisée 53
+[2020-11-08 11:54:48,889][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (80, 560) d'intensite normalisée 17
+[2020-11-08 11:54:48,890][DEBUG] [AWT-EventQueue-0] (TileImg.java:62) - Assignation d'un dessin de feu en (560, 560) d'intensite normalisée 13
