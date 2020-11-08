@@ -37,7 +37,7 @@ public class TestPathfindingGUI {
         /* Affichage du path */
         System.out.println("Affichage du chemin:");
 
-        long count = 0;
+        long date = 0;
         long increment = Simulateur.INCREMENT;
 
         Iterator<Integer> iter = path.iterator();
@@ -46,8 +46,8 @@ public class TestPathfindingGUI {
         System.out.println("(" + String.valueOf(currentPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(currentPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
         while (iter.hasNext()) {
             int nextPosition = iter.next();
-            simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, donneesSimulation.getCarte().getDirection(currentPosition, nextPosition))));
-            count += increment;
+            simulateur.schedule(date, new ActionMove(donneesSimulation, robot, donneesSimulation.getCarte().getDirection(currentPosition, nextPosition)));
+            date += increment;
             System.out.println("(" + String.valueOf(nextPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(nextPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
             currentPosition = nextPosition;
         }

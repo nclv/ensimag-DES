@@ -8,7 +8,6 @@ import game.Simulateur;
 import game.events.ActionEmpty;
 import game.events.ActionFill;
 import game.events.ActionMove;
-import game.events.Event;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -30,28 +29,28 @@ public class TestEventsScenario1 implements InterfaceDonneesSimulation {
 
         Robot robot = donneesSimulation.getRobot(1);
 
-        long count = 0;
+        long date = 0;
         long increment = Simulateur.INCREMENT;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.NORD)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, robot, Direction.NORD));
+        date += increment;
         
-        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, robot)));
-        count += increment;
+        simulateur.schedule(date, new ActionEmpty(donneesSimulation, robot));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.OUEST)));
-        count += increment;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.OUEST)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, robot, Direction.OUEST));
+        date += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, robot, Direction.OUEST));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionFill(donneesSimulation, robot)));
-        count += increment;
+        simulateur.schedule(date, new ActionFill(donneesSimulation, robot));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.EST)));
-        count += increment;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, robot, Direction.EST)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, robot, Direction.EST));
+        date += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, robot, Direction.EST));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, robot)));
-        count += increment;
+        simulateur.schedule(date, new ActionEmpty(donneesSimulation, robot));
+        date += increment;
     }
 }
