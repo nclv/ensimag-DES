@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import game.events.Event;
+import game.events.EventEmpty;
 import game.events.EventMove;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
@@ -95,6 +96,20 @@ public class Simulateur implements Simulable {
             count += Simulateur.INCREMENT;
             currentPosition = nextPosition;
         }
+    }
+
+    public void addPathSerial(Robot robot, LinkedList<Integer> path) {
+        addEventsMove(robot, path, this.strategie.getCount());
+        this.strategie.setCount(this.strategie.getCount() + (path.size() - 1) * Simulateur.INCREMENT);
+        addEvent(new EventEmpty(this.strategie.getCount(), this.donneesSimulation, robot));
+        this.strategie.setCount(this.strategie.getCount() + Simulateur.INCREMENT);
+    }
+
+    public void addPathParallel(Robot robot, LinkedList<Integer> path) {
+        addEventsMove(robot, path, robot.getCount());
+        robot.setCount(robot.getCount() + (path.size() - 1) * Simulateur.INCREMENT);
+        addEvent(new EventEmpty(robot.getCount(), this.donneesSimulation, robot));
+        robot.setCount(robot.getCount() + Simulateur.INCREMENT);
     }
 
     /**
