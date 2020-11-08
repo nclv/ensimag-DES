@@ -68,8 +68,9 @@ public class Simulateur implements Simulable {
      * 
      * @param event
      */
-    public void addEvent(final Event event) {
-        LOGGER.info("Date de l'évènement (ajoût): {}", event.getDate());
+    public void schedule(final long date, final Action action) {
+        LOGGER.info("Date de l'évènement (ajoût): {}", date);
+        Event event = new Event(date, action);
 
         this.eventSet.add(event);
         // ajout à la queue de sauvegarde
@@ -83,32 +84,32 @@ public class Simulateur implements Simulable {
      * 
      * @param robot
      * @param path
-     * @param count compteur externe ordonnant les déplacements
+     * @param date compteur externe ordonnant les déplacements
      */
-    public void addEventsMove(Robot robot, LinkedList<Integer> path, long count) {
+    private void scheduleActionsMove(Robot robot, LinkedList<Integer> path, long date) {
         Iterator<Integer> iter = path.iterator();
         int currentPosition = iter.next();
         while (iter.hasNext()) {
             int nextPosition = iter.next();
-            addEvent(new Event(count, new ActionMove(this.getDonneesSimulation(), robot,
-                    this.getDonneesSimulation().getCarte().getDirection(currentPosition, nextPosition))));
-            count += Simulateur.INCREMENT;
+            schedule(date, new ActionMove(this.getDonneesSimulation(), robot,
+                    this.getDonneesSimulation().getCarte().getDirection(currentPosition, nextPosition)));
+            date += Simulateur.INCREMENT;
             currentPosition = nextPosition;
         }
     }
 
     public void addPathSerial(Robot robot, LinkedList<Integer> path) {
-        addEventsMove(robot, path, this.strategie.getCount());
-        this.strategie.setCount(this.strategie.getCount() + (path.size() - 1) * Simulateur.INCREMENT);
-        addEvent(new Event(this.strategie.getCount(), new ActionEmpty(this.donneesSimulation, robot)));
-        this.strategie.setCount(this.strategie.getCount() + Simulateur.INCREMENT);
+        scheduleActionsMove(robot, path, this.strategie.getDate());
+        this.strategie.setDate(this.strategie.getDate() + (path.size() - 1) * Simulateur.INCREMENT);
+        schedule(this.strategie.getDate(), new ActionEmpty(this.donneesSimulation, robot));
+        this.strategie.setDate(this.strategie.getDate() + Simulateur.INCREMENT);
     }
 
     public void addPathParallel(Robot robot, LinkedList<Integer> path) {
-        addEventsMove(robot, path, robot.getCount());
-        robot.setCount(robot.getCount() + (path.size() - 1) * Simulateur.INCREMENT);
-        addEvent(new Event(robot.getCount(), new ActionEmpty(this.donneesSimulation, robot)));
-        robot.setCount(robot.getCount() + Simulateur.INCREMENT);
+        scheduleActionsMove(robot, path, robot.getDate());
+        robot.setDate(robot.getDate() + (path.size() - 1) * Simulateur.INCREMENT);
+        schedule(robot.getDate(), new ActionEmpty(this.donneesSimulation, robot));
+        robot.setDate(robot.getDate() + Simulateur.INCREMENT);
     }
 
     /**
@@ -222,7 +223,7 @@ public class Simulateur implements Simulable {
         LOGGER.info("Restart");
         this.currentDate = 0;
         if (strategie != null)
-            strategie.setCount(0);
+            strategie.setDate(0);
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
         this.eventSet = new PriorityQueue<Event>();

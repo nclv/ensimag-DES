@@ -9,7 +9,7 @@ public abstract class Strategie {
     protected Pathfinding pathfinding;
     // compteur interne permettant d'ordonner une suite d'events
     // utilisé pour effectuer les actions des robots en série
-    protected long count = 0;
+    protected long date = 0;
 
     public Strategie(Pathfinding pathfinding) {
         this.pathfinding = pathfinding;
@@ -26,11 +26,11 @@ public abstract class Strategie {
         this.pathfinding = pathfinding;
     }
 
-    public long getCount() {
-        return count;
+    public long getDate() {
+        return date;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setDate(long date) {
+        this.date = date;
     }
 }

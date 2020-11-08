@@ -8,7 +8,6 @@ import game.Simulateur;
 import game.events.ActionEmpty;
 import game.events.ActionFill;
 import game.events.ActionMove;
-import game.events.Event;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -31,33 +30,33 @@ public class TestEventsScenario01 {
         Robot drone = donneesSimulation.getRobot(0);
         Robot roues = donneesSimulation.getRobot(1);
 
-        long count = 0;
+        long date = 0;
         long increment = Simulateur.INCREMENT;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, roues, Direction.NORD)));
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, drone, Direction.NORD)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.NORD));
+        simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.NORD));
+        date += increment;
         
-        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, roues)));
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, drone, Direction.NORD)));
-        count += increment;
+        simulateur.schedule(date, new ActionEmpty(donneesSimulation, roues));
+        simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.NORD));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, roues, Direction.OUEST)));
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, drone, Direction.NORD)));
-        count += increment;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, roues, Direction.OUEST)));
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, drone, Direction.NORD)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.OUEST));
+        simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.NORD));
+        date += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.OUEST));
+        simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.NORD));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionFill(donneesSimulation, roues)));
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, drone, Direction.SUD)));
-        count += increment;
+        simulateur.schedule(date, new ActionFill(donneesSimulation, roues));
+        simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.SUD));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, roues, Direction.EST)));
-        count += increment;
-        simulateur.addEvent(new Event(count, new ActionMove(donneesSimulation, roues, Direction.EST)));
-        count += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.EST));
+        date += increment;
+        simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.EST));
+        date += increment;
 
-        simulateur.addEvent(new Event(count, new ActionEmpty(donneesSimulation, roues)));
-        count += increment;
+        simulateur.schedule(date, new ActionEmpty(donneesSimulation, roues));
+        date += increment;
     }
 }

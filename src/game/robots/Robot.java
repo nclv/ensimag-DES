@@ -17,7 +17,7 @@ public class Robot implements IdentifiedEntity<Long> {
     private State state = State.FREE;
     // compteur interne permettant d'ordonner une suite d'events
     // utilisé pour effectuer les actions des robots en parallèles
-    private long count = 0;
+    private long date = 0;
 
     public static enum State {
         FREE,
@@ -154,12 +154,12 @@ public class Robot implements IdentifiedEntity<Long> {
         this.state = state;
     }
     
-    public long getCount() {
-        return count;
+    public long getDate() {
+        return date;
     }
 
-    public void setCount(long count) {
-        this.count = count;
+    public void setDate(long date) {
+        this.date = date;
     }
 
     @Override
