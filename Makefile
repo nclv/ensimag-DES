@@ -21,13 +21,13 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-all: testStrategieElementaire
+all: StrategieElementaire
 
 testStrategieElementaire:
 	javac -d bin -classpath "bin:bin/*" -sourcepath src src/tests/TestStrategieElementaire.java
 
 # Execution:
-exeStrategieElementaire:
+StrategieElementaire: testStrategieElementaire
 	java -classpath "bin:bin/*" tests.TestStrategieElementaire
 
 clean:

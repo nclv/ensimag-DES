@@ -87,6 +87,7 @@ public class AStar extends Pathfinding implements Heuristique {
      */
     @Override
     public LinkedList<Integer> shortestWay(Robot robot, int src, int dest) throws IllegalStateException {
+        LOGGER.info("Recherche du plus court chemin");
         /* File de paires (position, fScore) */
         PriorityQueue<Node> openSet = new PriorityQueue<Node>();
         

@@ -104,7 +104,7 @@ public class Simulateur implements Simulable {
         // peek/remove is faster than poll/add
         Event event;
         while ((event = eventQueue.peek()) != null && event.getDate() <= this.currentDate) {
-            LOGGER.info("Date de l'évènement (execution): {}\n{}", event.getDate(), event.getRobot());
+            LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
 
             // on récupère la durée de l'event si l'event est valide
             // sinon la durée de l'event est nulle
@@ -195,6 +195,7 @@ public class Simulateur implements Simulable {
 
     @Override
     public void restart() {
+        LOGGER.info("Restart");
         this.currentDate = 0;
         if (strategie != null) strategie.setCount(0);
 

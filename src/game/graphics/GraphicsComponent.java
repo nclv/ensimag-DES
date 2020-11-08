@@ -93,12 +93,13 @@ public class GraphicsComponent {
      * Initialise l'interface graphique
      */
     public void init() {
+        LOGGER.info("Initialisation de l'interface graphique");
         this.gui.reset(); // clear the window
 
         setTiles();
         updateAllTileImgs();
 
-        // Ajout des composants à l'instance de JFrame
+        LOGGER.info("Ajout des composants à l'instance de JFrame");
         for (final TileImg tileImg : this.tileImgsArray) {
             this.gui.addGraphicalElement(tileImg);
         }
@@ -140,7 +141,7 @@ public class GraphicsComponent {
             final int x = position % nbLignes;
             final int y = position / nbLignes;
 
-            // LOGGER.info("Affichage de la case ({}, {}) de type {}", x, y,
+            // LOGGER.debug("Affichage de la case ({}, {}) de type {}", x, y,
             // tile.getValue());
             tileImgsArray.add(new TileImg(x * this.guiSizeFactor, y * this.guiSizeFactor, this.guiSizeFactor,
                     this.imagesBuffer.getImg(ressourcesMap.get(tile.getValue()))));
@@ -171,7 +172,7 @@ public class GraphicsComponent {
             if (intensity == 0) {
                 normalizedIntensity = 0;
             }
-            LOGGER.info("Intensite de l'incendie: {}, {}", intensity, normalizedIntensity);
+            LOGGER.debug("Intensite de l'incendie: {}, {}", intensity, normalizedIntensity);
 
             tileImgsArray.get(fire.getKey()).setFireNormalizedIntensity(normalizedIntensity);
         }

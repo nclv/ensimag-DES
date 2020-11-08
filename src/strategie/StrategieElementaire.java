@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
-// import org.slf4j.Logger;
-// import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import game.pathfinding.Pathfinding;
 import game.Simulateur;
@@ -14,7 +14,7 @@ import game.robots.Robot;
 import game.robots.Robot.State;
 
 public class StrategieElementaire extends Strategie {
-    // private static final Logger LOGGER = LoggerFactory.getLogger(StrategieElementaire.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StrategieElementaire.class);
 
     public StrategieElementaire(Pathfinding pathfinding) {
         super(pathfinding);
@@ -31,16 +31,18 @@ public class StrategieElementaire extends Strategie {
             
             int positionIncendie = incendie.getKey();
             for (Robot robot : robots) {
+                LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
                 if (robot.getState() == State.BUSY) continue;
                 
                 LinkedList<Integer> path;
                 try {
                     path = getPathfinding().shortestWay(robot, robot.getPosition(), positionIncendie);
                 } catch (IllegalStateException e) {
-                    e.printStackTrace();
+                    LOGGER.info("Aucun chemin n'est praticable");
                     continue;
                 }
                 
+                LOGGER.info("Ajoût des events");
                 simulateur.addEventsMove(robot, path, getCount());
                 setCount(this.count + path.size() * Simulateur.INCREMENT);
                 simulateur.addEvent(new EventEmpty(getCount(), simulateur.getDonneesSimulation(), robot));

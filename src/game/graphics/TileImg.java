@@ -36,13 +36,10 @@ public class TileImg implements GraphicalElement {
     }
 
     public void setTileForegroundImgsArray(final ArrayList<BufferedImage> tileForegroundImgsArray) {
-        LOGGER.info("Assignation d'une liste d'images (de robots) en ({}, {})", this.x, this.y);
         this.tileForegroundImgsArray = tileForegroundImgsArray;
     }
 
     public void setFireNormalizedIntensity(final int fireNormalizedIntensity) {
-        LOGGER.info("Assignation d'un dessin de feu en ({}, {}) d'intensite normalisée {}", this.x, this.y,
-                fireNormalizedIntensity);
         this.fireNormalizedIntensity = fireNormalizedIntensity;
     }
 
@@ -62,6 +59,8 @@ public class TileImg implements GraphicalElement {
 
         // Affichage de l'incendie
         if (this.fireNormalizedIntensity != 0) {
+            LOGGER.debug("Assignation d'un dessin de feu en ({}, {}) d'intensite normalisée {}", this.x, this.y,
+                this.fireNormalizedIntensity);
             g2d.setColor(Color.RED);
             final int firePadding = (this.tileBackgroundImgSize - this.fireNormalizedIntensity) / 2; // on veut un feu
                                                                                                      // au milieu de la
@@ -77,6 +76,7 @@ public class TileImg implements GraphicalElement {
         // au milieu: imgsPadding = this.tileImgSize / 4, width = height =
         // this.tileImgSize / 2
         if (this.tileForegroundImgsArray != null && !this.tileForegroundImgsArray.isEmpty()) {
+            LOGGER.debug("Assignation d'une liste d'images (de robots) en ({}, {})", this.x, this.y);
             final int imgsPadding = this.tileBackgroundImgSize / 4;
             for (int index = 0; index < this.tileForegroundImgsArray.size(); index++) {
                 final BufferedImage foregroundImg = this.tileForegroundImgsArray.get(index);
