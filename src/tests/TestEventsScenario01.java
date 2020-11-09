@@ -8,6 +8,7 @@ import game.Simulateur;
 import game.events.ActionEmpty;
 import game.events.ActionFill;
 import game.events.ActionMove;
+import game.events.EventManager;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -16,6 +17,7 @@ public class TestEventsScenario01 {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
+        EventManager eventManager = new EventManager(donneesSimulation);
 
         int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
         GUISimulator gui = new GUISimulator(
@@ -25,7 +27,7 @@ public class TestEventsScenario01 {
         );
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
+        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
 
         Robot drone = donneesSimulation.getRobot(0);
         Robot roues = donneesSimulation.getRobot(1);

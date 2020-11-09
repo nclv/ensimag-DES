@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - TestPathfindingGUI",
+            "request": "launch",
+            "mainClass": "tests.TestPathfindingGUI",
+            "projectName": "ensimag-robots-pompiers_ecafeb16"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - TestStrategieEvoluee",
+            "request": "launch",
+            "mainClass": "tests.TestStrategieEvoluee",
+            "projectName": "ensimag-robots-pompiers_ecafeb16"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - TestEventsScenario01",
             "request": "launch",
             "mainClass": "tests.TestEventsScenario01",
