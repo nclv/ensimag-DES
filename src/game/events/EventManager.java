@@ -170,8 +170,7 @@ public class EventManager {
         return count;
     }
 
-    public void reset(DonneesSimulation donneesSimulation) {
-        this.donneesSimulation = donneesSimulation;
+    public void reset() {
         this.eventSet = new PriorityQueue<Event>();
         if (strategie == null) {
             // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument
@@ -186,5 +185,9 @@ public class EventManager {
 
     public void setCurrentDate(long currentDate) {
         this.currentDate = currentDate;
+    }
+
+    public void setDonneesSimulation(DonneesSimulation donneesSimulation) {
+        this.donneesSimulation = donneesSimulation;
     }
 }
