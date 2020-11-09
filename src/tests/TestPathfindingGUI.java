@@ -9,7 +9,7 @@ import game.pathfinding.AStar;
 import game.pathfinding.Pathfinding;
 import game.Simulateur;
 import game.events.ActionMove;
-import game.events.Event;
+import game.events.EventManager;
 import game.graphics.GraphicsComponent;
 import game.robots.Robot;
 import gui.GUISimulator;
@@ -18,6 +18,7 @@ public class TestPathfindingGUI {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
         DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
+        EventManager eventManager = new EventManager(donneesSimulation);
         Pathfinding pathfinding = new AStar(donneesSimulation);
 
         int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
@@ -28,7 +29,7 @@ public class TestPathfindingGUI {
         );
         GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation);
+        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
 
         /* Calcul du plus court chemin entre (src, dest) */
         Robot robot = donneesSimulation.getRobot(0);
