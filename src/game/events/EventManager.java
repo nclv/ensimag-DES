@@ -25,10 +25,11 @@ public class EventManager {
 
     public EventManager(DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
+        eventSetSaved = new PriorityQueue<Event>();
     }
 
     public EventManager(DonneesSimulation donneesSimulation, Strategie strategie) {
-        this(donneesSimulation);
+        this.donneesSimulation = donneesSimulation;
         this.strategie = strategie;
         if (strategie == null) {
             eventSetSaved = new PriorityQueue<Event>();
@@ -169,7 +170,8 @@ public class EventManager {
         return count;
     }
 
-    public void reset() {
+    public void reset(DonneesSimulation donneesSimulation) {
+        this.donneesSimulation = donneesSimulation;
         this.eventSet = new PriorityQueue<Event>();
         if (strategie == null) {
             // donneesSimulation et pas donneesSimulationSaved pcq on modifie l'argument
