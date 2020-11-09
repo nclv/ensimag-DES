@@ -91,7 +91,10 @@ public class Simulateur implements Simulable {
             strategie.setDate(0);
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
-        eventManager.reset(this.donneesSimulation);
+        
+        // Update de l'event manager
+        eventManager.setDonneesSimulation(donneesSimulation);
+        eventManager.reset();
 
         // Update de l'affichage
         this.graphicsComponent.setDonneesSimulation(donneesSimulation);
