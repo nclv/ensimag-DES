@@ -73,16 +73,19 @@ public class EventManager {
     }
 
     public void addPathSerial(Robot robot, LinkedList<Integer> path, long increment) {
+        assert this.strategie != null;
         scheduleActionsMove(robot, path, this.strategie.getDate(), increment);
         this.strategie.setDate(this.strategie.getDate() + (path.size() - 1) * increment);
     }
 
     public void addEmptySerial(Robot robot, long increment) {
+        assert this.strategie != null;
         schedule(this.strategie.getDate(), new ActionEmpty(this.donneesSimulation, robot));
         this.strategie.setDate(this.strategie.getDate() + increment);
     }
 
     public void addFillingSerial(Robot robot, long increment) {
+        assert this.strategie != null;
         schedule(this.strategie.getDate(), new ActionFill(this.donneesSimulation, robot));
         this.strategie.setDate(this.strategie.getDate() + increment);
     }
