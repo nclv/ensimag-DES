@@ -75,14 +75,30 @@ public class EventManager {
     public void addPathSerial(Robot robot, LinkedList<Integer> path, long increment) {
         scheduleActionsMove(robot, path, this.strategie.getDate(), increment);
         this.strategie.setDate(this.strategie.getDate() + (path.size() - 1) * increment);
+    }
+
+    public void addEmptySerial(Robot robot, long increment) {
         schedule(this.strategie.getDate(), new ActionEmpty(this.donneesSimulation, robot));
+        this.strategie.setDate(this.strategie.getDate() + increment);
+    }
+
+    public void addFillingSerial(Robot robot, long increment) {
+        schedule(this.strategie.getDate(), new ActionFill(this.donneesSimulation, robot));
         this.strategie.setDate(this.strategie.getDate() + increment);
     }
 
     public void addPathParallel(Robot robot, LinkedList<Integer> path, long increment) {
         scheduleActionsMove(robot, path, robot.getDate(), increment);
         robot.setDate(robot.getDate() + (path.size() - 1) * increment);
+    }
+
+    public void addEmptyParallel(Robot robot, long increment) {
         schedule(robot.getDate(), new ActionEmpty(this.donneesSimulation, robot));
+        robot.setDate(robot.getDate() + increment);
+    }
+
+    public void addFillingParallel(Robot robot, long increment) {
+        schedule(robot.getDate(), new ActionFill(this.donneesSimulation, robot));
         robot.setDate(robot.getDate() + increment);
     }
 

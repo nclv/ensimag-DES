@@ -64,8 +64,24 @@ public class Simulateur implements Simulable {
         this.eventManager.addPathSerial(robot, path, INCREMENT);
     }
 
+    public void addEmptySerial(Robot robot) {
+        this.eventManager.addEmptySerial(robot, INCREMENT);
+    }
+
+    public void addFillingSerial(Robot robot) {
+        this.eventManager.addFillingSerial(robot, INCREMENT);
+    }
+
     public void addPathParallel(Robot robot, LinkedList<Integer> path) {
         this.eventManager.addPathParallel(robot, path, INCREMENT);
+    }
+
+    public void addEmptyParallel(Robot robot) {
+        this.eventManager.addEmptyParallel(robot, INCREMENT);
+    }
+
+    public void addFillingParallel(Robot robot) {
+        this.eventManager.addFillingParallel(robot, INCREMENT);
     }
 
     @Override

@@ -39,6 +39,7 @@ public class Robot implements IdentifiedEntity<Long> {
      */
     public void init(final int position) {
         this.state = State.FREE;
+        this.date = 0;
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
         this.position = position;
@@ -65,6 +66,10 @@ public class Robot implements IdentifiedEntity<Long> {
 
     public Double getVolume() {
         return volume;
+    }
+
+    public Boolean isEmpty() {
+        return (getVolume() == 0.0);
     }
 
     /**
