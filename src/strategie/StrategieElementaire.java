@@ -45,9 +45,11 @@ public class StrategieElementaire extends Strategie {
                 
                 // exécution en série
                 // simulateur.addPathSerial(robot, path);
+                // simulateur.addEmptySerial(robot);
 
                 // exécution en parallèle
                 simulateur.addPathParallel(robot, path);
+                simulateur.addEmptyParallel(robot);
             }
         }
     }

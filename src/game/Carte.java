@@ -5,6 +5,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Carte {
     // private static final Logger LOGGER = LoggerFactory.getLogger(Carte.class);
@@ -188,6 +189,10 @@ public class Carte {
 
     public Map<Integer, NatureTerrain> getMap() {
         return map;
+    }
+
+    public ArrayList<Integer> getPositionsWater() {
+        return map.entrySet().stream().filter(map -> (map.getValue() == NatureTerrain.EAU)).map(map -> map.getKey()).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
