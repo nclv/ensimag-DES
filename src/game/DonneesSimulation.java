@@ -9,31 +9,43 @@ import java.util.Map;
 
 import game.robots.Robot;
 
+/**
+ * DonneesSimulation est "propriétaire" des instances de Incendie, Carte et
+ * Robot qui la composent. Si les données de la simulation sont détruites, les
+ * incendies, la carte et les robots le sont également.
+ * 
+ * Il peut n'y avoir aucun incendie. Il n'y a pas de limite au nombre
+ * d'incendies.
+ * Il y a au moins un robot. Il n'y a pas de limite au nombre de robots.
+ * Il y a une carte.
+ * 
+ * Cette classe contient aussi les méthodes utilisant une combinaison de ses attributs.
+ * 
+ * @author Nicolas Vincent
+ */
 public class DonneesSimulation {
     // private static final Logger LOGGER = LoggerFactory.getLogger(DonneesSimulation.class);
-    /**
-     * DonneesSimulation est "propriétaire" des instances de Incendie, Carte et
-     * Robot qui la composent. Si les données de la simulation sont détruites, les
-     * incendies, la carte et les robots le sont également.
-     * 
-     * Il peut n'y avoir aucun incendie. Il n'y a pas de limite au nombre
-     * d'incendies.
-     * 
-     * Il y a au moins un robot. Il n'y a pas de limite au nombre de robots.
-     * 
-     * Il y a une carte.
-     */
+    
     private Carte carte;
+    
+    /**
+     * A une position correspond une intensité
+     */
     private Map<Integer, Integer> incendies;
-    // il peut y avoir plusieurs robots sur une même position
+    
+    /**
+     * On peut trouver plusieurs robots sur une même position
+     */
     private Map<Integer, ArrayList<Robot>> robots;
 
     public DonneesSimulation() {}
 
     /**
      * Copy constructor
-     * 
      * Robots are reinitialized
+     * 
+     * @param another objet DonneesSimulation copié
+     * @see Robot#init(int)
      */
     public DonneesSimulation(DonneesSimulation another) {
         this.carte = another.carte; // la carte ne change pas entre deux restarts
@@ -75,9 +87,9 @@ public class DonneesSimulation {
     }
 
     /**
-     * Return a specific robot
      * @param robotId
      * @return the robot which id match
+     * @see Robot#getId()
      */
     public Robot getRobot(long robotId) {
         ArrayList<Robot> robotsList = new ArrayList<Robot>();
@@ -93,10 +105,14 @@ public class DonneesSimulation {
     /**
      * Le temps mis pour se rendre d’une case à l’autre est la moyenne de la
      * vitesse sur chacune des cases multipliée par la taille des cases.
+     * 
      * @param position
      * @param newPosition
      * @return temps mis pour se déplacer de position à newPosition
      * @throws IllegalArgumentException if the robot can't move on newPosition
+     * @see Robot#getVitesse(NatureTerrain)
+     * @see Carte#getTerrain(int)
+     * @see Carte#getTailleCases()
      */
     public long getTimeToMove(final Robot robot, final int position, final int newPosition) throws IllegalArgumentException {
         // LOGGER.info("{}km/h sur {}, {}km/h sur {}, pour des cases de taille {}",
@@ -115,6 +131,8 @@ public class DonneesSimulation {
      * @param robot
      * @param firePosition
      * @return temps mis par le robot pour se vider sur firePosition
+     * @see Robot#getMaxTimeToEmpty()
+     * @see Robot#getMaxEmptiedVolume()
      */
     public long getTimeToEmpty(final Robot robot, final int firePosition) {
         long timeToEmpty = 0;

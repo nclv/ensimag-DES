@@ -4,6 +4,11 @@ import java.util.LinkedList;
 
 import game.robots.Robot;
 
+/**
+ * Classe abstraite représentant l'algorithme de plsu court chemin
+ * 
+ * @author Nicolas Vincent
+ */
 public abstract class Pathfinding {
     /**
      * Calcule le plus court chemin pour le robot entre src et dest

@@ -5,6 +5,12 @@ import java.util.Map;
 
 import game.NatureTerrain;
 
+/**
+ * Classe constante contenant les types de robots présents par défaut dans le jeu.
+ * 
+ * @author Nicolas Vincent
+ * @see RobotType#RobotType(Type, Filling, Double, Double, Double, int, int, int, EnumMap)
+ */
 public final class MyRobotTypes {
 
     /* On nous donne 4 types de robots, il est facile d'en rajouter */
@@ -67,9 +73,9 @@ public final class MyRobotTypes {
         )
     );
 
-    // et pourquoi pas une liste ? le seul désavantage à utiliser une liste
-    // serait qu'un changement de l'ordre dans l'enum Type mettrait le bazard
-    // on aurait aussi des ifs mais ça reste un détail
+    /**
+     * A chaque type on associe un RobotType
+     */
     private static final EnumMap<Type, RobotType> typeMap = new EnumMap<Type, RobotType>(Map.of(
         Type.DRONE, Drone,
         Type.ROUES, Roues,

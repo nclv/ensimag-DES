@@ -13,15 +13,30 @@ import game.Carte;
 import game.DonneesSimulation;
 import game.robots.Robot;
 
+/**
+ * @see Pathfinding
+ * @see Heuristique
+ * @see DonneesSimulation
+ * @author Adrien Argento
+ * @author Nicolas Vincent
+ */
 public class AStar extends Pathfinding implements Heuristique {
     private static final Logger LOGGER = LoggerFactory.getLogger(AStar.class);
 
     private final DonneesSimulation donneesSimulation;
 
+    /**
+     * Un noeud lie une position à un fScore.
+     * On peut comparer deux noeuds par leurs fScore.
+     */
     static class Node implements Comparable<Node> {
         private int position;
-        // fScore = gScore + heuristic = the path cost of a node + the heuristic used to
-        // estimate distance between a node and the goal
+        
+        /**
+         * fScore = gScore + heuristic
+         * gScore = the path cost of a node
+         * heuristic = the heuristic used to estimate distance between a node and the goal
+         */ 
         private int fScore;
 
         public Node(int position, int fScore) {
@@ -55,6 +70,9 @@ public class AStar extends Pathfinding implements Heuristique {
         }
     }
 
+    /**
+     * @param donneesSimulation
+     */
     public AStar(DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
     }
@@ -65,6 +83,7 @@ public class AStar extends Pathfinding implements Heuristique {
      * @param src
      * @param dest
      * @return distance de Manhattan entre src et dst
+     * @see DonneesSimulation#getCarte()
      */
     @Override
     public int heuristique(int src, int dest) {
@@ -84,6 +103,11 @@ public class AStar extends Pathfinding implements Heuristique {
      * @param dest
      * @return suite de positions
      * @throws IllegalStateException if there is no path
+     * @see Node#Node(int, int)
+     * @see DonneesSimulation#getCarte()
+     * @see #heuristique(int, int)
+     * @see #reconstructPath(HashMap, int)
+     * @see #getTentativeGScore(HashMap, Robot, int, int)
      */
     @Override
     public LinkedList<Integer> shortestWay(Robot robot, int src, int dest) throws IllegalStateException {
@@ -139,6 +163,7 @@ public class AStar extends Pathfinding implements Heuristique {
      * @param position
      * @param neighbor
      * @return the distance from start to the neighbor through position
+     * @see DonneesSimulation#getTimeToMove(Robot, int, int)
      */
     private Integer getTentativeGScore(HashMap<Integer, Integer> gScore, Robot robot, int position, int neighbor) {
         try {

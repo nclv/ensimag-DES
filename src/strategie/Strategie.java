@@ -1,22 +1,43 @@
 package strategie;
 
+import game.Dated;
 import game.Simulateur;
 import game.pathfinding.Pathfinding;
 import game.robots.Robot;
 
-public abstract class Strategie {
-    // algorithme de plus court chemin
-    protected Pathfinding pathfinding;
-    // compteur interne permettant d'ordonner une suite d'events
-    // utilisé pour effectuer les actions des robots en série
-    protected long date = 0;
+/**
+ * Un objet stratégie va calculer les déplacements des robots avec l'algorithme de
+ * plus court chemin choisi.
+ * La méthode execute() est appelée à chaque itération.
+ * 
+ * @author Nicolas Vincent
+ * @see Dated
+ */
+public abstract class Strategie implements Dated<Long> {
+    /** 
+     * Algorithme de plus court chemin
+     */
+    private Pathfinding pathfinding;
+    
+    /**
+     * Compteur interne permettant d'ordonner une suite d'events.
+     * Utilisé pour effectuer les actions des robots en série.
+     */
+    private long date = 0L;
 
+    /**
+     * @param pathfinding
+     */
     public Strategie(Pathfinding pathfinding) {
         this.pathfinding = pathfinding;
     }
 
+    /**
+     * Exécute la stratégie.
+     * 
+     * @param simulateur
+     */
     public abstract void execute(Simulateur simulateur);
-    public abstract Boolean canFree(Robot robot);
 
     public Pathfinding getPathfinding() {
         return pathfinding;
@@ -26,11 +47,13 @@ public abstract class Strategie {
         this.pathfinding = pathfinding;
     }
 
-    public long getDate() {
+    @Override
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    @Override
+    public void setDate(Long date) {
         this.date = date;
     }
 }

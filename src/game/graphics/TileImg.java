@@ -10,12 +10,24 @@ import org.slf4j.LoggerFactory;
 
 import gui.GraphicalElement;
 
+/**
+ * Custom tile image class.
+ * Une image est la superposition d'une image de type de case et de possibles images d'entités et dessin de feu.
+ * 
+ * @see BufferedImage
+ * @author Nicolas Vincent
+ */
 public class TileImg implements GraphicalElement {
     private static final Logger LOGGER = LoggerFactory.getLogger(TileImg.class);
     
-    /* Image de fond (type de case) */
+    /** 
+     * Image de fond (type de case)
+     */
     private BufferedImage tileBackgroundImg = null;
-    /* Liste des images affichées par dessus l'image de fond (robots) */
+    
+    /**
+     * Liste des images affichées par dessus l'image de fond (entités)
+     */
     private ArrayList<BufferedImage> tileForegroundImgsArray = null;
 
     private final int tileBackgroundImgSize;
@@ -23,9 +35,17 @@ public class TileImg implements GraphicalElement {
     private final int x;
     private final int y;
 
-    /* Inensité normalisée du feu à afficher */
+    /**
+     * Intensité normalisée du feu à afficher
+     */
     private int fireNormalizedIntensity = 0;
 
+    /**
+     * @param x
+     * @param y
+     * @param tileBackgroundImgSize
+     * @param tileBackgroundImg
+     */
     public TileImg(final int x, final int y, final int tileBackgroundImgSize, final BufferedImage tileBackgroundImg) {
         LOGGER.info("Création d'une image représentant une case de taille {} en ({}, {})", tileBackgroundImgSize, x, y);
         this.tileBackgroundImgSize = tileBackgroundImgSize;
@@ -44,13 +64,17 @@ public class TileImg implements GraphicalElement {
     }
 
     /**
-     * Affichage de l'image finale, superposition de l'image de fond, des dessins et des images du premier plan
+     * Affichage de l'image finale, superposition de l'image de fond, des dessins et des images du premier plan.
+     * L'ordre des instructions est IMPORTANT. On superpose des images et dessins.
+     * Cette méthode est appelée à chaque interaction avec la fenêtre (update)
+     * 
+     * @param g2d
+     * @see Graphics2D#drawImage(java.awt.Image, int, int, int, int, java.awt.image.ImageObserver)
+     * @see Graphics2D#setColor(Color)
+     * @see Graphics2D#fillOval(int, int, int, int)
      */
     @Override
     public void paint(final Graphics2D g2d) {
-        // L'ordre est IMPORTANT. On superpose des images et dessins.
-        // Cette méthode est appelée à chaque interaction avec la fenêtre (update)
-
         // Affichage de l'image de fond (nature du terrain)
         if (this.tileBackgroundImg != null) {
             g2d.drawImage(this.tileBackgroundImg, this.x, this.y, this.tileBackgroundImgSize,

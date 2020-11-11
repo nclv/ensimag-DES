@@ -12,6 +12,16 @@ import game.robots.Robot;
 import gui.Simulable;
 import strategie.Strategie;
 
+/**
+ * Simulateur d'évènements discrets
+ * 
+ * @see Simulable
+ * @see DonneesSimulation
+ * @see EventManager
+ * @see GraphicsComponent
+ * @see Strategie
+ * @author Nicolas Vincent
+ */
 public class Simulateur implements Simulable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulateur.class);
 
@@ -30,6 +40,10 @@ public class Simulateur implements Simulable {
      * 
      * @param graphicsComponent s'occupe de l'affichage
      * @param donneesSimulation
+     * @param eventManager s'occupe des events
+     * @see DonneesSimulation#DonneesSimulation(DonneesSimulation)
+     * @see GraphicsComponent#setSimulable(Simulable)
+     * @see GraphicsComponent#init()
      */
     public Simulateur(final GraphicsComponent graphicsComponent, final DonneesSimulation donneesSimulation, final EventManager eventManager) {
         this.donneesSimulation = donneesSimulation;
@@ -46,8 +60,9 @@ public class Simulateur implements Simulable {
     /**
      * Initialisation d'un Simulateur avec stratégie
      * 
-     * @param graphicsComponent
+     * @param graphicsComponent s'occupe de l'affichage
      * @param donneesSimulation
+     * @param eventManager s'occupe des events
      * @param strategie
      */
     public Simulateur(final GraphicsComponent graphicsComponent, final DonneesSimulation donneesSimulation, final EventManager eventManager,
@@ -84,6 +99,14 @@ public class Simulateur implements Simulable {
         this.eventManager.addFillingParallel(robot, INCREMENT);
     }
 
+    /**
+     * @see Simulable#next()
+     * @see Strategie#execute(Simulateur)
+     * @see EventManager#executeNextEvents()
+     * @see EventManager#getCurrentDate(long)
+     * @see EventManager#setCurrentDate(long)
+     * @see GraphicsComponent#draw()
+     */
     @Override
     public void next() {
         if (strategie != null)
@@ -99,12 +122,22 @@ public class Simulateur implements Simulable {
         this.graphicsComponent.draw();
     }
 
+    /**
+     * @see DonneesSimulation#DonneesSimulation(DonneesSimulation)
+     * @see Strategie#setDate(long)
+     * @see EventManager#setCurrentDate(long)
+     * @see EventManager#setDonneesSimulation(DonneesSimulation)
+     * @see EventManager#reset()
+     * @see GraphicsComponent#setDonneesSimulation(DonneesSimulation)
+     * @see GraphicsComponent#reset()
+     * @see GraphicsComponent#draw()
+     */
     @Override
     public void restart() {
         LOGGER.info("Restart");
         eventManager.setCurrentDate(0);
         if (strategie != null)
-            strategie.setDate(0);
+            strategie.setDate(0L);
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
         

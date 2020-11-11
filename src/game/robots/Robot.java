@@ -3,31 +3,33 @@ package game.robots;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import game.IdentifiedEntity;
+import game.Entity;
 import game.NatureTerrain;
 
-// on ne peut pas instancier une classe abstraite
-public class Robot implements IdentifiedEntity<Long> {
+/**
+ * Un robot est une entité. Il existe plusieurs types de robots.
+ * 
+ * @author Nicolas Vincent
+ * @see Entity
+ * @see RobotType
+ */
+public class Robot extends Entity {
     private static final Logger LOGGER = LoggerFactory.getLogger(Robot.class);
     private final RobotType robotType;
-    private final long robotId;
     private Double vitesse;
     private Double volume;
-    private Integer position;
-    private State state = State.FREE;
-    // compteur interne permettant d'ordonner une suite d'events
-    // utilisé pour effectuer les actions des robots en parallèles
-    private long date = 0;
 
-    public static enum State {
-        FREE,
-        BUSY
-    }
-
+    /**
+     * @param robotType
+     * @param robotId
+     * @param position
+     * @see Entity#Entity(long)
+     * @see #init(int)
+     */
     public Robot(final RobotType robotType, final long robotId, final int position) {
+        super(robotId);
         LOGGER.info("Instantiation d'un robot de type {}", robotType.getType());
         this.robotType = robotType;
-        this.robotId = robotId;
         init(position);
     }
 
@@ -36,13 +38,19 @@ public class Robot implements IdentifiedEntity<Long> {
      * Utile pour en éviter la copie lors d'un restart.
      * 
      * @param position
+     * @see Entity#setState(State)
+     * @see Entity#setPosition(Integer)
+     * @see Entity#setDate(Long)
+     * @see RobotType#getVitesse()
+     * @see RobotType#getCapacity()
      */
+    @Override
     public void init(final int position) {
-        this.state = State.FREE;
-        this.date = 0;
+        setState(State.FREE);
+        setPosition(position);
+        setDate(0L);
         this.vitesse = robotType.getVitesse();
         this.volume = robotType.getCapacity(); // le robot est initialement plein
-        this.position = position;
     }
 
     /**
@@ -50,6 +58,7 @@ public class Robot implements IdentifiedEntity<Long> {
      * On assure que le volume du robot reste >= 0
      * 
      * @return le volume déversé par le robot
+     * @see RobotType#getMaxEmptiedVolume()
      */
     public Double deverserEau() {
         double emptiedVolume = this.robotType.getMaxEmptiedVolume();
@@ -68,12 +77,18 @@ public class Robot implements IdentifiedEntity<Long> {
         return volume;
     }
 
+    /**
+     * @return true if volume == 0.0
+     * @see #getVolume()
+     */
     public Boolean isEmpty() {
         return (getVolume() == 0.0);
     }
 
     /**
-     * On restore le volume du robot à sa capacité.
+     * On restore le volume du robot à sa capacité initiale.
+     * 
+     * @see RobotType#getCapacity()
      */
     public void remplirReservoir() {
         this.volume = this.robotType.getCapacity();
@@ -103,6 +118,8 @@ public class Robot implements IdentifiedEntity<Long> {
      * @param natureTerrain
      * @return la vitesse du robot sur le terrain en m/s
      * @throws IllegalArgumentException si le robot ne peut pas se déplacer sur le type de terrain
+     * @see Entity#checkWalkable(NatureTerrain)
+     * @see RobotType#getTerrainVitesse()
      */
     public Double getVitesse(final NatureTerrain natureTerrain) throws IllegalArgumentException {
         checkWalkable(natureTerrain);
@@ -111,27 +128,20 @@ public class Robot implements IdentifiedEntity<Long> {
     }
 
     /**
-     * Vérifie que le robot peut se déplacer sur le type de terrain.
-     * @param natureTerrain
-     * @throws IllegalArgumentException
-     */
-    public void checkWalkable(final NatureTerrain natureTerrain) throws IllegalArgumentException {
-        if (!isWalkable(natureTerrain)) {
-            throw new IllegalArgumentException(this + " ne peut pas se déplacer sur une case de type " + natureTerrain);
-        }
-    }
-
-    /**
      * @param natureTerrain
      * @return true if the robot can move on natureTerrain
+     * @see RobotType#getTerrainVitesse()
      */
-    private Boolean isWalkable(final NatureTerrain natureTerrain) {
+    @Override
+    public Boolean isWalkable(final NatureTerrain natureTerrain) {
         return this.robotType.getTerrainVitesse().containsKey(natureTerrain);
     }
 
     /**
      * Set la vitesse si elle est inférieure à la vitesse maximale autorisée, ne fait rien sinon
+     * 
      * @param vitesse
+     * @see RobotType#getVitesseMax()
      */
     public void setVitesse(final Double vitesse) {
         final Double vitesseMax = robotType.getVitesseMax();
@@ -143,39 +153,10 @@ public class Robot implements IdentifiedEntity<Long> {
         }
     }
 
-    public Integer getPosition() {
-        return position;
-    }
-
-    public void setPosition(final Integer position) {
-        this.position = position;
-    }
-
-    public State getState() {
-        return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
-    }
-    
-    public long getDate() {
-        return date;
-    }
-
-    public void setDate(long date) {
-        this.date = date;
-    }
-
-    @Override
-    public Long getId() {
-        return this.robotId;
-    }
-
     @Override
     public String toString() {
         String res = new String();
-        res += "Le robot " + ((state == State.BUSY) ? "BUSY" : "FREE") + " de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
+        res += "Le robot " + ((getState() == State.BUSY) ? "BUSY" : "FREE") + " de type " + this.robotType.getType() + " avançant à " + vitesse + " km/h et contenant " + volume
                 + " litres d'eau";
         return res;
     }
