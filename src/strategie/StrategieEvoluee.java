@@ -12,15 +12,44 @@ import game.DonneesSimulation;
 import game.Simulateur;
 import game.pathfinding.Pathfinding;
 import game.robots.Robot;
-import game.robots.Robot.State;
+import game.Entity.State;
 
+/**
+ * @author Nicolas Vincent
+ * @see Strategie
+ */
 public class StrategieEvoluee extends Strategie {
     private static final Logger LOGGER = LoggerFactory.getLogger(StrategieElementaire.class);
 
+    /**
+     * @param pathfinding
+     * @see Strategie#Strategie(Pathfinding)
+     */
     public StrategieEvoluee(Pathfinding pathfinding) {
         super(pathfinding);
     }
 
+    /**
+     * Stratégie évoluée.
+     * Chaque robot se déplace sur un incendie différent.
+     * On choisit le robot disponible le plus rapide.
+     * Un robot vide va se remplir à un point d'eau
+     * 
+     * @param simulateur
+     * @see #getPathDuration(Robot, LinkedList, DonneesSimulation)
+     * @see DonneesSimulation#getRobots()
+     * @see DonneesSimulation#getIncendies()
+     * @see Carte#getPositionsWater()
+     * @see Robot#getState()
+     * @see Robot#isEmpty()
+     * @see Robot#getTimeToFillUp()
+     * @see State
+     * @see Pathfinding#shortestWay(Robot, int, int)
+     * @see Simulateur#addPathParallel(Robot, LinkedList)
+     * @see Simulateur#addPathSerial(Robot, LinkedList)
+     * @see Simulateur#addEmptyParallel(Robot)
+     * @see Simulateur#addEmptySerial(Robot)
+     */
     @Override
     public void execute(Simulateur simulateur) {
         ArrayList<Robot> robots = new ArrayList<Robot>();
@@ -112,11 +141,13 @@ public class StrategieEvoluee extends Strategie {
         }
     }
 
-    @Override
-    public Boolean canFree(Robot robot) {
-        return true;
-    }
-
+    /**
+     * @param robot
+     * @param path
+     * @param donneesSimulation
+     * @return durée mise par le robot pour se déplacer en suivant path
+     * @see DonneesSimulation#getTimeToMove(Robot, int, int)
+     */
     private long getPathDuration(Robot robot, LinkedList<Integer> path, DonneesSimulation donneesSimulation) {
         long duration = 0;
 

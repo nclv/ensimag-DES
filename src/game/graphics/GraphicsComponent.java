@@ -23,15 +23,30 @@ import game.robots.Robot;
 import gui.GUISimulator;
 import gui.Simulable;
 
+/**
+ * Interface graphique.
+ * 
+ * @see GUISimulator
+ * @see NormUtil
+ * @see ImagesBuffer
+ * @see TileImg
+ * @see DonneesSimulation
+ * @author Nicolas Vincent
+ */
 public class GraphicsComponent {
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphicsComponent.class);
 
     private final GUISimulator gui;
     private final int guiSizeFactor;
 
-    /* Utilitaire pour normaliser l'intensité des feux */
+    /** 
+     * Utilitaire pour normaliser l'intensité des feux 
+     */
     private NormUtil normUtil;
-    /* Buffer des images pour qu'on n'ait pas à les recharger à chaque affichage */
+    
+    /** 
+     * Buffer des images pour qu'on n'ait pas à les recharger à chaque affichage 
+     */
     private final ImagesBuffer imagesBuffer;
 
     private final ArrayList<TileImg> tileImgsArray = new ArrayList<TileImg>();
@@ -46,6 +61,17 @@ public class GraphicsComponent {
 
     private DonneesSimulation donneesSimulation;
 
+    /**
+     * @param gui
+     * @param guiSizeFactor
+     * @param donneesSimulation
+     * @see ImagesBuffer#ImagesBuffer()
+     * @see GUISimulator#getPanelHeight()
+     * @see GUISimulator#getPanelWidth()
+     * @see GUISimulator#reset()
+     * @see #setNormUtil(Map, double, double)
+     * @see DonneesSimulation#getIncendies()
+     */
     public GraphicsComponent(final GUISimulator gui, final int guiSizeFactor,
             final DonneesSimulation donneesSimulation) {
         this.imagesBuffer = new ImagesBuffer();
@@ -62,20 +88,18 @@ public class GraphicsComponent {
     }
 
     /**
-     * Set the gui simulable
-     * 
      * @param simulable
+     * @see GUISimulator#setSimulable(Simulable)
      */
     public void setSimulable(final Simulable simulable) {
         this.gui.setSimulable(simulable);
     }
 
     /**
-     * Set the normalisation utility parameters
-     * 
      * @param incendies
      * @param normalizedHigh
      * @param normalizedLow
+     * @see NormUtil#NormUtil(double, double, double, double)
      */
     private void setNormUtil(final Map<Integer, Integer> incendies, final double normalizedHigh,
             final double normalizedLow) {
@@ -91,6 +115,11 @@ public class GraphicsComponent {
 
     /**
      * Initialise l'interface graphique
+     * 
+     * @see GUISimulator#reset()
+     * @see #setTiles()
+     * @see #updateAllTileImgs()
+     * @see GUISimulator#addGraphicalElement(gui.GraphicalElement)
      */
     public void init() {
         LOGGER.info("Initialisation de l'interface graphique");
@@ -107,8 +136,9 @@ public class GraphicsComponent {
 
     /**
      * Dessine la carte et ses éléments
-     * 
      * Drawing is automatic, no need to repaint
+     * 
+     * @see #updateAllTileImgs()
      */
     public void draw() {
         updateAllTileImgs();
@@ -116,8 +146,11 @@ public class GraphicsComponent {
 
     /**
      * Retour à la carte initiale sans incendies et robots
-     * 
      * On garde seulement les images de fond (qui représentent le type des cases)
+     * 
+     * @see DonneesSimulation#getCarte()
+     * @see TileImg#setFireNormalizedIntensity(int)
+     * @see TileImg#setTileForegroundImgsArray(ArrayList)
      */
     public void reset() {
         final Map<Integer, NatureTerrain> map = donneesSimulation.getCarte().getMap();
@@ -131,6 +164,10 @@ public class GraphicsComponent {
 
     /**
      * Ajoût des images des cases à tileImgsArray
+     * 
+     * @see DonneesSimulation#getCarte()
+     * @see TileImg#TileImg(int, int, int, BufferedImage)
+     * @see ImagesBuffer#getImg(String)
      */
     private void setTiles() {
         final int nbLignes = donneesSimulation.getCarte().getNbLignes();
@@ -150,6 +187,9 @@ public class GraphicsComponent {
 
     /**
      * Mise à jour des images des cases (incendies et robots)
+     * 
+     * @see #setIncendies()
+     * @see #setRobots()
      */
     private void updateAllTileImgs() {
         LOGGER.info("Mise à jour des entités:");
@@ -161,6 +201,10 @@ public class GraphicsComponent {
 
     /**
      * Mise à jour des incendies
+     * 
+     * @see DonneesSimulation#getIncendies()
+     * @see NormUtil#normalize(double)
+     * @see TileImg#setFireNormalizedIntensity(int)
      */
     private void setIncendies() {
         final Map<Integer, Integer> incendies = donneesSimulation.getIncendies();
@@ -180,6 +224,10 @@ public class GraphicsComponent {
 
     /**
      * Mise à jour des robots
+     * 
+     * @see DonneesSimulation#getRobots()
+     * @see ImagesBuffer#getImg(String)
+     * @see TileImg#setTileForegroundImgsArray(ArrayList)
      */
     private void setRobots() {
         final Map<Integer, ArrayList<Robot>> robotsMap = donneesSimulation.getRobots();
@@ -199,6 +247,9 @@ public class GraphicsComponent {
     }
 }
 
+/**
+ * @author Encog Project
+ */
 class NormUtil {
     private final double dataHigh;
     private final double dataLow;
@@ -233,10 +284,17 @@ class NormUtil {
     }
 }
 
+/**
+ * Buffer d'images (BufferedImage)
+ * 
+ * @author Nicolas Vincent
+ */
 class ImagesBuffer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ImagesBuffer.class);
 
-    /* Stockage des images */
+    /** 
+     * Stockage des images 
+     */
     private final HashMap<String, BufferedImage> picturesCache = new HashMap<String, BufferedImage>();
 
     /**
@@ -244,14 +302,15 @@ class ImagesBuffer {
      * 
      * @param imgFilename
      * @return image chargée BufferedImage
+     * @see ImageIO#read(File)
      */
     public BufferedImage loadImg(final String imgFilename) {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageIO.read(new File("src/ressources/" + imgFilename));
             this.picturesCache.putIfAbsent(imgFilename, bufferedImage);
-        } catch (final IOException ex) {
-            ex.printStackTrace();
+        } catch (final IOException e) {
+            LOGGER.error(e.getMessage());;
         }
         LOGGER.info("Chargement de l'image {} dans le cache", imgFilename);
         return bufferedImage;
@@ -263,6 +322,7 @@ class ImagesBuffer {
      * 
      * @param imgFilename
      * @return BufferedImage présente dans le buffer
+     * @see #loadImg(String)
      */
     public BufferedImage getImg(final String imgFilename) {
         BufferedImage img = this.picturesCache.get(imgFilename);

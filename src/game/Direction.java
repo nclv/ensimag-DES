@@ -2,6 +2,11 @@ package game;
 
 import java.util.HashMap;
 
+/**
+ * Représente les directions de déplacement possibles.
+ * 
+ * @author Nicolas Vincent
+ */
 public enum Direction {
     EST(1, 0),
     NORD(0, -1),
@@ -27,7 +32,8 @@ public enum Direction {
     }
 
     /**
-     * Renvoie la direction correspondant à la position relative passée en argument
+     * @param relativePosition obtenue à partir d'une position et d'une position voisine: (ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne)
+     * @return la direction correspondant à la position relative passée en argument
      */
     public static Direction getDirection(int relativePosition) {
         return BY_RELATIVE_POSITION.get(relativePosition);

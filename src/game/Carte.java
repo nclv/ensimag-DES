@@ -7,22 +7,21 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Carte représente le terrain.
+ * 
+ * @author Nicolas Vincent
+ */
 public class Carte {
     // private static final Logger LOGGER = LoggerFactory.getLogger(Carte.class);
+    
     /**
-     * Pour le moment on choisit de fixer la taille d'une carte, on ne peut pas
-     * redimmensionner la carte. Donc pas de setters pour les attributs nbLignes et
-     * nbColonnes.
+     * On choisit de fixer la taille d'une carte.
      */
     private final int nbLignes, nbColonnes, tailleCases;
 
     /**
-     * Comment stocker une matrice d'objects ?
-     * 
-     * use bidimentional arrays such as int[][] but the size must be known
-     * 
-     * use HashMap<Coordinate, Data>, Coordinate may be a Point, It does not
-     * guarantee any order of the elements stored internally in the map.
+     * A chaque position correspond un type de terrain.
      */
     private final Map<Integer, NatureTerrain> map;
 
@@ -40,6 +39,7 @@ public class Carte {
      * @param colonne
      * @param direction
      * @return -1 si on est en dehors de la carte, la position voisine sinon
+     * @see #checkPosition(int, int)
      */
     public int getVoisin(int position, Direction direction) throws IllegalArgumentException {
         int ligne = position / nbLignes;
@@ -56,6 +56,9 @@ public class Carte {
      * @param positionVoisin
      * @return Direction
      * @throws IllegalArgumentException
+     * @see #checkPosition(int)
+     * @see Direction#getDirection(int)
+     * @see Direction#getMult()
      */
     public Direction getDirection(int position, int positionVoisin) throws IllegalArgumentException {
         checkPosition(positionVoisin);
@@ -63,7 +66,8 @@ public class Carte {
         int colonne = position % nbLignes;
         int ligneVoisin = positionVoisin / nbLignes;
         int colonneVoisin = positionVoisin % nbLignes;
-        return Direction.getDirection((ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne));
+        int relativePosition = (ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne);
+        return Direction.getDirection(relativePosition);
     }
 
     /**
@@ -72,6 +76,7 @@ public class Carte {
      * @param position
      * @return NatureTerrain
      * @throws IllegalArgumentException
+     * @see #checkPosition(int)
      */
     public NatureTerrain getTerrain(int position) throws IllegalArgumentException {
         checkPosition(position);
@@ -85,6 +90,7 @@ public class Carte {
      * @param direction
      * @return NatureTerrain
      * @throws IllegalArgumentException
+     * @see #getVoisin(int, Direction)
      */
     public NatureTerrain getTerrainVoisin(int position, Direction direction) throws IllegalArgumentException {
         return map.get(getVoisin(position, direction));
@@ -97,6 +103,7 @@ public class Carte {
      * @param natureTerrain
      * @return Boolean
      * @throws IllegalArgumentException
+     * @see #getTerrain(int)
      */
     public Boolean isTerrain(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
         return (getTerrain(position) == natureTerrain);
@@ -109,6 +116,8 @@ public class Carte {
      * @param natureTerrain
      * @return
      * @throws IllegalArgumentException
+     * @see Direction
+     * @see #getTerrainVoisin(int, Direction)
      */
     public Boolean existTerrainVoisin(int position, NatureTerrain natureTerrain) throws IllegalArgumentException {
         for (Direction direction : Direction.values()) {
@@ -124,6 +133,7 @@ public class Carte {
      * 
      * @param position
      * @throws IllegalArgumentException
+     * @see #checkPosition(int)
      */
     private void checkPosition(int position) throws IllegalArgumentException {
         int ligne = position / nbLignes;
@@ -137,6 +147,7 @@ public class Carte {
      * @param ligne
      * @param colonne
      * @throws IllegalArgumentException
+     * @see #isOnMap(int, int)
      */
     private void checkPosition(int ligne, int colonne) throws IllegalArgumentException {
         if (!isOnMap(ligne, colonne)) {
@@ -145,11 +156,9 @@ public class Carte {
     }
 
     /**
-     * Renvoie true si la position est sur la carte.
-     * 
      * @param ligne
      * @param colonne
-     * @return
+     * @return true si la position est sur la carte.
      */
     private Boolean isOnMap(int ligne, int colonne) {
         return (ligne >= 0 && colonne >= 0 && ligne < nbLignes && colonne < nbColonnes);
@@ -160,6 +169,8 @@ public class Carte {
      * 
      * @param position
      * @return ArrayList<Integer> de positions voisines de position
+     * @see Direction
+     * @see #getVoisin(int, Direction)
      */
     public ArrayList<Integer> getNeighbors(int position) {
         ArrayList<Integer> neighbors = new ArrayList<Integer>();
@@ -191,6 +202,9 @@ public class Carte {
         return map;
     }
 
+    /**
+     * @return liste des positions de type EAU
+     */
     public ArrayList<Integer> getPositionsWater() {
         return map.entrySet().stream().filter(map -> (map.getValue() == NatureTerrain.EAU)).map(map -> map.getKey()).collect(Collectors.toCollection(ArrayList::new));
     }

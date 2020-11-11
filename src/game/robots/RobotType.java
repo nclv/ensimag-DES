@@ -1,13 +1,22 @@
 package game.robots;
 
 import java.util.EnumMap;
-import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import game.NatureTerrain;
 
+/**
+ * Classe représentant un type de robot.
+ * 
+ * On initialise deux robots de type drone en position 0:
+ * RobotType droneType = new RobotType(...)
+ * Robot drone1 = droneType.newRobot(0);
+ * Robot drone2 = droneType.newRobot(0);
+ * 
+ * @author Nicolas Vincent
+ */
 public class RobotType {
     private static final Logger LOGGER = LoggerFactory.getLogger(RobotType.class);
     private static long id = 0;  // tous les types de robots partage le même id de départ
@@ -22,6 +31,17 @@ public class RobotType {
     private int timeToFillUp;
     private EnumMap<NatureTerrain, Double> terrainVitesse; // renvoie la diminution de vitesse en fonction du terrain
 
+    /**
+     * @param type
+     * @param filling
+     * @param vitesse
+     * @param vitesseMax
+     * @param capacity
+     * @param maxEmptiedVolume
+     * @param maxtimeToEmpty
+     * @param timeToFillUp
+     * @param terrainVitesse
+     */
     public RobotType(final MyRobotTypes.Type type, final Filling filling, final Double vitesse, final Double vitesseMax,
             final Double capacity, final int maxEmptiedVolume, final int maxtimeToEmpty, final int timeToFillUp,
             final EnumMap<NatureTerrain, Double> terrainVitesse) {
@@ -37,6 +57,11 @@ public class RobotType {
         this.terrainVitesse = terrainVitesse;
     }
 
+    /**
+     * @param position
+     * @return Robot
+     * @see Robot#Robot(RobotType, long, int)
+     */
     public Robot newRobot(final int position) {
         return new Robot(this, id++, position);
     }
@@ -118,28 +143,5 @@ public class RobotType {
         return "RobotType [filling=" + filling + ", maxEmptiedVolume=" + maxEmptiedVolume + ", terrainVitesse="
                 + terrainVitesse + ", timeToEmpty=" + maxtimeToEmpty + ", timeToFillUp=" + timeToFillUp + ", type=" + type
                 + ", vitesse=" + vitesse + ", capacity=" + capacity + "]";
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.type, this.filling, this.vitesse, this.vitesseMax, this.capacity,
-                this.maxEmptiedVolume, this.maxtimeToEmpty, this.timeToFillUp, this.terrainVitesse);
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        // self check
-        if (this == obj)
-            return true;
-        // null check and type check
-        // instances of the type and its subtypes can never equal.
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        final RobotType other = (RobotType) obj; // cast
-        return Objects.equals(type, other.type) && Objects.equals(filling, other.filling)
-                && Objects.equals(vitesse, other.vitesse) && Objects.equals(vitesseMax, other.vitesseMax)
-                && Objects.equals(capacity, other.capacity) && Objects.equals(maxEmptiedVolume, other.maxEmptiedVolume)
-                && Objects.equals(maxtimeToEmpty, other.maxtimeToEmpty) && Objects.equals(timeToFillUp, other.timeToFillUp)
-                && Objects.equals(terrainVitesse, other.terrainVitesse);
     }
 }

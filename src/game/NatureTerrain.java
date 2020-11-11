@@ -1,6 +1,8 @@
 package game;
 
-/* Nature du terrain */
+/** 
+ * @author Nicolas Vincent
+ */
 public enum NatureTerrain {
     EAU, FORET, ROCHE, TERRAIN_LIBRE, HABITAT
 }

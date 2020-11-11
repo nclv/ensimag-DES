@@ -2,8 +2,19 @@ package game.events;
 
 import game.DonneesSimulation;
 
+/**
+ * @author Nicolas Vincent
+ * @see Action
+ */
 public class Event implements Comparable<Event> {
-    protected long date;
+    /**
+     * date à laquelle est exécuté l'event
+     */
+    private long date;
+
+    /**
+     * Action exécutée par l'event
+     */
     private Action action;
 
     public Event(final long date, final Action action) {
@@ -12,10 +23,12 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Renvoie une copy de l'évènement avec des données de simulation différentes.
+     * Renvoie une copie de l'évènement avec des données de simulation différentes.
      * 
      * @param donneesSimulation
-     * @return nouvel event
+     * @return nouveau event
+     * @see Event#Event(long, Action)
+     * @see Action#copy(DonneesSimulation)
      */
     public Event copy(DonneesSimulation donneesSimulation) {
         return new Event(this.date, this.action.copy(donneesSimulation));
