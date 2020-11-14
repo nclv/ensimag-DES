@@ -39,6 +39,7 @@ public class ActionMove extends Action {
      * @return nouvelle instance de la classe
      * @see ActionMove#ActionMove(DonneesSimulation, Robot, Direction)
      */
+    @Override
     public Action copy(DonneesSimulation donneesSimulation) {
         return new ActionMove(donneesSimulation, this.robot, this.direction);
     }

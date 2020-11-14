@@ -115,7 +115,7 @@ public class AStar extends Pathfinding implements Heuristique {
         /* File de paires (position, fScore) */
         PriorityQueue<Node> openSet = new PriorityQueue<Node>();
         
-        /* Initialisation des des gScore à Integer.MAX_VALUE */
+        /* Initialisation des gScore à Integer.MAX_VALUE */
         HashMap<Integer, Integer> gScore = IntStream
                 .range(0,
                         this.donneesSimulation.getCarte().getNbLignes()

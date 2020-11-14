@@ -32,6 +32,7 @@ public class ActionEmpty extends Action {
      * @return nouvelle instance de la classe
      * @see ActionEmpty#ActionEmpty(DonneesSimulation, Robot)
      */
+    @Override
     public Action copy(DonneesSimulation donneesSimulation) {
         return new ActionEmpty(donneesSimulation, this.robot);
     }
