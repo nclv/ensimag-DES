@@ -3,7 +3,6 @@ package strategie;
 import game.Dated;
 import game.Simulateur;
 import game.pathfinding.Pathfinding;
-import game.robots.Robot;
 
 /**
  * Un objet stratégie va calculer les déplacements des robots avec l'algorithme de
