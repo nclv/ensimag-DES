@@ -14,6 +14,7 @@
    \RequirePackage{graphicx} % Pour inclure des images
    \RequirePackage{listings} % pour mettre des listings
 % Fin Préambule; package qui peuvent être utiles
+	\usepackage[bottom]{footmisc}
 
 \title{Rapport de Simulation d'une équipe de robots pompiers}
 \author{Groupe X}
@@ -61,8 +62,30 @@
 
 \section{Calculs de plus courts chemins}
 
+	Nous n'inventons rien, nous utilisons l'algorithme $A^*$ \footnote{https://en.wikipedia.org/wiki/A*\_search\_algorithm} pour déterminer le plus court chemin entre une source et une destination. 
+
+	\subsection{Conception et Implémentation}
+
+	L'algorithme $A^*$ se présente comme suit : on cherche à déterminer le plus court chemin (c'est-à-dire ayant la distance parcourue/temps de parcours le plus faible) d'une source vers une destination. Pour se faire, on stocke un arbre de chemins partant de la source et on ajoute les nœuds aux chemins jusqu'à ce que le critère d'arrêt soit respecté, c'est-à-dire quuand on a atteint la destination. 
+	\par\leavevmode\par
+	Plus en détails, à chaque itération, on choisit le chemin qui doit être prolongé en se basant sur le coût du chemin et une estimation du coût nécessaire pour atteindre la destination. Plus précisément, on sélectionne le chemin qui minimise $f(n) = g(n) + h(n)$ ({\it fscore}) où $n$ est le nœud suivant sur le chemin, $g(n)$ ({\it gscore}) est le coût du chemin de la source à $n$ et $h(n)$ est une fonction heuristique (spécifique au problème) qui estime le coût du chemin le plus faible de $n$ à la destination. À chaque étape de l'algorithme, le nœud $x$ ayant la valeur $f(x)$ la plus faible est retiré de la file d'attente, les valeurs $f$ et $g$ de ses voisins sont mises à jour et ces voisins sont ajoutés à la file d'attente. L'algorithme continue jusqu'à ce qu'un nœud supprimé $x$ (nœud avec la valeur $f$ la plus faible parmi tous les nœuds voisins) soit le nœud de destination. La valeur $f(x)$ de ce nœud est alors le coût du chemin le plus court, puisque $h(x) = 0$.
+	\par\leavevmode\par
+	Concernant l'implémentation, nous disposons d'une file de priorité des nœuds, où un nœud est une sous-classe {\it Node} implémentant l'interface {\it Comparable<Node>} comparant chaque nœud par rapport à son {\it fscore}. Pour représenter les {\it gscore}, nous disposons d'une HashMap {\it gScore} dont les clés sont des entiers (position $x$) associées à des entiers ($g(x)$). Enfin pour stocker le chemin, nous disposons d'une HashMap {\it cameFrom} dont les clés sont des entiers (positions) associées à d'autres entiers (position voisine dans un chemin). 
+	\par\leavevmode\par	
+	Enfin, comme expliqué précédemment, dès qu'on atteint la destination, on appelle la méthode {\it reconstructPath} pour reconstruire le chemin à partir de {\it cameFrom}. L'heuristique choisie pour calculer la distance entre un nœud et une destination est la distance de Manhattan (rien de bien compliqué c'est la distance associée à la norme 1 très utilisée dans les systèmes de quadrillage).
+	
+	\subsection{Avantages et Inconvénients}
+
+	Comparé à l'algorithme de Dijkstra, nous savons où se trouve notre destination : nous n'avons pas besoin de parcourir en largeur toute la carte, nous avons une direction. Néanmoins, cet algorithme ne prétend pas être plus efficace que d'autres algorithmes de recherche du plus court chemin, notamment les nœud les plus proches de la destination pourraient ne pas être sur le chemin menant vers cette destination (car on ne peut pas y accéder), ce qui peut coûter beaucoup de temps de calcul.
 
 \section{Résolution du problème}
+
+	Comme dit précédemment, notre simulateur permet de spécifier une stratégie. Nous avons réalisé les deux stratégies proposés par le sujet, définies chacune dans des classes filles héritées d'une classe mère abstraite {\it Strategie} contenant les définitions des méthodes essentielles à toutes stratégies, notamment {\it execute()} pour éxecuter la stratégie choisie. Aussi, on dispose des méthodes pour récupérer et associer un plus court chemin actuel à notre stratégie et d'un compteur interne permettant d'ordonner une suite d'événements (utilisé pour effectuer les actions des robots en série). 
+
+	\subsection{Stratégie élémentaire}
+		
+
+	\subsection{Stratégie avancée}
 
 \section{Expérimentations}
 
