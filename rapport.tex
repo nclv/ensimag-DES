@@ -15,6 +15,7 @@
    \RequirePackage{listings} % pour mettre des listings
 % Fin Préambule; package qui peuvent être utiles
 	\usepackage[bottom]{footmisc}
+	\usepackage{hyperref}
 
 \title{Rapport de Simulation d'une équipe de robots pompiers}
 \author{Groupe X}
@@ -26,29 +27,45 @@
 \section{Données du problème}	
 
 	\subsection{Carte}
-	Une carte est représentée par une table de hachage non-modifiable dont les clés, représentées par des entiers et correspondant aux cases, sont associées à la nature du terrain correspondant (type énuméré). 
-	Plus précisèment, une case $(i, j)$ est identifié par l'entier $i * largeur + j$ où $largeur$ représente la largeur de la carte. La classe définissant une carte est disponible dans le fichier {\it Carte.java} du package {\it Game}.
-	\par\leavevmode\par
-	Notons que les complexités des opérations d'une table de hachage sont identiques à celles d'une matrice 2D dans le cadre de notre problème. Par ailleurs, précisons qu'on s'affranchit de tous espaces mémoires inutiles dans le cas où dans un futur proche, nous souhaiterions gérer le cas de cartes non-rectangulaires : le problème serait plus simple à gérer, à raison de modifier le système de coordonnées.
+	\noindent La classe définissant une carte est disponible dans le fichier {\it Carte} du package {\it game}. \\
+
+	Une carte est représentée par une HashMap non-modifiable dont les clés, représentées par des entiers et correspondant aux cases, sont associées à la nature du terrain correspondant (type énuméré). 
+	Plus précisèment, une case $(i, j)$ est identifié par l'entier $i * largeur + j$ où $largeur$ représente la largeur de la carte.
+	
+	\noindent Au vu des opérations effectuées sur la carte, l'implémentation avec une table de hachage ou un array 2D n'impacte pas les performances de notre application. Par ailleurs, précisons qu'avec une HashMap on s'affranchit de tous espaces mémoires inutiles dans le cas où dans un futur proche, nous souhaiterions gérer le cas de cartes non-rectangulaires : le problème serait plus simple à gérer, à raison de modifier le système de coordonnées. \\
+
+	Les relations entre positions utilisent l'énumération {\it Direction} qui nous permet d'obtenir à la fois la position voisine suivant une direction donnée mais aussi la direction à partir de deux positions voisines.
 
 	\subsection{Incendies}
-	Les incendies sont caractéristiques des données d'une simulation. Ceux-ci sont représentés par une table de hachage, attribut de la classe {\it DonneesSimulation}, dont les clés sont des entiers (position de l'incendie) associées à des entiers (intensité de l'incendie). Une des forces de ce stockage est de pouvoir itérer simplement sur tous les incendies, sans avoir besoin de parcourir toute la carte. Ainsi, on a une connaissance à tout instant des incendies courants.
+	\noindent Les incendies sont stockées en attribut de la classe {\it DonneesSimulation} du package {\it game}. \\
+
+	Les incendies sont représentés par une table de hachage associant à une position entière l'intensité de l'incendie présent sur cette position. On peut ainsi itérer simplement sur tous les incendies, sans avoir besoin de parcourir toute la carte.
 
 	\subsection{Robots}
-	Pour représenter les robots, nous proposons une représentation basé sur un {\it pattern design type-object}. Cette représentation propose des avantages multiples, notamment elle permet de modifier ou d'ajouter de nouveaux types sans avoir à recompiler ou à changer du code (contrairement à l'héritage qui nécessite de créer de nouvelles classes). Néanmoins, ce design-pattern n'inclut pas l'ajout de nouvelles fonctionnalités propres à un robot, mais dans le cadre de notre problème, ce choix est intéressant.
+	\noindent Toutes les classes définies pour les robots se situent dans le package {\it game.robots}. \\
+
+	Nous proposons une représentation des entités Robots inspirée du {\it design pattern \href{https://gameprogrammingpatterns.com/type-object.html}{type-object}} favorisant la composition plutôt que l'héritage. Le type d'un robot peut en effet être décrit par ses attributs, ce qui nous permet d'instancier un singleton {\it RobotTypes} et d'obtenir de cette instance un robot ayant ce type (voir {\it TestRobots}). Cette conception ne permet pas l'ajout de méthodes propres à un type de robot. Tous les robots possèdent les mêmes méthodes qui donnent des résultats différents en fonction des attributs définis dans le type du robot. Les types de robots donnés par le sujet sont instanciés dans {\it MyRobotTypes}. Il est très facile d'ajouter un type de robot supplémentaire défini selon vos envies.
 	\par\leavevmode\par
-	Un robot est caractérisé par son type, objet instancié dans une classe non-modifiable {\it MyRobotTypes} contenant la déclaration de tous les types de robots nécessaires à la simulation. La classe {\it RobotTypes} contient le constructeur et méthodes nécessaires pour l'instanciation des robots dans {\it MyRobotTypes}. Pour plus de simplicité sur la gestion des événements, un robot est identifié par un nombre entier et par une position initiale sur une case de la carte. Toutes les classes définies pour les robots se situent dans le package {\it Game.Robots}.
+	Un robot est caractérisé par son type invariant, son volume et sa vitesse modifiables. Un robot est une entité identifiable grâce à un identifiant unique, daté afin de pouvoir ordonner une suite d'évènements s'appliquant au robot et possédant un état, libre ou occupé selon qu'il y ait ou non des évènements s'appliquant au robot. La méthode {\it init} permet de réinitialiser les attributs du robot plutôt que d'en créer un nouveau à l'appel d'un restart.
 
 	\subsection{Interface Graphique}
-	Nous disposons d'une classe {\it TileImg} implémentant {\it GraphicalElement} pour représenter les images. Une image est caractérisée par un fond, sur lequel on superpose plusieurs motifs qui peuvent être les robots et/ou les incendies. L'interface graphique en lui-même est défini par une classe {\it GraphicsComponent} contenant un buffer des images pour ne pas avoir besoin de les recharger à chaque affichage, les données de simulation du problème et des méthodes définies pour normaliser, placer les robots et incendies. Toutes les classes définies pour l'interface graphique se situent dans le package {\it Game.Graphics}.
+	\noindent Toutes les classes définies pour l'interface graphique se situent dans le package {\it game.graphics}. \\
+
+	Nous avons choisi d'utiliser des images pour représenter les robots et les types de case. La classe {\it gui.ImageElement} qui nous était fournie ne nous satisfaisait pas. Il semble en effet que l'image soit rechargée depuis le fichier à chaque appel de la méthode {\it paint} et que l'implémentation ne permette pas de facilement superposer des images. Nous avons donc développé notre propre classe {\it TileImg} implémentant {\it GraphicalElement} pour représenter les images. Une image est caractérisée par un fond, sur lequel on superpose plusieurs motifs qui peuvent être les images des robots et/ou les dessins des incendies. \\
+	
+	L'interface graphique est implémentée dans {\it GraphicsComponent}. Nous utilisons un buffer d'images pour ne pas avoir besoin de les recharger depuis leurs fichiers. La classe {\it NormUtil} est utilisée pour normaliser l'intensité des incendies. Les images de type {\it TileImg} sont stockées dans une ArrayList. Les attributs des images concernées par le changement d'intensité d'un incendie ou le mouvement d'un robot sont mis à jour à chaque appel de la méthode {\it draw}.
 
 \section{Simulation de scénarios}
 
 	\subsection{Données des simulations}
-	Une simulation est caractérisée par une carte, une table de hachage pour les incendies (comme expliqué en 1.2) et une table de hachage pour les robots dont les clés sont des entiers (positions) associées à une liste chainée des identifiants des robots (plusieurs robots peuvent se trouver sur une même position). Notamment, une simulation représentée par une classe {\it DonneesSimulation} possède deux méthodes déterminant le temps nécessaire pour se déplacer d'une case à une autre et le temps nécessaire pour un robot de déverser l'eau sur l'incendie.
+	\noindent Les données de la simulation se trouvent dans le package {\it game}. \\
+
+	Les données d'une simulation sont la carte, les incendies et les robots représentés par une HashMap associant à une position l'ArrayList des robots présents sur cette position. La classe {\it DonneesSimulation} comprend aussi les méthodes mettant en relations les différents objets de notre simulation afin de garantir un faible couplage entre nos classes. Nul besoin d'ajouter à notre classe {\it Robot} les méthodes permettant d'obtenir le temps nécessaire pour se déplacer d'une case à une autre et le temps nécessaire pour un robot de déverser l'eau sur l'incendie. Elles sont implémentées dans {\it DonneesSimulation}. Pour finir nous avons implémenté un constructeur qui copie l'instance de {\it DonneesSimulation} passée en paramètre. 
 	
 	\subsection{Simulateur}
-	Un simulateur est une entité exécutant une simulation donnée. Notamment, un simulateur, à partir de données de simulation, ordonnance les événements des entités sur la carte. Ce simulateur est ajustable dans le choix où une stratégie est donnée. La méthode {\it next()} exécute le prochain événement, soumis ou non à une stratégie donnée. Quant à la méthode {\it restart()}, le simulateur sauvegarde toujours une copie des données de simulation. 
+	\noindent Le simulateur se trouve dans le package {\it game}. \\
+
+	Un simulateur permet l'ajoût d'évènements à la simulation et implémente les méthodes {\it next} et {\it restart}. Il a donc besoin de plusieurs composants: les données de la simulation, l'interface graphique, un event manager s'occupant de l'ordonnancement des évènements et d'une stratégie optionnelle. La variable {\it INCREMENT} est utilisée pour ordonnancer une suite d'évènements. 
 	\par\leavevmode\par
 	Une action est une entité agissant sur les données d'une simulation. Représentée par une classe abstraite, une action doit nécessairement, pouvoir être exécutée et avoir une durée.
 	Un robot peut effectuer plusieurs actions, chacune représentées par des classes filles :

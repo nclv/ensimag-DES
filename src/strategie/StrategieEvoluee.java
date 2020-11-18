@@ -132,11 +132,11 @@ public class StrategieEvoluee extends Strategie {
 
                 // exécution en série
                 // simulateur.addPathSerial(robotMinDuration, pathMinDuration);
-                // simulateur.addEmptySerial(robotMinDuration);
+                // simulateur.addEmptySerial(robotMinDuration, pathMinDuration.getLast());
                 
                 // exécution en parallèle
                 simulateur.addPathParallel(robotMinDuration, pathMinDuration);
-                simulateur.addEmptyParallel(robotMinDuration);
+                simulateur.addEmptyParallel(robotMinDuration, pathMinDuration.getLast());
             }
         }
     }

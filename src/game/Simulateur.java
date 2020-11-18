@@ -25,7 +25,7 @@ import strategie.Strategie;
 public class Simulateur implements Simulable {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simulateur.class);
 
-    public static final long INCREMENT = 375000;
+    public static final long INCREMENT = 360;
 
     private DonneesSimulation donneesSimulation;
     private final DonneesSimulation donneesSimulationSaved;
@@ -76,27 +76,27 @@ public class Simulateur implements Simulable {
     }
 
     public void addPathSerial(Robot robot, LinkedList<Integer> path) {
-        this.eventManager.addPathSerial(robot, path, INCREMENT);
+        this.eventManager.addPathSerial(robot, path);
     }
 
-    public void addEmptySerial(Robot robot) {
-        this.eventManager.addEmptySerial(robot, INCREMENT);
+    public void addEmptySerial(Robot robot, int firePosition) {
+        this.eventManager.addEmptySerial(robot, firePosition);
     }
 
     public void addFillingSerial(Robot robot) {
-        this.eventManager.addFillingSerial(robot, INCREMENT);
+        this.eventManager.addFillingSerial(robot);
     }
 
     public void addPathParallel(Robot robot, LinkedList<Integer> path) {
-        this.eventManager.addPathParallel(robot, path, INCREMENT);
+        this.eventManager.addPathParallel(robot, path);
     }
 
-    public void addEmptyParallel(Robot robot) {
-        this.eventManager.addEmptyParallel(robot, INCREMENT);
+    public void addEmptyParallel(Robot robot, int firePosition) {
+        this.eventManager.addEmptyParallel(robot, firePosition);
     }
 
     public void addFillingParallel(Robot robot) {
-        this.eventManager.addFillingParallel(robot, INCREMENT);
+        this.eventManager.addFillingParallel(robot);
     }
 
     /**
