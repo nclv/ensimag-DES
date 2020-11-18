@@ -85,49 +85,50 @@ public class EventManager {
      * @see ActionMove#ActionMove(DonneesSimulation, Robot, game.Direction)
      * @see Carte#getDirection(int, int)
      */
-    private void scheduleActionsMove(Robot robot, LinkedList<Integer> path, long date, long increment) {
+    private long scheduleActionsMove(Robot robot, LinkedList<Integer> path, long date) {
         Iterator<Integer> iter = path.iterator();
         int currentPosition = iter.next();
         while (iter.hasNext()) {
             int nextPosition = iter.next();
             schedule(date, new ActionMove(this.donneesSimulation, robot,
                     this.donneesSimulation.getCarte().getDirection(currentPosition, nextPosition)));
-            date += increment;
+            date += donneesSimulation.getTimeToMove(robot, currentPosition, nextPosition);
             currentPosition = nextPosition;
         }
+        return date;
     }
 
-    public void addPathSerial(Robot robot, LinkedList<Integer> path, long increment) {
+    public void addPathSerial(Robot robot, LinkedList<Integer> path) {
         assert this.strategie != null;
-        scheduleActionsMove(robot, path, this.strategie.getDate(), increment);
-        this.strategie.setDate(this.strategie.getDate() + (path.size() - 1) * increment);
+        long date = scheduleActionsMove(robot, path, this.strategie.getDate());
+        this.strategie.setDate(date);
     }
 
-    public void addEmptySerial(Robot robot, long increment) {
+    public void addEmptySerial(Robot robot, int firePosition) {
         assert this.strategie != null;
         schedule(this.strategie.getDate(), new ActionEmpty(this.donneesSimulation, robot));
-        this.strategie.setDate(this.strategie.getDate() + increment);
+        this.strategie.setDate(this.strategie.getDate() + donneesSimulation.getTimeToEmpty(robot, firePosition));
     }
 
-    public void addFillingSerial(Robot robot, long increment) {
+    public void addFillingSerial(Robot robot) {
         assert this.strategie != null;
         schedule(this.strategie.getDate(), new ActionFill(this.donneesSimulation, robot));
-        this.strategie.setDate(this.strategie.getDate() + increment);
+        this.strategie.setDate(this.strategie.getDate() + robot.getTimeToFillUp());
     }
 
-    public void addPathParallel(Robot robot, LinkedList<Integer> path, long increment) {
-        scheduleActionsMove(robot, path, robot.getDate(), increment);
-        robot.setDate(robot.getDate() + (path.size() - 1) * increment);
+    public void addPathParallel(Robot robot, LinkedList<Integer> path) {
+        long date = scheduleActionsMove(robot, path, robot.getDate());
+        robot.setDate(date);
     }
 
-    public void addEmptyParallel(Robot robot, long increment) {
+    public void addEmptyParallel(Robot robot, int firePosition) {
         schedule(robot.getDate(), new ActionEmpty(this.donneesSimulation, robot));
-        robot.setDate(robot.getDate() + increment);
+        robot.setDate(robot.getDate() + donneesSimulation.getTimeToEmpty(robot, firePosition));
     }
 
-    public void addFillingParallel(Robot robot, long increment) {
+    public void addFillingParallel(Robot robot) {
         schedule(robot.getDate(), new ActionFill(this.donneesSimulation, robot));
-        robot.setDate(robot.getDate() + increment);
+        robot.setDate(robot.getDate() + robot.getTimeToFillUp());
     }
 
     /**
@@ -210,7 +211,7 @@ public class EventManager {
             if (currentEvent.getAction().getEntity().equals(event.getAction().getEntity())) {
                 // on incrémente la date de l'event de la durée de l'event exécuté
                 // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
-                currentEvent.updateDate(this.currentDate + duration);
+                currentEvent.updateDate(this.currentDate, duration); // this.currentDate + duration
                 LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
                 count++;
                 events.remove();

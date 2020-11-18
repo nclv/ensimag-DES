@@ -103,7 +103,7 @@ public class DonneesSimulation {
     }
 
     /**
-     * Le temps mis pour se rendre d’une case à l’autre est la moyenne de la
+     * Le temps mis pour se rendre d’une case à l’autre est l'inverse de la moyenne de la
      * vitesse sur chacune des cases multipliée par la taille des cases.
      * 
      * @param position
@@ -123,8 +123,8 @@ public class DonneesSimulation {
         // this.carte.getTailleCases());
 
         // throws IllegalArgumentException if the robot can't move on the position
-        return (long) ((robot.getVitesse(this.carte.getTerrain(position))
-                + robot.getVitesse(this.carte.getTerrain(newPosition))) / 2 * carte.getTailleCases());
+        return (long) (1 / ((robot.getVitesse(this.carte.getTerrain(position))
+                + robot.getVitesse(this.carte.getTerrain(newPosition))) / 2) * carte.getTailleCases());
     }
 
     /**

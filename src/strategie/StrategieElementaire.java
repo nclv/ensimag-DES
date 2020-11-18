@@ -71,12 +71,12 @@ public class StrategieElementaire extends Strategie {
                 LOGGER.info("Ajoût des events");
                 
                 // exécution en série
-                // simulateur.addPathSerial(robot, path);
-                // simulateur.addEmptySerial(robot);
+                simulateur.addPathSerial(robot, path);
+                simulateur.addEmptySerial(robot, path.getLast());
 
                 // exécution en parallèle
-                simulateur.addPathParallel(robot, path);
-                simulateur.addEmptyParallel(robot);
+                // simulateur.addPathParallel(robot, path);
+                // simulateur.addEmptyParallel(robot, path.getLast());
             }
         }
     }
