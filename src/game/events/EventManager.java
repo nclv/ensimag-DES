@@ -147,7 +147,6 @@ public class EventManager {
     public void executeNextEvents() {
         // peek/remove is faster than poll/add
         Event event;
-        System.out.println(eventSet);
         while ((event = eventSet.peek()) != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
 
@@ -168,10 +167,6 @@ public class EventManager {
                 LOGGER.warn(e.getMessage());
             }
             LOGGER.info("Fin d'exécution: {}", duration);
-            System.out.println(currentDate + ":" + event.getDate() + ", " + eventAction.getEntity() + ", " + eventAction + ", Duration: " + duration);
-            if (duration == 0) {
-                System.out.println("DUREE NULLE");
-            }
 
             // On récupère le nombre d'events concernant le même robot et on update leurs
             // dates. Si la durée est nulle la date reste inchangée.
