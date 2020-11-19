@@ -84,4 +84,16 @@ public abstract class Entity implements IdentifiedEntity<Long>, Dated<Long> {
     public void setDate(Long date) {
         this.date = date;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Entity other = (Entity) obj;
+        return (this.entityId == other.entityId);
+    }
 }

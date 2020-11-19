@@ -143,7 +143,6 @@ public class DonneesSimulation {
             // getMaxTimeToEmpty renvoie le temps mis par le robot pour déverser la quantité maximale d'eau qu'il peut déverser
             timeToEmpty = robot.getMaxTimeToEmpty() * (intensity / robot.getMaxEmptiedVolume());
         }
-
         return timeToEmpty;
     }
 
