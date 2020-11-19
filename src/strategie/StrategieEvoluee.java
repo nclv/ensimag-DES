@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import game.DonneesSimulation;
 import game.Simulateur;
 import game.pathfinding.Pathfinding;
+import game.robots.Filling;
 import game.robots.Robot;
 import game.Entity.State;
 
@@ -71,7 +72,20 @@ public class StrategieEvoluee extends Strategie {
                     long fillingMinDuration = Long.MAX_VALUE;
                     LinkedList<Integer> fillingPathMinDuration = null;
 
-                    for (int positionWater : simulateur.getDonneesSimulation().getCarte().getPositionsWater()) {
+                    // Le robot roues se remplit à côté d'un point d'eau
+                    // Le drone se remplit sur un point d'eau
+                    ArrayList<Integer> fillingPositions = null;
+                    Filling robotFilling = robot.getFilling();
+                    if (robotFilling == Filling.ON) {
+                        fillingPositions = simulateur.getDonneesSimulation().getCarte().getPositionsWater();
+                    } else if (robotFilling == Filling.NEXT) {
+                        fillingPositions = simulateur.getDonneesSimulation().getCarte().getPositionsVoisinsWater();
+                    } else if (robotFilling == Filling.NONE) {
+                        continue;
+                    }
+                    if (fillingPositions == null) continue;
+
+                    for (int positionWater : fillingPositions) {
                         LOGGER.info("Recherche d'un chemin pour aller remplir le robot {} au point d'eau le plus proche", robot.getId());
 
                         LinkedList<Integer> path;
@@ -104,6 +118,7 @@ public class StrategieEvoluee extends Strategie {
                         simulateur.addPathParallel(robot, fillingPathMinDuration);
                         simulateur.addFillingParallel(robot);
                     }
+                    continue;
                 }
                 LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
             

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import game.DonneesSimulation;
+import game.Entity;
 import game.robots.Robot;
 import game.Entity.State;
 import strategie.Strategie;
@@ -146,6 +147,7 @@ public class EventManager {
     public void executeNextEvents() {
         // peek/remove is faster than poll/add
         Event event;
+        System.out.println(eventSet);
         while ((event = eventSet.peek()) != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
 
@@ -166,6 +168,10 @@ public class EventManager {
                 LOGGER.warn(e.getMessage());
             }
             LOGGER.info("Fin d'exécution: {}", duration);
+            System.out.println(currentDate + ":" + event.getDate() + ", " + eventAction.getEntity() + ", " + eventAction + ", Duration: " + duration);
+            if (duration == 0) {
+                System.out.println("DUREE NULLE");
+            }
 
             // On récupère le nombre d'events concernant le même robot et on update leurs
             // dates. Si la durée est nulle la date reste inchangée.
@@ -175,11 +181,11 @@ public class EventManager {
 
             // S'il n'y a plus qu'un event concernant ce robot (cet event vient d'être
             // exécuté) alors le robot est de nouveau libre
-            Robot eventRobot = (Robot) eventAction.getEntity();
+            Entity eventEntity = eventAction.getEntity();
             if (sameRobotEventsCount == 1) {
-                assert eventRobot.getState() == State.BUSY;
-                eventRobot.setState(State.FREE);
-                LOGGER.info("Le robot {} est FREE", eventRobot.getId());
+                assert eventEntity.getState() == State.BUSY;
+                eventEntity.setState(State.FREE);
+                LOGGER.info("Le robot {} est FREE", eventEntity.getId());
             }
             eventSet.remove(event);
         }
@@ -210,13 +216,15 @@ public class EventManager {
             // equals(). On implémente un id propre à chaque robot qui vérifie l'égalité
             if (currentEvent.getAction().getEntity().equals(event.getAction().getEntity())) {
                 // on incrémente la date de l'event de la durée de l'event exécuté
-                // l'event qui va être exécuté (donc supprimé de la queue) est aussi incrémenté
-                currentEvent.updateDate(this.currentDate, duration); // this.currentDate + duration
-                LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
+                currentEvent.updateDate(event.getDate(), duration); // this.currentDate + duration
+                if (event.getDate() < currentEvent.getDate() && currentEvent.getDate() < event.getDate() + duration) {
+                    // System.out.println(event.getDate() + " < " + currentEvent.getDate() + " < " + (event.getDate() + duration));
+                    // System.out.println(event.getAction().getEntity() + ", Nouvelle date: " + currentEvent.getDate());
+                    LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
+                }
                 count++;
                 events.remove();
                 eventsToAdd.add(currentEvent);
-
             }
         }
         this.eventSet.addAll(eventsToAdd);

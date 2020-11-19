@@ -25,6 +25,16 @@ public class Carte {
      */
     private final Map<Integer, NatureTerrain> map;
 
+    /**
+     * On stocke les positions des terrains de type EAU
+     */
+    private ArrayList<Integer> positionsWater = null;
+
+    /**
+     * On stocke les positions voisines des positions des terrains de type EAU
+     */
+    private ArrayList<Integer> positionsVoisinsWater = null;
+
     public Carte(int nbLignes, int nbColonnes, int tailleCases, Map<Integer, NatureTerrain> map) {
         this.nbLignes = nbLignes;
         this.nbColonnes = nbColonnes;
@@ -202,11 +212,29 @@ public class Carte {
         return map;
     }
 
+    private void initPositionsWater() {
+        this.positionsWater = map.entrySet().stream().filter(map -> (map.getValue() == NatureTerrain.EAU)).map(map -> map.getKey()).collect(Collectors.toCollection(ArrayList::new));
+    }
+
     /**
      * @return liste des positions de type EAU
      */
     public ArrayList<Integer> getPositionsWater() {
-        return map.entrySet().stream().filter(map -> (map.getValue() == NatureTerrain.EAU)).map(map -> map.getKey()).collect(Collectors.toCollection(ArrayList::new));
+        if (this.positionsWater == null) {
+            initPositionsWater();
+        }
+        return this.positionsWater;
+    }
+
+    /**
+     * @return liste des posiitons voisines des positions de type EAU
+     */
+    public ArrayList<Integer> getPositionsVoisinsWater() {
+        if (this.positionsVoisinsWater == null) {
+            initPositionsWater();
+            this.positionsVoisinsWater = this.positionsWater.stream().map(positionWater -> getNeighbors(positionWater)).flatMap(ArrayList::stream).filter(position -> (getTerrain(position) != NatureTerrain.EAU)).collect(Collectors.toCollection(ArrayList::new));
+        }
+        return this.positionsVoisinsWater;
     }
 
     @Override
