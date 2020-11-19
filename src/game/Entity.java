@@ -66,7 +66,7 @@ public abstract class Entity implements IdentifiedEntity<Long>, Dated<Long> {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(final State state) {
         this.state = state;
     }
 
@@ -81,12 +81,12 @@ public abstract class Entity implements IdentifiedEntity<Long>, Dated<Long> {
     }
 
     @Override
-    public void setDate(Long date) {
+    public void setDate(final Long date) {
         this.date = date;
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (obj == null) {
             return false;
         }

@@ -23,14 +23,13 @@ public class StrategieElementaire extends Strategie {
      * @param pathfinding
      * @see Strategie#Strategie(Pathfinding)
      */
-    public StrategieElementaire(Pathfinding pathfinding) {
+    public StrategieElementaire(final Pathfinding pathfinding) {
         super(pathfinding);
     }
-    
+
     /**
-     * Stratégie élémentaire.
-     * Chaque robot se déplace sur le même incendie.
-     * Un robot vide ne se déplace plus.
+     * Stratégie élémentaire. Chaque robot se déplace sur le même incendie. Un robot
+     * vide ne se déplace plus.
      * 
      * @param simulateur
      * @see DonneesSimulation#getRobots()
@@ -46,37 +45,35 @@ public class StrategieElementaire extends Strategie {
      * @see Simulateur#addEmptySerial(Robot)
      */
     @Override
-    public void execute(Simulateur simulateur) {
-        ArrayList<Robot> robots = new ArrayList<Robot>();
+    public void execute(final Simulateur simulateur) {
+        final ArrayList<Robot> robots = new ArrayList<Robot>();
         simulateur.getDonneesSimulation().getRobots().values().forEach(robots::addAll);
 
-        for(Map.Entry<Integer, Integer> incendie: simulateur.getDonneesSimulation().getIncendies().entrySet()) {
-            int intensite = incendie.getValue();
-            if (intensite == 0) continue;
-            
-            int positionIncendie = incendie.getKey();
-            for (Robot robot : robots) {
-                if (robot.isEmpty()) robot.setState(State.BUSY);
-                if (robot.getState() == State.BUSY) continue;
+        for (final Map.Entry<Integer, Integer> incendie : simulateur.getDonneesSimulation().getIncendies().entrySet()) {
+            final int intensite = incendie.getValue();
+            if (intensite == 0)
+                continue;
+
+            final int positionIncendie = incendie.getKey();
+            for (final Robot robot : robots) {
+                if (robot.isEmpty())
+                    robot.setState(State.BUSY);
+                if (robot.getState() == State.BUSY)
+                    continue;
                 LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
-                
+
                 LinkedList<Integer> path;
                 try {
                     path = getPathfinding().shortestWay(robot, robot.getPosition(), positionIncendie);
-                } catch (IllegalStateException e) {
+                } catch (final IllegalStateException e) {
                     LOGGER.info("Aucun chemin n'est praticable");
                     continue;
                 }
                 
                 LOGGER.info("Ajoût des events");
                 
-                // exécution en série
-                simulateur.addPathSerial(robot, path);
-                simulateur.addEmptySerial(robot, path.getLast());
-
-                // exécution en parallèle
-                // simulateur.addPathParallel(robot, path);
-                // simulateur.addEmptyParallel(robot, path.getLast());
+                getEventAdder().addPath(robot, path);
+                getEventAdder().addEmpty(robot, path.getLast());
             }
         }
     }

@@ -16,24 +16,21 @@ import gui.GUISimulator;
 public class TestEventsScenario01 {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
-        DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
-        EventManager eventManager = new EventManager(donneesSimulation);
+        final DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
+        final EventManager eventManager = new EventManager(donneesSimulation);
 
-        int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
-        GUISimulator gui = new GUISimulator(
-            donneesSimulation.getCarte().getNbLignes() * guiSizeFactor, 
-            donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, 
-            Color.BLACK
-        );
-        GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
+        final int guiSizeFactor = 80; // à adapter à son écran, spiral: 20, others: 60
+        final GUISimulator gui = new GUISimulator(donneesSimulation.getCarte().getNbLignes() * guiSizeFactor,
+                donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, Color.BLACK);
+        final GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
+        final Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
 
-        Robot drone = donneesSimulation.getRobot(0);
-        Robot roues = donneesSimulation.getRobot(1);
+        final Robot drone = donneesSimulation.getRobot(0);
+        final Robot roues = donneesSimulation.getRobot(1);
 
         long date = 0;
-        long increment = Simulateur.INCREMENT;
+        final long increment = Simulateur.INCREMENT;
         simulateur.schedule(date, new ActionMove(donneesSimulation, roues, Direction.NORD));
         simulateur.schedule(date, new ActionMove(donneesSimulation, drone, Direction.NORD));
         date += increment;

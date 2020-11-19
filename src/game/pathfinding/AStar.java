@@ -39,13 +39,13 @@ public class AStar extends Pathfinding implements Heuristique {
          */ 
         private int fScore;
 
-        public Node(int position, int fScore) {
+        public Node(final int position, final int fScore) {
             this.position = position;
             this.fScore = fScore;
         }
 
         @Override
-        public int compareTo(Node other) {
+        public int compareTo(final Node other) {
             if (this.fScore > other.fScore)
                 return 1;
             if (this.fScore < other.fScore)
@@ -57,7 +57,7 @@ public class AStar extends Pathfinding implements Heuristique {
             return position;
         }
 
-        public void setPosition(int position) {
+        public void setPosition(final int position) {
             this.position = position;
         }
 
@@ -65,7 +65,7 @@ public class AStar extends Pathfinding implements Heuristique {
             return fScore;
         }
 
-        public void setfScore(int fScore) {
+        public void setfScore(final int fScore) {
             this.fScore = fScore;
         }
     }
@@ -73,7 +73,7 @@ public class AStar extends Pathfinding implements Heuristique {
     /**
      * @param donneesSimulation
      */
-    public AStar(DonneesSimulation donneesSimulation) {
+    public AStar(final DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
     }
 
@@ -86,17 +86,18 @@ public class AStar extends Pathfinding implements Heuristique {
      * @see DonneesSimulation#getCarte()
      */
     @Override
-    public int heuristique(int src, int dest) {
+    public int heuristique(final int src, final int dest) {
         final Carte carte = this.donneesSimulation.getCarte();
-        int yB = dest / carte.getNbLignes();
-        int xB = dest % carte.getNbLignes();
-        int yA = src / carte.getNbLignes();
-        int xA = src % carte.getNbLignes();
+        final int yB = dest / carte.getNbLignes();
+        final int xB = dest % carte.getNbLignes();
+        final int yA = src / carte.getNbLignes();
+        final int xA = src % carte.getNbLignes();
         return Math.abs(xB - xA) + Math.abs(yB - yA);
     }
 
     /**
-     * Calcule le plus court chemin pour le robot entre src et dest avec l'algorithme A*
+     * Calcule le plus court chemin pour le robot entre src et dest avec
+     * l'algorithme A*
      * 
      * @param robot
      * @param src
@@ -110,43 +111,46 @@ public class AStar extends Pathfinding implements Heuristique {
      * @see #getTentativeGScore(HashMap, Robot, int, int)
      */
     @Override
-    public LinkedList<Integer> shortestWay(Robot robot, int src, int dest) throws IllegalStateException {
+    public LinkedList<Integer> shortestWay(final Robot robot, final int src, final int dest)
+            throws IllegalStateException {
         LOGGER.info("Recherche du plus court chemin");
         /* File de paires (position, fScore) */
-        PriorityQueue<Node> openSet = new PriorityQueue<Node>();
-        
+        final PriorityQueue<Node> openSet = new PriorityQueue<Node>();
+
         /* Initialisation des gScore à Integer.MAX_VALUE */
-        HashMap<Integer, Integer> gScore = IntStream
+        final HashMap<Integer, Integer> gScore = IntStream
                 .range(0,
                         this.donneesSimulation.getCarte().getNbLignes()
                                 * this.donneesSimulation.getCarte().getNbColonnes())
                 .collect(HashMap::new, (m, position) -> m.put(position, Integer.MAX_VALUE), Map::putAll);
-        
+
         /* Chemin entre src et dst (neighbor, position) */
-        HashMap<Integer, Integer> cameFrom = new HashMap<Integer, Integer>();
+        final HashMap<Integer, Integer> cameFrom = new HashMap<Integer, Integer>();
 
         /* On start avec la position du robot */
         openSet.add(new Node(src, heuristique(src, dest)));
         gScore.replace(src, 0);
 
         while (!openSet.isEmpty()) {
-            int position = openSet.poll().getPosition();
+            final int position = openSet.poll().getPosition();
             /* Si on a atteint la destination, on reconstruit le chemin */
             if (position == dest) {
                 return reconstructPath(cameFrom, position);
             }
 
             /* On explore les voisins */
-            for (Integer neighbor : this.donneesSimulation.getCarte().getNeighbors(position)) {
+            for (final Integer neighbor : this.donneesSimulation.getCarte().getNeighbors(position)) {
                 // tentativeGScore is the distance from start to the neighbor through position
-                int tentativeGScore = getTentativeGScore(gScore, robot, position, neighbor);
-                if (tentativeGScore == Integer.MAX_VALUE) continue;
+                final int tentativeGScore = getTentativeGScore(gScore, robot, position, neighbor);
+                if (tentativeGScore == Integer.MAX_VALUE)
+                    continue;
 
                 if (tentativeGScore < gScore.get(neighbor)) {
                     // This path to neighbor is better than any previous one. Record it!
                     cameFrom.put(neighbor, position);
                     gScore.replace(neighbor, tentativeGScore);
-                    Node neighborWithCost = new Node(neighbor, gScore.get(neighbor) + heuristique(neighbor, dest));
+                    final Node neighborWithCost = new Node(neighbor,
+                            gScore.get(neighbor) + heuristique(neighbor, dest));
                     if (!openSet.contains(neighborWithCost)) {
                         openSet.add(neighborWithCost);
                     }
@@ -165,9 +169,10 @@ public class AStar extends Pathfinding implements Heuristique {
      * @return the distance from start to the neighbor through position
      * @see DonneesSimulation#getTimeToMove(Robot, int, int)
      */
-    private Integer getTentativeGScore(HashMap<Integer, Integer> gScore, Robot robot, int position, int neighbor) {
+    private Integer getTentativeGScore(final HashMap<Integer, Integer> gScore, final Robot robot, final int position,
+            final int neighbor) {
         try {
-            return gScore.get(position) + (int)donneesSimulation.getTimeToMove(robot, position, neighbor);
+            return gScore.get(position) + (int) donneesSimulation.getTimeToMove(robot, position, neighbor);
         } catch (final IllegalArgumentException e) {
             LOGGER.warn(e.getMessage());
             return Integer.MAX_VALUE;
@@ -177,12 +182,12 @@ public class AStar extends Pathfinding implements Heuristique {
     /**
      * Reconstruit le plus court chemin.
      * 
-     * @param map (neighbor, position)
+     * @param map  (neighbor, position)
      * @param dest
      * @return suite de positions
      */
-    private LinkedList<Integer> reconstructPath(HashMap<Integer, Integer> map, int dest) {
-        LinkedList<Integer> path = new LinkedList<Integer>();
+    private LinkedList<Integer> reconstructPath(final HashMap<Integer, Integer> map, int dest) {
+        final LinkedList<Integer> path = new LinkedList<Integer>();
         path.add(dest);
         while (map.containsKey(dest)) {
             dest = map.get(dest);

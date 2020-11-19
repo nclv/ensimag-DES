@@ -19,8 +19,8 @@ import game.robots.Robot;
 public class ActionMove extends Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActionMove.class);
 
-    private Robot robot;
-    private Direction direction;
+    private final Robot robot;
+    private final Direction direction;
 
     /**
      * @param donneesSimulation
@@ -40,7 +40,7 @@ public class ActionMove extends Action {
      * @see ActionMove#ActionMove(DonneesSimulation, Robot, Direction)
      */
     @Override
-    public Action copy(DonneesSimulation donneesSimulation) {
+    public Action copy(final DonneesSimulation donneesSimulation) {
         return new ActionMove(donneesSimulation, this.robot, this.direction);
     }
 

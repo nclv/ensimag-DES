@@ -16,22 +16,21 @@ public abstract class Action {
     /**
      * Une action utilise les données de la simulation pour s'exécuter
      */
-    private DonneesSimulation donneesSimulation;
-    
+    private final DonneesSimulation donneesSimulation;
+
     /**
      * Une action est exécutée par une entité
      */
-    private Entity entity;
+    private final Entity entity;
 
     /**
-     * Constructeur d'une action.
-     * Marquage du robot comme étant occupé.
+     * Constructeur d'une action. Marquage du robot comme étant occupé.
      * 
      * @param donneesSimulation
      * @param entity
      * @see State
      */
-    public Action(final DonneesSimulation donneesSimulation, Entity entity) {
+    public Action(final DonneesSimulation donneesSimulation, final Entity entity) {
         this.donneesSimulation = donneesSimulation;
         this.entity = entity;
         // on marque l'entité comme occupée si elle ne l'est pas déjà

@@ -2,6 +2,7 @@ package strategie;
 
 import game.Dated;
 import game.Simulateur;
+import game.events.EventAdder;
 import game.pathfinding.Pathfinding;
 
 /**
@@ -16,18 +17,20 @@ public abstract class Strategie implements Dated<Long> {
     /** 
      * Algorithme de plus court chemin
      */
-    private Pathfinding pathfinding;
-    
+    private final Pathfinding pathfinding;
+
     /**
-     * Compteur interne permettant d'ordonner une suite d'events.
-     * Utilisé pour effectuer les actions des robots en série.
+     * Compteur interne permettant d'ordonner une suite d'events. Utilisé pour
+     * effectuer les actions des robots en série.
      */
     private long date = 0L;
+
+    private EventAdder eventAdder = null;
 
     /**
      * @param pathfinding
      */
-    public Strategie(Pathfinding pathfinding) {
+    public Strategie(final Pathfinding pathfinding) {
         this.pathfinding = pathfinding;
     }
 
@@ -42,8 +45,12 @@ public abstract class Strategie implements Dated<Long> {
         return pathfinding;
     }
 
-    public void setPathfinding(Pathfinding pathfinding) {
-        this.pathfinding = pathfinding;
+    public EventAdder getEventAdder() {
+        return eventAdder;
+    }
+
+    public void setEventAdder(final EventAdder eventAdder) {
+        this.eventAdder = eventAdder;
     }
 
     @Override
@@ -52,7 +59,7 @@ public abstract class Strategie implements Dated<Long> {
     }
 
     @Override
-    public void setDate(Long date) {
+    public void setDate(final Long date) {
         this.date = date;
     }
 }

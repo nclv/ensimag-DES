@@ -11,9 +11,9 @@ import gui.Simulable;
 import gui.Text;
 
 public class TestInvader {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         // crée la fenêtre graphique dans laquelle dessiner
-        GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
+        final GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
         // crée l'invader, en l'associant à la fenêtre graphique précédente
         new Invader(gui, Color.decode("#f2ff28"));
     }
@@ -28,10 +28,10 @@ public class TestInvader {
  */
 class Invader implements Simulable {
     /** L'interface graphique associée */
-    private GUISimulator gui;
+    private final GUISimulator gui;
 
     /** La couleur de dessin de l'invader */
-    private Color invaderColor;
+    private final Color invaderColor;
 
     /** Abcisse courante de l'invader (bord gauche) */
     private int x;
@@ -53,7 +53,7 @@ class Invader implements Simulable {
      *              Simulable.
      * @param color la couleur de l'invader
      */
-    public Invader(GUISimulator gui, Color invaderColor) {
+    public Invader(final GUISimulator gui, final Color invaderColor) {
         this.gui = gui;
         gui.setSimulable(this); // association a la gui!
         this.invaderColor = invaderColor;
@@ -68,16 +68,16 @@ class Invader implements Simulable {
     private void planCoordinates() {
         // panel must be large enough... unchecked here!
         // total invader size: height == 120, width == 80
-        int xMin = 60;
-        int yMin = 40;
+        final int xMin = 60;
+        final int yMin = 40;
         int xMax = gui.getWidth() - xMin - 80;
         xMax -= xMax % 10;
         int yMax = gui.getHeight() - yMin - 120;
         yMax -= yMax % 10;
 
         // let's plan the invader displacement!
-        List<Integer> xCoords = new ArrayList<Integer>();
-        List<Integer> yCoords = new ArrayList<Integer>();
+        final List<Integer> xCoords = new ArrayList<Integer>();
+        final List<Integer> yCoords = new ArrayList<Integer>();
         // going right
         for (int x = xMin + 10; x <= xMax; x += 10) {
             xCoords.add(x);

@@ -5,14 +5,14 @@ import game.robots.Robot;
 import game.robots.RobotType;
 
 public class TestRobots {
-    public static void main(String[] args) {
-        RobotType Drone = MyRobotTypes.getDrone();
+    public static void main(final String[] args) {
+        final RobotType Drone = MyRobotTypes.getDrone();
         // RobotType Roues = MyRobotTypes.getRoues();
         // RobotType Chenilles = MyRobotTypes.getChenilles();
         // RobotType Pattes = MyRobotTypes.getPattes();
 
-        Robot drone = Drone.newRobot(50);
-        Robot drone1 = Drone.newRobot(60);
+        final Robot drone = Drone.newRobot(50);
+        final Robot drone1 = Drone.newRobot(60);
         // Robot roues = Roues.newRobot(0);
         // Robot chenilles = Chenilles.newRobot(1);
         // Robot pattes = Pattes.newRobot(3);

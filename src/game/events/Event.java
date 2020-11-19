@@ -15,7 +15,7 @@ public class Event implements Comparable<Event> {
     /**
      * Action exécutée par l'event
      */
-    private Action action;
+    private final Action action;
 
     public Event(final long date, final Action action) {
         this.date = date;
@@ -30,7 +30,7 @@ public class Event implements Comparable<Event> {
      * @see Event#Event(long, Action)
      * @see Action#copy(DonneesSimulation)
      */
-    public Event copy(DonneesSimulation donneesSimulation) {
+    public Event copy(final DonneesSimulation donneesSimulation) {
         return new Event(this.date, this.action.copy(donneesSimulation));
     }
 
