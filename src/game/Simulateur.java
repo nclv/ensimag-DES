@@ -1,14 +1,11 @@
 package game;
 
-import java.util.LinkedList;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import game.events.Action;
 import game.events.EventManager;
 import game.graphics.GraphicsComponent;
-import game.robots.Robot;
 import gui.Simulable;
 import strategie.Strategie;
 
@@ -30,9 +27,9 @@ public class Simulateur implements Simulable {
     private DonneesSimulation donneesSimulation;
     private final DonneesSimulation donneesSimulationSaved;
 
-    private EventManager eventManager;
+    private final EventManager eventManager;
 
-    private GraphicsComponent graphicsComponent;
+    private final GraphicsComponent graphicsComponent;
     private Strategie strategie = null;
 
     /**
@@ -75,30 +72,6 @@ public class Simulateur implements Simulable {
         this.eventManager.schedule(date, action);
     }
 
-    public void addPathSerial(Robot robot, LinkedList<Integer> path) {
-        this.eventManager.addPathSerial(robot, path);
-    }
-
-    public void addEmptySerial(Robot robot, int firePosition) {
-        this.eventManager.addEmptySerial(robot, firePosition);
-    }
-
-    public void addFillingSerial(Robot robot) {
-        this.eventManager.addFillingSerial(robot);
-    }
-
-    public void addPathParallel(Robot robot, LinkedList<Integer> path) {
-        this.eventManager.addPathParallel(robot, path);
-    }
-
-    public void addEmptyParallel(Robot robot, int firePosition) {
-        this.eventManager.addEmptyParallel(robot, firePosition);
-    }
-
-    public void addFillingParallel(Robot robot) {
-        this.eventManager.addFillingParallel(robot);
-    }
-
     /**
      * @see Simulable#next()
      * @see Strategie#execute(Simulateur)
@@ -135,15 +108,20 @@ public class Simulateur implements Simulable {
     @Override
     public void restart() {
         LOGGER.info("Restart");
-        eventManager.setCurrentDate(0);
-        if (strategie != null)
-            strategie.setDate(0L);
 
         this.donneesSimulation = new DonneesSimulation(this.donneesSimulationSaved);
         
         // Update de l'event manager
+        eventManager.setCurrentDate(0);
         eventManager.setDonneesSimulation(donneesSimulation);
         eventManager.reset();
+
+        // Update de la stratégie
+        if (strategie != null)
+            strategie.setDate(0L);
+            strategie.getEventAdder().setDonneesSimulation(donneesSimulation);
+            strategie.getEventAdder().setEventManager(eventManager);
+
 
         // Update de l'affichage
         this.graphicsComponent.setDonneesSimulation(donneesSimulation);

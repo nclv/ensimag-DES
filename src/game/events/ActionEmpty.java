@@ -15,7 +15,7 @@ import game.robots.Robot;
 public class ActionEmpty extends Action {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActionEmpty.class);
 
-    private Robot robot;
+    private final Robot robot;
 
     /**
      * @param donneesSimulation
@@ -33,7 +33,7 @@ public class ActionEmpty extends Action {
      * @see ActionEmpty#ActionEmpty(DonneesSimulation, Robot)
      */
     @Override
-    public Action copy(DonneesSimulation donneesSimulation) {
+    public Action copy(final DonneesSimulation donneesSimulation) {
         return new ActionEmpty(donneesSimulation, this.robot);
     }
 

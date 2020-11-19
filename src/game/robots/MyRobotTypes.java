@@ -99,8 +99,8 @@ public final class MyRobotTypes {
         return Pattes;
     }
 
-    public static RobotType getType(Type type) {
-        RobotType robotType = typeMap.get(type);
+    public static RobotType getType(final Type type) {
+        final RobotType robotType = typeMap.get(type);
         // if (robotType == null) {
         //     typeMap.put(type, )
         // }

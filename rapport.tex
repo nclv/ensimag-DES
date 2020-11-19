@@ -63,19 +63,14 @@
 	Les données d'une simulation sont la carte, les incendies et les robots représentés par une HashMap associant à une position l'ArrayList des robots présents sur cette position. La classe {\it DonneesSimulation} comprend aussi les méthodes mettant en relations les différents objets de notre simulation afin de garantir un faible couplage entre nos classes. Nul besoin d'ajouter à notre classe {\it Robot} les méthodes permettant d'obtenir le temps nécessaire pour se déplacer d'une case à une autre et le temps nécessaire pour un robot de déverser l'eau sur l'incendie. Elles sont implémentées dans {\it DonneesSimulation}. Pour finir nous avons implémenté un constructeur qui copie l'instance de {\it DonneesSimulation} passée en paramètre. 
 	
 	\subsection{Simulateur}
-	\noindent Le simulateur se trouve dans le package {\it game}. \\
+	\noindent Le simulateur se trouve dans le package {\it game}. Les classes relatives aux évènements se trouvent dans le package {\it events}.\\
 
 	Un simulateur permet l'ajoût d'évènements à la simulation et implémente les méthodes {\it next} et {\it restart}. Il a donc besoin de plusieurs composants: les données de la simulation, l'interface graphique, un event manager s'occupant de l'ordonnancement des évènements et d'une stratégie optionnelle. La variable {\it INCREMENT} est utilisée pour ordonnancer une suite d'évènements. 
 	\par\leavevmode\par
-	Une action est une entité agissant sur les données d'une simulation. Représentée par une classe abstraite, une action doit nécessairement, pouvoir être exécutée et avoir une durée.
-	Un robot peut effectuer plusieurs actions, chacune représentées par des classes filles :
-	\begin{enumerate}
-		\item ActionEmpty : déverser de l'eau sur un incendie.
-		\item ActionFill : se remplir si le robot est sur de l'eau ou à côté.
-		\item ActionMove : se déplacer vers une case voisine si c'est possible.
-	\end{enumerate}
+	Un évènement est une action qui s'exécute à un instant donné. Une action, exécutée par une entité, modifie les données de la simulation. L'entité concernée par l'action est occupée pendant la durée variable de l'action.
+	Nous avons implémenté 3 actions distinctes: le déplacement d'un robot selon une direction donnée, le remplissage d'un robot et le déversement sur la position du robot de la quantité d'eau nécessaire pour éteindre l'incendie.
 	\par\leavevmode\par
-	Un événement est décrit par une date et une action. Tous les événements sont gérés par une entité {\it EventManager} les ordonnan{\c c}ant selon leur date respective. Plus précisèment, nous disposons d'une file de prioriété basée sur un comparateur des dates des événements.  
+	Un {\it EventManager} s'occupe d'ordonnancer les évènements selon leurs dates respectives. Nous l'avons implémenté avec une file de priorité. Selon qu'il y ait ou non une stratégie de résolution du problème, il est possible d'ajouter des évènements s'exécutant en série (un robot à la fois) ou en parallèle (tous les robots en même temps). Seul l'ajoût d'évènements en parallèle est représentatif d'une situation réelle. Un {\it EventAdder} a accès aux données de la simulation car un évènement agit sur les données de la simulation. Il utilise la méthode {\it schedule} de l'EventManager pour ajouter les évènements à la file de priorité. L'EventAdder est utilisé dans une stratégie.
 
 \section{Calculs de plus courts chemins}
 

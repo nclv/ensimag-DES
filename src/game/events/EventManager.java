@@ -2,7 +2,6 @@ package game.events;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 import org.slf4j.Logger;
@@ -36,19 +35,20 @@ public class EventManager {
      * @param donneesSimulation
      * @see PriorityQueue
      */
-    public EventManager(DonneesSimulation donneesSimulation) {
+    public EventManager(final DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
         eventSetSaved = new PriorityQueue<Event>();
     }
 
     /**
-     * Constructeur avec stratégie. On n'instancie pas de queue de sauvegarde s'il n'y a pas de stratégie
+     * Constructeur avec stratégie. On n'instancie pas de queue de sauvegarde s'il
+     * n'y a pas de stratégie
      * 
      * @param donneesSimulation
      * @param strategie
      * @see PriorityQueue
      */
-    public EventManager(DonneesSimulation donneesSimulation, Strategie strategie) {
+    public EventManager(final DonneesSimulation donneesSimulation, final Strategie strategie) {
         this.donneesSimulation = donneesSimulation;
         this.strategie = strategie;
         if (strategie == null) {
@@ -66,70 +66,13 @@ public class EventManager {
      */
     public void schedule(final long date, final Action action) {
         LOGGER.info("Date de l'évènement (ajoût): {}", date);
-        Event event = new Event(date, action);
+        final Event event = new Event(date, action);
 
         this.eventSet.add(event);
         // ajout à la queue de sauvegarde
         if (strategie == null) {
             this.eventSetSaved.add(event.copy(this.donneesSimulation));
         }
-    }
-
-    /**
-     * Ajout d'une suite d'events déplacements à la simulation
-     * 
-     * @param robot
-     * @param path
-     * @param date compteur externe ordonnant les déplacements
-     * @param increment
-     * @see #schedule(long, Action)
-     * @see ActionMove#ActionMove(DonneesSimulation, Robot, game.Direction)
-     * @see Carte#getDirection(int, int)
-     */
-    private long scheduleActionsMove(Robot robot, LinkedList<Integer> path, long date) {
-        Iterator<Integer> iter = path.iterator();
-        int currentPosition = iter.next();
-        while (iter.hasNext()) {
-            int nextPosition = iter.next();
-            schedule(date, new ActionMove(this.donneesSimulation, robot,
-                    this.donneesSimulation.getCarte().getDirection(currentPosition, nextPosition)));
-            date += donneesSimulation.getTimeToMove(robot, currentPosition, nextPosition);
-            currentPosition = nextPosition;
-        }
-        return date;
-    }
-
-    public void addPathSerial(Robot robot, LinkedList<Integer> path) {
-        assert this.strategie != null;
-        long date = scheduleActionsMove(robot, path, this.strategie.getDate());
-        this.strategie.setDate(date);
-    }
-
-    public void addEmptySerial(Robot robot, int firePosition) {
-        assert this.strategie != null;
-        schedule(this.strategie.getDate(), new ActionEmpty(this.donneesSimulation, robot));
-        this.strategie.setDate(this.strategie.getDate() + donneesSimulation.getTimeToEmpty(robot, firePosition));
-    }
-
-    public void addFillingSerial(Robot robot) {
-        assert this.strategie != null;
-        schedule(this.strategie.getDate(), new ActionFill(this.donneesSimulation, robot));
-        this.strategie.setDate(this.strategie.getDate() + robot.getTimeToFillUp());
-    }
-
-    public void addPathParallel(Robot robot, LinkedList<Integer> path) {
-        long date = scheduleActionsMove(robot, path, robot.getDate());
-        robot.setDate(date);
-    }
-
-    public void addEmptyParallel(Robot robot, int firePosition) {
-        schedule(robot.getDate(), new ActionEmpty(this.donneesSimulation, robot));
-        robot.setDate(robot.getDate() + donneesSimulation.getTimeToEmpty(robot, firePosition));
-    }
-
-    public void addFillingParallel(Robot robot) {
-        schedule(robot.getDate(), new ActionFill(this.donneesSimulation, robot));
-        robot.setDate(robot.getDate() + robot.getTimeToFillUp());
     }
 
     /**
@@ -150,10 +93,11 @@ public class EventManager {
         while ((event = eventSet.peek()) != null && event.getDate() <= this.currentDate) {
             LOGGER.info("Date de l'évènement (execution): {}", event.getDate());
 
-            // On récupère la durée de l'event si l'event est valide sinon la durée de l'event est nulle
+            // On récupère la durée de l'event si l'event est valide sinon la durée de
+            // l'event est nulle
             // On exécute ensuite l'action pour le robot si l'action est valide
             long duration = 0;
-            Action eventAction = event.getAction();
+            final Action eventAction = event.getAction();
             try {
                 // throws IllegalArgumentException if outside the map or if the robot can't move
                 // on the position (EventMove)
@@ -172,11 +116,11 @@ public class EventManager {
             // dates. Si la durée est nulle la date reste inchangée.
             // On a ainsi le bon nombre d'events concernant le même robot si on a une action
             // non valide suivie d'actions valides
-            int sameRobotEventsCount = rescheduleEvents(event, duration);
+            final int sameRobotEventsCount = rescheduleEvents(event, duration);
 
             // S'il n'y a plus qu'un event concernant ce robot (cet event vient d'être
             // exécuté) alors le robot est de nouveau libre
-            Entity eventEntity = eventAction.getEntity();
+            final Entity eventEntity = eventAction.getEntity();
             if (sameRobotEventsCount == 1) {
                 assert eventEntity.getState() == State.BUSY;
                 eventEntity.setState(State.FREE);
@@ -213,8 +157,10 @@ public class EventManager {
                 // on incrémente la date de l'event de la durée de l'event exécuté
                 currentEvent.updateDate(event.getDate(), duration);
                 if (event.getDate() < currentEvent.getDate() && currentEvent.getDate() < event.getDate() + duration) {
-                    // System.out.println(event.getDate() + " < " + currentEvent.getDate() + " < " + (event.getDate() + duration));
-                    // System.out.println(event.getAction().getEntity() + ", Nouvelle date: " + currentEvent.getDate());
+                    // System.out.println(event.getDate() + " < " + currentEvent.getDate() + " < " +
+                    // (event.getDate() + duration));
+                    // System.out.println(event.getAction().getEntity() + ", Nouvelle date: " +
+                    // currentEvent.getDate());
                     LOGGER.info("Nouvelle date de l'évènement: {}", currentEvent.getDate());
                 }
                 count++;
@@ -245,11 +191,11 @@ public class EventManager {
         return currentDate;
     }
 
-    public void setCurrentDate(long currentDate) {
+    public void setCurrentDate(final long currentDate) {
         this.currentDate = currentDate;
     }
 
-    public void setDonneesSimulation(DonneesSimulation donneesSimulation) {
+    public void setDonneesSimulation(final DonneesSimulation donneesSimulation) {
         this.donneesSimulation = donneesSimulation;
     }
 }

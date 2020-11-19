@@ -17,36 +17,34 @@ import gui.GUISimulator;
 public class TestPathfindingGUI {
     public static void main(String[] args) {
         args = new String[]{"cartes/carteSujet.map"};
-        DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
-        EventManager eventManager = new EventManager(donneesSimulation);
-        Pathfinding pathfinding = new AStar(donneesSimulation);
+        final DonneesSimulation donneesSimulation = InterfaceDonneesSimulation.getDonneesSimulation(args);
+        final EventManager eventManager = new EventManager(donneesSimulation);
+        final Pathfinding pathfinding = new AStar(donneesSimulation);
 
-        int guiSizeFactor = 80;  // à adapter à son écran, spiral: 20, others: 60
-        GUISimulator gui = new GUISimulator(
-            donneesSimulation.getCarte().getNbLignes() * guiSizeFactor, 
-            donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, 
-            Color.BLACK
-        );
-        GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
+        final int guiSizeFactor = 80; // à adapter à son écran, spiral: 20, others: 60
+        final GUISimulator gui = new GUISimulator(donneesSimulation.getCarte().getNbLignes() * guiSizeFactor,
+                donneesSimulation.getCarte().getNbColonnes() * guiSizeFactor, Color.BLACK);
+        final GraphicsComponent graphicsComponent = new GraphicsComponent(gui, guiSizeFactor, donneesSimulation);
 
-        Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
+        final Simulateur simulateur = new Simulateur(graphicsComponent, donneesSimulation, eventManager);
 
         /* Calcul du plus court chemin entre (src, dest) */
-        Robot robot = donneesSimulation.getRobot(0);
-        LinkedList<Integer> path = pathfinding.shortestWay(robot, robot.getPosition(), 7);
+        final Robot robot = donneesSimulation.getRobot(0);
+        final LinkedList<Integer> path = pathfinding.shortestWay(robot, robot.getPosition(), 7);
 
         /* Affichage du path */
         System.out.println("Affichage du chemin:");
 
         long date = 0;
-        long increment = Simulateur.INCREMENT;
+        final long increment = Simulateur.INCREMENT;
 
-        Iterator<Integer> iter = path.iterator();
-        
+        final Iterator<Integer> iter = path.iterator();
+
         int currentPosition = iter.next();
-        System.out.println("(" + String.valueOf(currentPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(currentPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
+        System.out.println("(" + String.valueOf(currentPosition / donneesSimulation.getCarte().getNbColonnes()) + ","
+                + String.valueOf(currentPosition % donneesSimulation.getCarte().getNbLignes()) + ")");
         while (iter.hasNext()) {
-            int nextPosition = iter.next();
+            final int nextPosition = iter.next();
             simulateur.schedule(date, new ActionMove(donneesSimulation, robot, donneesSimulation.getCarte().getDirection(currentPosition, nextPosition)));
             date += increment;
             System.out.println("(" + String.valueOf(nextPosition / donneesSimulation.getCarte().getNbColonnes()) + "," + String.valueOf(nextPosition % donneesSimulation.getCarte().getNbLignes()) + ")");

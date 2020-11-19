@@ -26,15 +26,14 @@ public class StrategieEvoluee extends Strategie {
      * @param pathfinding
      * @see Strategie#Strategie(Pathfinding)
      */
-    public StrategieEvoluee(Pathfinding pathfinding) {
+    public StrategieEvoluee(final Pathfinding pathfinding) {
         super(pathfinding);
     }
 
     /**
-     * Stratégie évoluée.
-     * Chaque robot se déplace sur un incendie différent.
-     * On choisit le robot disponible le plus rapide.
-     * Un robot vide va se remplir à un point d'eau
+     * Stratégie évoluée. Chaque robot se déplace sur un incendie différent. On
+     * choisit le robot disponible le plus rapide. Un robot vide va se remplir à un
+     * point d'eau
      * 
      * @param simulateur
      * @see #getPathDuration(Robot, LinkedList, DonneesSimulation)
@@ -52,22 +51,24 @@ public class StrategieEvoluee extends Strategie {
      * @see Simulateur#addEmptySerial(Robot)
      */
     @Override
-    public void execute(Simulateur simulateur) {
-        ArrayList<Robot> robots = new ArrayList<Robot>();
+    public void execute(final Simulateur simulateur) {
+        final ArrayList<Robot> robots = new ArrayList<Robot>();
         simulateur.getDonneesSimulation().getRobots().values().forEach(robots::addAll);
 
-        for(Map.Entry<Integer, Integer> incendie: simulateur.getDonneesSimulation().getIncendies().entrySet()) {
-            int intensite = incendie.getValue();
-            if (intensite == 0) continue;
-            
-            int positionIncendie = incendie.getKey();
+        for (final Map.Entry<Integer, Integer> incendie : simulateur.getDonneesSimulation().getIncendies().entrySet()) {
+            final int intensite = incendie.getValue();
+            if (intensite == 0)
+                continue;
+
+            final int positionIncendie = incendie.getKey();
 
             long minDuration = Long.MAX_VALUE;
             Robot robotMinDuration = null;
             LinkedList<Integer> pathMinDuration = null;
-            
-            for (Robot robot : robots) {
-                if (robot.getState() == State.BUSY) continue;
+
+            for (final Robot robot : robots) {
+                if (robot.getState() == State.BUSY)
+                    continue;
                 if (robot.isEmpty()) {
                     long fillingMinDuration = Long.MAX_VALUE;
                     LinkedList<Integer> fillingPathMinDuration = null;
@@ -75,7 +76,7 @@ public class StrategieEvoluee extends Strategie {
                     // Le robot roues se remplit à côté d'un point d'eau
                     // Le drone se remplit sur un point d'eau
                     ArrayList<Integer> fillingPositions = null;
-                    Filling robotFilling = robot.getFilling();
+                    final Filling robotFilling = robot.getFilling();
                     if (robotFilling == Filling.ON) {
                         fillingPositions = simulateur.getDonneesSimulation().getCarte().getPositionsWater();
                     } else if (robotFilling == Filling.NEXT) {
@@ -83,15 +84,18 @@ public class StrategieEvoluee extends Strategie {
                     } else if (robotFilling == Filling.NONE) {
                         continue;
                     }
-                    if (fillingPositions == null) continue;
+                    if (fillingPositions == null)
+                        continue;
 
-                    for (int positionWater : fillingPositions) {
-                        LOGGER.info("Recherche d'un chemin pour aller remplir le robot {} au point d'eau le plus proche", robot.getId());
+                    for (final int positionWater : fillingPositions) {
+                        LOGGER.info(
+                                "Recherche d'un chemin pour aller remplir le robot {} au point d'eau le plus proche",
+                                robot.getId());
 
                         LinkedList<Integer> path;
                         try {
                             path = getPathfinding().shortestWay(robot, robot.getPosition(), positionWater);
-                        } catch (IllegalStateException e) {
+                        } catch (final IllegalStateException e) {
                             LOGGER.info("Aucun chemin n'est praticable");
                             continue;
                         }
@@ -109,27 +113,22 @@ public class StrategieEvoluee extends Strategie {
                     } else {
                         // on envoie le robot le plus rapide
                         LOGGER.info("Ajoût des events pour le robot {}", robot.getId());
-        
-                        // exécution en série
-                        // simulateur.addPathSerial(robot, fillingPathMinDuration);
-                        // simulateur.addFillingSerial(robot);
-                        
-                        // exécution en parallèle
-                        simulateur.addPathParallel(robot, fillingPathMinDuration);
-                        simulateur.addFillingParallel(robot);
+
+                        getEventAdder().addPath(robot, fillingPathMinDuration);
+                        getEventAdder().addFilling(robot);
                     }
                     continue;
                 }
                 LOGGER.info("Recherche d'un chemin pour le robot {}", robot.getId());
-            
+
                 LinkedList<Integer> path;
                 try {
                     path = getPathfinding().shortestWay(robot, robot.getPosition(), positionIncendie);
-                } catch (IllegalStateException e) {
+                } catch (final IllegalStateException e) {
                     LOGGER.info("Aucun chemin n'est praticable");
                     continue;
                 }
-                
+
                 long duration = getPathDuration(robot, path, simulateur.getDonneesSimulation());
                 duration += simulateur.getDonneesSimulation().getTimeToEmpty(robot, path.getLast());
 
@@ -145,13 +144,8 @@ public class StrategieEvoluee extends Strategie {
                 // on envoie le robot le plus rapide
                 LOGGER.info("Ajoût des events pour le robot {}", robotMinDuration.getId());
 
-                // exécution en série
-                // simulateur.addPathSerial(robotMinDuration, pathMinDuration);
-                // simulateur.addEmptySerial(robotMinDuration, pathMinDuration.getLast());
-                
-                // exécution en parallèle
-                simulateur.addPathParallel(robotMinDuration, pathMinDuration);
-                simulateur.addEmptyParallel(robotMinDuration, pathMinDuration.getLast());
+                getEventAdder().addPath(robotMinDuration, pathMinDuration);
+                getEventAdder().addEmpty(robotMinDuration, pathMinDuration.getLast());
             }
         }
     }
@@ -163,13 +157,14 @@ public class StrategieEvoluee extends Strategie {
      * @return durée mise par le robot pour se déplacer en suivant path
      * @see DonneesSimulation#getTimeToMove(Robot, int, int)
      */
-    private long getPathDuration(Robot robot, LinkedList<Integer> path, DonneesSimulation donneesSimulation) {
+    private long getPathDuration(final Robot robot, final LinkedList<Integer> path,
+            final DonneesSimulation donneesSimulation) {
         long duration = 0;
 
-        Iterator<Integer> iter = path.iterator();
+        final Iterator<Integer> iter = path.iterator();
         int currentPosition = iter.next();
         while (iter.hasNext()) {
-            int nextPosition = iter.next();
+            final int nextPosition = iter.next();
             duration += donneesSimulation.getTimeToMove(robot, currentPosition, nextPosition);
             currentPosition = nextPosition;
         }

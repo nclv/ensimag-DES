@@ -21,7 +21,7 @@ public enum Direction {
     private static final HashMap<Integer, Direction> BY_RELATIVE_POSITION = new HashMap<Integer, Direction>();
 
     static {
-        for (Direction direction : values()) {
+        for (final Direction direction : values()) {
             BY_RELATIVE_POSITION.put(direction.getDy() * MULT + direction.getDx(), direction);
         }
     }
@@ -32,10 +32,12 @@ public enum Direction {
     }
 
     /**
-     * @param relativePosition obtenue à partir d'une position et d'une position voisine: (ligneVoisin - ligne) * Direction.getMult() + (colonneVoisin - colonne)
+     * @param relativePosition obtenue à partir d'une position et d'une position
+     *                         voisine: (ligneVoisin - ligne) * Direction.getMult()
+     *                         + (colonneVoisin - colonne)
      * @return la direction correspondant à la position relative passée en argument
      */
-    public static Direction getDirection(int relativePosition) {
+    public static Direction getDirection(final int relativePosition) {
         return BY_RELATIVE_POSITION.get(relativePosition);
     }
 

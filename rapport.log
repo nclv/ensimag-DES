@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.11.18)  18 NOV 2020 18:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (MiKTeX 20.10) (preloaded format=pdflatex 2020.11.18)  19 NOV 2020 22:46
 entering extended mode
 **c:/Users/donisa/Documents/Nicolas/ensimag-robots-pompiers/rapport.tex
 (c:/Users/donisa/Documents/Nicolas/ensimag-robots-pompiers/rapport.tex
@@ -596,17 +596,17 @@ Package rerunfilecheck Info: File `rapport.out' has not changed.
 (rerunfilecheck)             Checksum: FB7AD3B0B1BD2CDE79784D8E20FAFE28;1150.
  ) 
 Here is how much of TeX's memory you used:
- 19288 strings out of 480224
- 360465 string characters out of 2879627
- 656853 words of memory out of 3000000
+ 19285 strings out of 480224
+ 360447 string characters out of 2879627
+ 655853 words of memory out of 3000000
  35465 multiletter control sequences out of 15000+200000
  546420 words of font info for 58 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  96i,6n,99p,1105b,424s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0800.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0700.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\donisa\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1728.pk><C:/Users/donisa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/donisa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/donisa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/donisa/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on c:/Users\donisa\Documents\Nicolas\ensimag-robots-pompiers\rapport.pdf (3 pages, 136018 bytes).
+Output written on c:/Users\donisa\Documents\Nicolas\ensimag-robots-pompiers\rapport.pdf (3 pages, 136110 bytes).
 PDF statistics:
- 384 PDF objects out of 1000 (max. 8388607)
- 26 named destinations out of 1000 (max. 500000)
+ 380 PDF objects out of 1000 (max. 8388607)
+ 23 named destinations out of 1000 (max. 500000)
  157 words of extra memory for PDF output out of 10000 (max. 10000000)
 

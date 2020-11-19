@@ -47,14 +47,14 @@ public class DonneesSimulation {
      * @param another objet DonneesSimulation copié
      * @see Robot#init(int)
      */
-    public DonneesSimulation(DonneesSimulation another) {
+    public DonneesSimulation(final DonneesSimulation another) {
         this.carte = another.carte; // la carte ne change pas entre deux restarts
         this.incendies = new HashMap<Integer, Integer>(another.incendies);
 
         this.robots = new HashMap<Integer, ArrayList<Robot>>();
         // LOGGER.info("Another robots: {}", another.robots);
-        for (Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {
-            for (Robot robot : entry.getValue()) {
+        for (final Map.Entry<Integer, ArrayList<Robot>> entry : another.robots.entrySet()) {
+            for (final Robot robot : entry.getValue()) {
                 robot.init(entry.getKey()); // on ne cré pas de nouveaux objets robots, on les réinitialise
                 this.robots.computeIfAbsent(entry.getKey(), k -> new ArrayList<Robot>()).add(robot);
             }
@@ -66,7 +66,7 @@ public class DonneesSimulation {
         return carte;
     }
 
-    public void setCarte(Carte carte) {
+    public void setCarte(final Carte carte) {
         this.carte = carte;
     }
 
@@ -74,7 +74,7 @@ public class DonneesSimulation {
         return incendies;
     }
 
-    public void setIncendies(Map<Integer, Integer> incendies) {
+    public void setIncendies(final Map<Integer, Integer> incendies) {
         this.incendies = incendies;
     }
 
@@ -82,7 +82,7 @@ public class DonneesSimulation {
         return robots;
     }
 
-    public void setRobots(Map<Integer, ArrayList<Robot>> robots) {
+    public void setRobots(final Map<Integer, ArrayList<Robot>> robots) {
         this.robots = robots;
     }
 
@@ -91,10 +91,10 @@ public class DonneesSimulation {
      * @return the robot which id match
      * @see Robot#getId()
      */
-    public Robot getRobot(long robotId) {
-        ArrayList<Robot> robotsList = new ArrayList<Robot>();
+    public Robot getRobot(final long robotId) {
+        final ArrayList<Robot> robotsList = new ArrayList<Robot>();
         this.robots.values().forEach(robotsList::addAll);
-        for (Robot robot : robotsList) {
+        for (final Robot robot : robotsList) {
             if (robot.getId().equals(robotId)) {
                 return robot;
             }
@@ -103,8 +103,8 @@ public class DonneesSimulation {
     }
 
     /**
-     * Le temps mis pour se rendre d’une case à l’autre est l'inverse de la moyenne de la
-     * vitesse sur chacune des cases multipliée par la taille des cases.
+     * Le temps mis pour se rendre d’une case à l’autre est l'inverse de la moyenne
+     * de la vitesse sur chacune des cases multipliée par la taille des cases.
      * 
      * @param position
      * @param newPosition
@@ -114,7 +114,8 @@ public class DonneesSimulation {
      * @see Carte#getTerrain(int)
      * @see Carte#getTailleCases()
      */
-    public long getTimeToMove(final Robot robot, final int position, final int newPosition) throws IllegalArgumentException {
+    public long getTimeToMove(final Robot robot, final int position, final int newPosition)
+            throws IllegalArgumentException {
         // LOGGER.info("{}km/h sur {}, {}km/h sur {}, pour des cases de taille {}",
         // robot.getVitesse(this.carte.getTerrain(position)),
         // this.carte.getTerrain(position),
@@ -140,7 +141,8 @@ public class DonneesSimulation {
         final Integer intensity = this.incendies.get(firePosition);
         if (intensity != null) {
             // temps mis pour une extinction globale
-            // getMaxTimeToEmpty renvoie le temps mis par le robot pour déverser la quantité maximale d'eau qu'il peut déverser
+            // getMaxTimeToEmpty renvoie le temps mis par le robot pour déverser la quantité
+            // maximale d'eau qu'il peut déverser
             timeToEmpty = robot.getMaxTimeToEmpty() * (intensity / robot.getMaxEmptiedVolume());
         }
         return timeToEmpty;
@@ -152,12 +154,12 @@ public class DonneesSimulation {
         res += "DonneesSimulation: \n";
         res += carte;
         res += "Incendies\n";
-        for (Map.Entry<Integer, Integer> iEntry : incendies.entrySet()) {
+        for (final Map.Entry<Integer, Integer> iEntry : incendies.entrySet()) {
             res += iEntry.getKey() + ": " + iEntry.getValue().toString() + "\n";
         }
         res += "Robots\n";
-        for (Map.Entry<Integer, ArrayList<Robot>> rlEntry : robots.entrySet()) {
-            for (Robot robot : rlEntry.getValue()) {
+        for (final Map.Entry<Integer, ArrayList<Robot>> rlEntry : robots.entrySet()) {
+            for (final Robot robot : rlEntry.getValue()) {
                 res += rlEntry.getKey() + ": " + robot + "\n";
             }
         }
