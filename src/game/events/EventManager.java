@@ -211,7 +211,7 @@ public class EventManager {
             // equals(). On implémente un id propre à chaque robot qui vérifie l'égalité
             if (currentEvent.getAction().getEntity().equals(event.getAction().getEntity())) {
                 // on incrémente la date de l'event de la durée de l'event exécuté
-                currentEvent.updateDate(event.getDate(), duration); // this.currentDate + duration
+                currentEvent.updateDate(event.getDate(), duration);
                 if (event.getDate() < currentEvent.getDate() && currentEvent.getDate() < event.getDate() + duration) {
                     // System.out.println(event.getDate() + " < " + currentEvent.getDate() + " < " + (event.getDate() + duration));
                     // System.out.println(event.getAction().getEntity() + ", Nouvelle date: " + currentEvent.getDate());
