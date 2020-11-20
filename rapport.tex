@@ -18,7 +18,7 @@
 	\usepackage{hyperref}
 
 \title{Rapport de Simulation d'une équipe de robots pompiers}
-\author{Groupe X}
+\author{Groupe 12}
 \begin{document}
 
 \maketitle
@@ -46,7 +46,7 @@
 
 	Nous proposons une représentation des entités Robots inspirée du {\it design pattern \href{https://gameprogrammingpatterns.com/type-object.html}{type-object}} favorisant la composition plutôt que l'héritage. Le type d'un robot peut en effet être décrit par ses attributs, ce qui nous permet d'instancier un singleton {\it RobotTypes} et d'obtenir de cette instance un robot ayant ce type (voir {\it TestRobots}). Cette conception ne permet pas l'ajout de méthodes propres à un type de robot. Tous les robots possèdent les mêmes méthodes qui donnent des résultats différents en fonction des attributs définis dans le type du robot. Les types de robots donnés par le sujet sont instanciés dans {\it MyRobotTypes}. Il est très facile d'ajouter un type de robot supplémentaire défini selon vos envies.
 	\par\leavevmode\par
-	Un robot est caractérisé par son type invariant, son volume et sa vitesse modifiables. Un robot est une entité identifiable grâce à un identifiant unique, daté afin de pouvoir ordonner une suite d'évènements s'appliquant au robot et possédant un état, libre ou occupé selon qu'il y ait ou non des évènements s'appliquant au robot. La méthode {\it init} permet de réinitialiser les attributs du robot plutôt que d'en créer un nouveau à l'appel d'un restart.
+	Un robot est caractérisé par son type invariant, son volume et sa vitesse modifiable. Un robot est une entité identifiable grâce à un identifiant unique, daté afin de pouvoir ordonner une suite d'évènements s'appliquant au robot et possédant un état, libre ou occupé selon qu'il y ait ou non des évènements s'appliquant au robot. La méthode {\it init} permet de réinitialiser les attributs du robot plutôt que d'en créer un nouveau à l'appel d'un {\it restart}.
 
 	\subsection{Interface Graphique}
 	\noindent Toutes les classes définies pour l'interface graphique se situent dans le package {\it game.graphics}. \\
@@ -60,17 +60,17 @@
 	\subsection{Données des simulations}
 	\noindent Les données de la simulation se trouvent dans le package {\it game}. \\
 
-	Les données d'une simulation sont la carte, les incendies et les robots représentés par une HashMap associant à une position l'ArrayList des robots présents sur cette position. La classe {\it DonneesSimulation} comprend aussi les méthodes mettant en relations les différents objets de notre simulation afin de garantir un faible couplage entre nos classes. Nul besoin d'ajouter à notre classe {\it Robot} les méthodes permettant d'obtenir le temps nécessaire pour se déplacer d'une case à une autre et le temps nécessaire pour un robot de déverser l'eau sur l'incendie. Elles sont implémentées dans {\it DonneesSimulation}. Pour finir nous avons implémenté un constructeur qui copie l'instance de {\it DonneesSimulation} passée en paramètre. 
+	Les données d'une simulation sont la carte, les incendies et les robots représentés par une HashMap associant à une position l'ArrayList des robots présents sur cette position. La classe {\it DonneesSimulation} comprend aussi les méthodes mettant en relation les différents objets de notre simulation afin de garantir un faible couplage entre nos classes. Nul besoin d'ajouter à notre classe {\it Robot} les méthodes permettant d'obtenir le temps nécessaire pour se déplacer d'une case à une autre et le temps nécessaire pour un robot de déverser l'eau sur l'incendie. Elles sont implémentées dans {\it DonneesSimulation}. Pour finir, nous avons implémenté un constructeur qui copie l'instance de {\it DonneesSimulation} passée en paramètre. 
 	
 	\subsection{Simulateur}
 	\noindent Le simulateur se trouve dans le package {\it game}. Les classes relatives aux évènements se trouvent dans le package {\it events}.\\
 
-	Un simulateur permet l'ajoût d'évènements à la simulation et implémente les méthodes {\it next} et {\it restart}. Il a donc besoin de plusieurs composants: les données de la simulation, l'interface graphique, un event manager s'occupant de l'ordonnancement des évènements et d'une stratégie optionnelle. La variable {\it INCREMENT} est utilisée pour ordonnancer une suite d'évènements. 
+	Un simulateur permet l'ajout d'évènements à la simulation et implémente les méthodes {\it next} et {\it restart}. Il a donc besoin de plusieurs composants: les données de la simulation, l'interface graphique, un event manager s'occupant de l'ordonnancement des évènements et d'une stratégie optionnelle. La variable {\it INCREMENT} est utilisée pour ordonnancer une suite d'évènements. 
 	\par\leavevmode\par
 	Un évènement est une action qui s'exécute à un instant donné. Une action, exécutée par une entité, modifie les données de la simulation. L'entité concernée par l'action est occupée pendant la durée variable de l'action.
 	Nous avons implémenté 3 actions distinctes: le déplacement d'un robot selon une direction donnée, le remplissage d'un robot et le déversement sur la position du robot de la quantité d'eau nécessaire pour éteindre l'incendie.
 	\par\leavevmode\par
-	Un {\it EventManager} s'occupe d'ordonnancer les évènements selon leurs dates respectives. Nous l'avons implémenté avec une file de priorité. Selon qu'il y ait ou non une stratégie de résolution du problème, il est possible d'ajouter des évènements s'exécutant en série (un robot à la fois) ou en parallèle (tous les robots en même temps). Seul l'ajoût d'évènements en parallèle est représentatif d'une situation réelle. Un {\it EventAdder} a accès aux données de la simulation car un évènement agit sur les données de la simulation. Il utilise la méthode {\it schedule} de l'EventManager pour ajouter les évènements à la file de priorité. L'EventAdder est utilisé dans une stratégie.
+	Un {\it EventManager} s'occupe d'ordonnancer les évènements selon leurs dates respectives. Nous l'avons implémenté avec une file de priorité. Selon qu'il y ait ou non une stratégie de résolution du problème, il est possible d'ajouter des évènements s'exécutant en série (un robot à la fois) ou en parallèle (tous les robots en même temps). Seul l'ajout d'évènements en parallèle est représentatif d'une situation réelle. Un {\it EventAdder} a accès aux données de la simulation car un évènement agit sur les données de la simulation. Il utilise la méthode {\it schedule} de l'EventManager pour ajouter les évènements à la file de priorité. L'EventAdder est utilisé dans une stratégie.
 
 \section{Calculs de plus courts chemins}
 
@@ -78,7 +78,7 @@
 
 	\subsection{Conception et Implémentation}
 
-	L'algorithme $A^*$ se présente comme suit : on cherche à déterminer le plus court chemin (c'est-à-dire ayant la distance parcourue/temps de parcours le plus faible) d'une source vers une destination. Pour se faire, on stocke un arbre de chemins partant de la source et on ajoute les nœuds aux chemins jusqu'à ce que le critère d'arrêt soit respecté, c'est-à-dire quuand on a atteint la destination. 
+	L'algorithme $A^*$ se présente comme suit : on cherche à déterminer le plus court chemin (c'est-à-dire ayant la distance parcourue/temps de parcours le plus faible) d'une source vers une destination. Pour se faire, on stocke un arbre de chemins partant de la source et on ajoute les nœuds aux chemins jusqu'à ce que le critère d'arrêt soit respecté, c'est-à-dire quand on a atteint la destination. 
 	\par\leavevmode\par
 	Plus en détails, à chaque itération, on choisit le chemin qui doit être prolongé en se basant sur le coût du chemin et une estimation du coût nécessaire pour atteindre la destination. Plus précisément, on sélectionne le chemin qui minimise $f(n) = g(n) + h(n)$ ({\it fscore}) où $n$ est le nœud suivant sur le chemin, $g(n)$ ({\it gscore}) est le coût du chemin de la source à $n$ et $h(n)$ est une fonction heuristique (spécifique au problème) qui estime le coût du chemin le plus faible de $n$ à la destination. À chaque étape de l'algorithme, le nœud $x$ ayant la valeur $f(x)$ la plus faible est retiré de la file d'attente, les valeurs $f$ et $g$ de ses voisins sont mises à jour et ces voisins sont ajoutés à la file d'attente. L'algorithme continue jusqu'à ce qu'un nœud supprimé $x$ (nœud avec la valeur $f$ la plus faible parmi tous les nœuds voisins) soit le nœud de destination. La valeur $f(x)$ de ce nœud est alors le coût du chemin le plus court, puisque $h(x) = 0$.
 	\par\leavevmode\par
@@ -104,8 +104,8 @@
 
 	\subsection{Résultats}
 	Chaque stratégie conduit à l'extinction de tous les incendies.
-
-\section{Conclusion}
+	\par\leavevmode\par
+	Note : Le diagramme des classes est disponible dans {\it DiagrammeDeClasse.gif} (racine de l'archive).
 
 \end{document}
 
