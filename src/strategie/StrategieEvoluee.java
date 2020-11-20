@@ -39,16 +39,13 @@ public class StrategieEvoluee extends Strategie {
      * @see #getPathDuration(Robot, LinkedList, DonneesSimulation)
      * @see DonneesSimulation#getRobots()
      * @see DonneesSimulation#getIncendies()
-     * @see Carte#getPositionsWater()
      * @see Robot#getState()
      * @see Robot#isEmpty()
      * @see Robot#getTimeToFillUp()
      * @see State
      * @see Pathfinding#shortestWay(Robot, int, int)
-     * @see Simulateur#addPathParallel(Robot, LinkedList)
-     * @see Simulateur#addPathSerial(Robot, LinkedList)
-     * @see Simulateur#addEmptyParallel(Robot)
-     * @see Simulateur#addEmptySerial(Robot)
+     * @see EventAdder#addPath(Robot, LinkedList)
+     * @see EventAdder#addEmpty(Robot)
      */
     @Override
     public void execute(final Simulateur simulateur) {

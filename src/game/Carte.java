@@ -46,8 +46,7 @@ public class Carte {
     /**
      * Renvoie la position voisine suivant la direction.
      * 
-     * @param ligne
-     * @param colonne
+     * @param position
      * @param direction
      * @return -1 si on est en dehors de la carte, la position voisine sinon
      * @see #checkPosition(int, int)

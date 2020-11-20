@@ -35,9 +35,8 @@ public abstract class EventAdder {
      * 
      * @param robot
      * @param path
-     * @param date      compteur externe ordonnant les déplacements
-     * @param increment
-     * @see #schedule(long, Action)
+     * @param date compteur externe ordonnant les déplacements
+     * @see EventManager#schedule(long, Action)
      * @see ActionMove#ActionMove(DonneesSimulation, Robot, game.Direction)
      * @see Carte#getDirection(int, int)
      */

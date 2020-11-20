@@ -83,7 +83,6 @@ public class EventManager {
      * @see Event#getAction()
      * @see Action#getDuration()
      * @see Action#execute()
-     * @see Strategie#canFree(Robot)
      * @see Robot#getState()
      * @see Robot#setState(State)
      */

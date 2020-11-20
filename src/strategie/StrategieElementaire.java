@@ -32,17 +32,13 @@ public class StrategieElementaire extends Strategie {
      * vide ne se déplace plus.
      * 
      * @param simulateur
-     * @see DonneesSimulation#getRobots()
-     * @see DonneesSimulation#getIncendies()
      * @see Robot#getState()
      * @see Robot#setState(State)
      * @see Robot#isEmpty()
      * @see State
      * @see Pathfinding#shortestWay(Robot, int, int)
-     * @see Simulateur#addPathParallel(Robot, LinkedList)
-     * @see Simulateur#addPathSerial(Robot, LinkedList)
-     * @see Simulateur#addEmptyParallel(Robot)
-     * @see Simulateur#addEmptySerial(Robot)
+     * @see EventAdder#addPath(Robot, LinkedList)
+     * @see EventAdder#addEmpty(Robot)
      */
     @Override
     public void execute(final Simulateur simulateur) {

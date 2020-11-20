@@ -76,7 +76,7 @@ public class Simulateur implements Simulable {
      * @see Simulable#next()
      * @see Strategie#execute(Simulateur)
      * @see EventManager#executeNextEvents()
-     * @see EventManager#getCurrentDate(long)
+     * @see EventManager#getCurrentDate()
      * @see EventManager#setCurrentDate(long)
      * @see GraphicsComponent#draw()
      */
@@ -97,7 +97,7 @@ public class Simulateur implements Simulable {
 
     /**
      * @see DonneesSimulation#DonneesSimulation(DonneesSimulation)
-     * @see Strategie#setDate(long)
+     * @see Strategie#setDate(Long)
      * @see EventManager#setCurrentDate(long)
      * @see EventManager#setDonneesSimulation(DonneesSimulation)
      * @see EventManager#reset()

@@ -45,7 +45,8 @@ public class Event implements Comparable<Event> {
     /**
      * Change la date de l'event si elle arrive entre la date courante et la fin d'un event précédent
      * 
-     * @param newdate
+     * @param currentDate
+     * @param duration
      */
     public void updateDate(final long currentDate, final long duration) {
         if (currentDate < this.date && this.date < currentDate + duration) {
