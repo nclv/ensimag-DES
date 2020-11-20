@@ -91,19 +91,19 @@
 	Comparé à l'algorithme de Dijkstra, nous savons où se trouve notre destination : nous n'avons pas besoin de parcourir en largeur toute la carte, nous avons une direction. Néanmoins, cet algorithme ne prétend pas être plus efficace que d'autres algorithmes de recherche du plus court chemin, notamment les nœud les plus proches de la destination pourraient ne pas être sur le chemin menant vers cette destination (car on ne peut pas y accéder), ce qui peut coûter beaucoup de temps de calcul.
 
 \section{Résolution du problème}
+	\noindent Les stratégies se trouvent dans le package {\it strategie}. \\
 
-	Comme dit précédemment, notre simulateur permet de spécifier une stratégie. Nous avons réalisé les deux stratégies proposés par le sujet, définies chacune dans des classes filles héritées d'une classe mère abstraite {\it Strategie} contenant les définitions des méthodes essentielles à toutes stratégies, notamment {\it execute()} pour éxecuter la stratégie choisie. Aussi, on dispose des méthodes pour récupérer et associer un plus court chemin actuel à notre stratégie et d'un compteur interne permettant d'ordonner une suite d'événements (utilisé pour effectuer les actions des robots en série). 
-
-	\subsection{Stratégie élémentaire}
-		
-
-	\subsection{Stratégie avancée}
+	Il est possible d'assigner une stratégie de résolution du problème au simulateur. Nous avons réalisé les deux stratégies proposés par le sujet. Chaque stratégie implémente une méthode {\it execute} qui est appelée à chaque tour afin d'assigner une suite d'actions à chaque robot. Une stratégie utilise un algorithme de plus court chemin et un compteur interne permettant d'ordonner une suite d'événements en série. Un {\it EventAdder} est utilisé pour donner la possibilité d'ajouter des évènements en série ({\it EventAdderSerial}) ou en parallèle ({\it EventAdderParallel}).
 
 \section{Expérimentations}
 
 	\subsection{Tests}
+	Plusieurs fichiers de tests E2E sont fournis. Ils ne testent pas l'intégralité des fonctionnalités proposées et se concentrent sur les points critiques de l'application. Il serait souhaitable de développer une meilleur couverture de tests avec {\it JUnit5}. \\
+
+	Nous avons implémenté le logging dans un fichier et sur le terminal avec plusieurs niveaux d'importance. Un exemple est présent dans le fichier {\it app.log}.
 
 	\subsection{Résultats}
+	Chaque stratégie conduit à l'extinction de tous les incendies.
 
 \section{Conclusion}
 
