@@ -12,6 +12,8 @@ import game.pathfinding.Pathfinding;
  * 
  * @author Nicolas Vincent
  * @see Dated
+ * @see Pathfinding
+ * @see EventAdder
  */
 public abstract class Strategie implements Dated<Long> {
     /** 
