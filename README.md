@@ -10,9 +10,12 @@ Projet d'introduction au language Java.
 
 See [the report](rapport.pdf). 
 
-## Commandes
+## Usage
+
+You can modify the files in `tests/` to usage other maps.
 
 ```bash
-cd bin/
-java TestLecteurDonnees ../cartes/desertOfDeath-20x20.map
+make StrategieElementaire
+# or
+make StrategieEvoluee
 ```
